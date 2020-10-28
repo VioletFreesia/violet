@@ -1,40 +1,43 @@
 <template>
-  <a-row id="frame" type="flex" justify="end">
-    <div id="mini" class="button" type="flex" @click="miniWindow">
-      <LineOutlined/>
-    </div>
-    <div id="close" class="button" type="flex" @click="closeWindow">
-      <CloseOutlined/>
-    </div>
-  </a-row>
+  <div id="box">
+    <a-row id="frame" type="flex" justify="end">
+      <div id="mini" class="button" type="flex" @click="miniWindow">
+        <LineOutlined/>
+      </div>
+      <div id="close" class="button" type="flex" @click="closeWindow">
+        <CloseOutlined/>
+      </div>
+    </a-row>
+  </div>
 </template>
 
-<script lang='ts'>
-import {defineComponent} from 'vue'
+<script>
 import {LineOutlined, CloseOutlined} from '@ant-design/icons-vue'
 import events from "@/server/event/events";
 import request from "@/server/event/request";
 
-
-const WindowFrame = defineComponent({
-  name: "WindowFrame",
+export default {
+  name: "WindowFrame1",
   components: {LineOutlined, CloseOutlined},
-  data() {
-    return {}
-  },
-  methods: {
-    closeWindow() {
+  setup() {
+    let closeWindow = () => {
       request(events.windowEvent.closeWindow, null)
-    },
-    miniWindow() {
+    }
+    let miniWindow = () => {
       request(events.windowEvent.miniWindow, null)
     }
+    return {closeWindow, miniWindow}
   }
-})
-export default WindowFrame
+}
 </script>
 
 <style scoped>
+#box {
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+}
+
 #frame {
   height: 30px;
   -webkit-app-region: drag
