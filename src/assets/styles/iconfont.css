@@ -1,0 +1,46 @@
+@font-face {font-family: "violet";
+  src: url('../fonts/iconfont.ttf?t=1603904720806') format('truetype')
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/JetBrainsMono-Regular.ttf");
+  font-weight: normal;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/JetBrainsMono-Bold.ttf");
+  font-weight: bold;
+}
+
+.violet {
+  font-family: "violet" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.v-preview:before {
+  content: "\e612";
+}
+
+.v-deploy:before {
+  content: "\e60a";
+}
+
+.v-article:before {
+  content: "\e624";
+}
+
+.v-tag:before {
+  content: "\e63d";
+}
+
+.v-settings:before {
+  content: "\e781";
+}
+
+.v-menu:before {
+  content: "\e614";
+}
+

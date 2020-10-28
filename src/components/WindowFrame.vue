@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {LineOutlined, CloseOutlined} from '@ant-design/icons-vue'
 import events from "@/server/event/events";
 import request from "@/server/event/request";
