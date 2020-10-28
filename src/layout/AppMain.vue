@@ -1,7 +1,7 @@
 <template>
   <a-layout>
     <a-layout-sider theme="light"
-                    :style="{ overflow: 'auto', height: '100vh'}">
+                    :style="{ overflow: 'hidden', height: '100vh'}">
       <Side></Side>
     </a-layout-sider>
     <a-layout>
