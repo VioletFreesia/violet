@@ -12,23 +12,24 @@
 </template>
 
 <script lang="ts">
+import {defineComponent} from 'vue'
 import {LineOutlined, CloseOutlined} from '@ant-design/icons-vue'
 import events from "@/server/event/events";
 import request from "@/server/event/request";
 
-export default {
+let closeWindow = () => {
+  request(events.windowEvent.closeWindow, null)
+}
+let miniWindow = () => {
+  request(events.windowEvent.miniWindow, null)
+}
+export default defineComponent({
   name: "WindowFrame1",
   components: {LineOutlined, CloseOutlined},
   setup() {
-    let closeWindow = () => {
-      request(events.windowEvent.closeWindow, null)
-    }
-    let miniWindow = () => {
-      request(events.windowEvent.miniWindow, null)
-    }
     return {closeWindow, miniWindow}
   }
-}
+})
 </script>
 
 <style scoped>

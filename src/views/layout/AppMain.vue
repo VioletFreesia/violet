@@ -13,12 +13,13 @@
 </template>
 
 <script lang='ts'>
+import {defineComponent} from 'vue'
 import Side from "@/views/sider/Side.vue";
 
-export default {
+export default defineComponent({
   name: "AppMain",
   components: {Side}
-}
+})
 </script>
 
 <style scoped>

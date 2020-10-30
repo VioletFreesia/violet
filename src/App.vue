@@ -3,18 +3,19 @@
 </template>
 
 <script lang="ts">
-import {provide, reactive} from 'vue'
-import Window from "@/layout/Window.vue"
-import siteState from "@/store/site"
-import {Site} from "@/store/site"
+import {provide, reactive, defineComponent} from 'vue'
+import Window from "@/views/layout/Window.vue"
+import {SystemConfig} from "@/interfaces/public/setting";
+import api from "@/server/api/api"
 import store from "@/store/store"
 
-export default {
+export default defineComponent({
   components: {Window},
   setup() {
-    provide<Site>(store.site, reactive<Site>(siteState))
+    let systemConfig = api.settingApi?.getSystemConfig()
+    provide<SystemConfig>(store.systemConfig, reactive<SystemConfig>(systemConfig))
   }
-}
+})
 </script>
 <style>
 html, body {

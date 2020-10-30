@@ -8,28 +8,28 @@
            @click="active(1)">
         <div class="violet v-article">
           <span>&nbsp;</span>
-          {{ locales[site.lang].article }}
+          {{ locales[lang].article }}
         </div>
       </div>
       <div :class="isActive===2?'menu-btn active':'menu-btn'"
            @click="active(2)">
         <div class="violet v-menu">
           <span>&nbsp;</span>
-          {{ locales[site.lang].menu }}
+          {{ locales[lang].menu }}
         </div>
       </div>
       <div :class="isActive===3?'menu-btn active':'menu-btn'"
            @click="active(3)">
         <div class="violet v-tag">
           <span>&nbsp;</span>
-          {{ locales[site.lang].tag }}
+          {{ locales[lang].tag }}
         </div>
       </div>
       <div :class="isActive===4?'menu-btn active':'menu-btn'"
            @click="active(4)">
         <div class="violet v-settings">
           <span>&nbsp;</span>
-          {{ locales[site.lang].settings }}
+          {{ locales[lang].settings }}
         </div>
       </div>
     </a-row>
@@ -37,13 +37,13 @@
       <a-button id="preview" shape="round" block>
         <div class="violet v-preview">
           <span>&nbsp;</span>
-          {{ locales[site.lang].preview }}
+          {{ locales[lang].preview }}
         </div>
       </a-button>
       <a-button id="deploy" shape="round" block>
         <div class="violet v-deploy">
           <span>&nbsp;</span>
-          {{ locales[site.lang].deploy }}
+          {{ locales[lang].deploy }}
         </div>
       </a-button>
     </div>
@@ -51,28 +51,36 @@
 </template>
 
 <script lang="ts">
-import {inject, defineComponent} from 'vue'
-import locales from "@/assets/lang/locales"
-import {Site} from "@/store/site"
+import {inject, defineComponent, ref} from 'vue'
+import locales from "@/static/locales"
+import {SystemConfig} from "@/interfaces/public/setting";
 import store from "@/store/store"
 import {SearchOutlined} from '@ant-design/icons-vue';
+
+/**
+ * 激活标志 从上到下依次为1,2,3,4
+ */
+let createActive = () => {
+  let isActive = ref<number>(1)
+  let active = function (id: number) {
+    isActive.value = id
+  }
+  return {isActive, active}
+}
+let getLanguage = (): string => {
+  let systemConfig = inject<SystemConfig>(store.systemConfig)
+  let lang: string = 'zh-CN'
+  if (systemConfig)
+    lang = systemConfig.language
+  return lang
+}
 
 export default defineComponent({
   name: 'Side',
   components: {SearchOutlined},
-  data() {
-    return {
-      isActive: 1//当前激活的栏 从上到下依次为1,2,3,4
-    }
-  },
-  methods: {
-    active(id: number) {
-      this.isActive = id
-    }
-  },
   setup() {
-    const site = inject<Site>(store.site)
-    return {site, locales}
+    let {isActive, active} = createActive()
+    return {lang: getLanguage(), locales, isActive, active}
   }
 })
 </script>
@@ -90,11 +98,12 @@ export default defineComponent({
   padding: 5px 0;
 }
 
-.active {
+
+.menu-btn:hover {
   background-color: #e8e8e8;
 }
 
-.menu-btn:hover {
+.active {
   background-color: #e8e8e8;
 }
 
