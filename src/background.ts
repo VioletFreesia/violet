@@ -1,9 +1,7 @@
 'use strict'
 
-import {app, protocol, BrowserWindow, ipcMain} from 'electron'
+import {app, protocol, BrowserWindow} from 'electron'
 import {createProtocol} from 'vue-cli-plugin-electron-builder/lib'
-// @ts-ignore
-import installExtension, {VUEJS_DEVTOOLS} from 'electron-devtools-installer'
 import listen from "@/server/event/listener";
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -21,6 +19,8 @@ function createWindow() {
     win = new BrowserWindow({
         width: 1360,
         height: 800,
+        minHeight: 500,
+        minWidth: 800,
         frame: false,
         webPreferences: {
             nodeIntegration: true
@@ -40,6 +40,7 @@ function createWindow() {
     win.on('closed', () => {
         win = null
     })
+    //注册监听事件
     listen(win)
 }
 
@@ -64,12 +65,12 @@ app.on('activate', () => {
 // 某些API仅在此事件发生后才能使用。
 app.on('ready', async () => {
     if (isDevelopment && !process.env.IS_TEST) {
-        // Install Vue Devtools
-        try {
-            await installExtension(VUEJS_DEVTOOLS)
-        } catch (e) {
-            console.error('Vue Devtools failed to install:', e.toString())
-        }
+        // // Install Vue Devtools
+        // try {
+        //     await installExtension(VUEJS_DEVTOOLS)
+        // } catch (e) {
+        //     console.error('Vue Devtools failed to install:', e.toString())
+        // }
     }
     createWindow()
 })
