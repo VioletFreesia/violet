@@ -6,7 +6,7 @@ module.exports = {
                 appId: 'com.violetfreesia.violet',
                 copyright: 'Copyright©violetfreesia',
                 win: {
-                    icon: 'public/favicon.ico',
+                    icon: 'public/logo.ico',
                     target: 'portable'
                 }
             }
