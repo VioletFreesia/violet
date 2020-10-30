@@ -7,6 +7,7 @@ const locales = {
         article: '文 章',
         menu: '菜 单',
         tag: '标 签',
+        category: '分 类',
         theme: '主 题',
         settings: '设 置',
         system: '系 统',

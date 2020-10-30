@@ -4,29 +4,36 @@
       <img id="logo" src="@/assets/images/logo.png" width="128" alt="logo">
     </a-row>
     <a-row id="menu">
-      <div :class="isActive===1?'menu-btn active':'menu-btn'"
-           @click="active(1)">
+      <div :class="currentHomeWindow===WindowName.Article?'menu-btn active':'menu-btn'"
+           @click="active(WindowName.Article)">
         <div class="violet v-article">
           <span>&nbsp;</span>
           {{ locales[lang].article }}
         </div>
       </div>
-      <div :class="isActive===2?'menu-btn active':'menu-btn'"
-           @click="active(2)">
+      <div :class="currentHomeWindow===WindowName.Menu?'menu-btn active':'menu-btn'"
+           @click="active(WindowName.Menu)">
         <div class="violet v-menu">
           <span>&nbsp;</span>
           {{ locales[lang].menu }}
         </div>
       </div>
-      <div :class="isActive===3?'menu-btn active':'menu-btn'"
-           @click="active(3)">
+      <div :class="currentHomeWindow===WindowName.Tag?'menu-btn active':'menu-btn'"
+           @click="active(WindowName.Tag)">
         <div class="violet v-tag">
           <span>&nbsp;</span>
           {{ locales[lang].tag }}
         </div>
       </div>
-      <div :class="isActive===4?'menu-btn active':'menu-btn'"
-           @click="active(4)">
+      <div :class="currentHomeWindow===WindowName.Category?'menu-btn active':'menu-btn'"
+           @click="active(WindowName.Category)">
+        <div class="violet v-category">
+          <span>&nbsp;</span>
+          {{ locales[lang].category }}
+        </div>
+      </div>
+      <div :class="currentHomeWindow===WindowName.Setting?'menu-btn active':'menu-btn'"
+           @click="active(WindowName.Setting)">
         <div class="violet v-settings">
           <span>&nbsp;</span>
           {{ locales[lang].settings }}
@@ -51,28 +58,22 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from 'vue'
+import {defineComponent, inject, Ref, ref} from 'vue'
 import locales from "@/static/locales"
-import {getLanguage} from "@/tools/get-config";
-import {SearchOutlined} from '@ant-design/icons-vue';
-
-/**
- * 激活标志 从上到下依次为1,2,3,4
- */
-let createActive = () => {
-  let isActive = ref<number>(1)
-  let active = function (id: number) {
-    isActive.value = id
-  }
-  return {isActive, active}
-}
+import {getLanguage} from "@/tools/get-config"
+import {SearchOutlined} from '@ant-design/icons-vue'
+import {WindowName} from "@/static/constants"
+import store from "@/store/store"
 
 export default defineComponent({
   name: 'Side',
   components: {SearchOutlined},
   setup() {
-    let {isActive, active} = createActive()
-    return {lang: getLanguage(), locales, isActive, active}
+    let currentHomeWindow = inject<Ref<WindowName>>(store.currentHomeWindow, ref(WindowName.Article))
+    let active = (windowName: WindowName) => {
+      currentHomeWindow.value = windowName
+    }
+    return {lang: getLanguage(), locales, active, currentHomeWindow, WindowName}
   }
 })
 </script>
