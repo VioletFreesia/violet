@@ -1,4 +1,4 @@
-const site = Symbol()
+const systemConfig = Symbol()
 export default {
-    site
+    systemConfig
 }
