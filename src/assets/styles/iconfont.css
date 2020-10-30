@@ -20,6 +20,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.v-category:before {
+  content: "\e669";
+}
+
 .v-preview:before {
   content: "\e612";
 }
