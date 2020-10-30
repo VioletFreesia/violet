@@ -1,11 +1,7 @@
 <template>
-  <div>
-    <a-row>
-      <WindowFrame/>
-    </a-row>
-    <a-row>
-      <AppMain></AppMain>
-    </a-row>
+  <div id="window">
+    <WindowFrame/>
+    <AppMain></AppMain>
   </div>
 </template>
 
@@ -21,5 +17,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
+#window {
+  width: 100%;
+  height: 100%;
+}
 </style>
