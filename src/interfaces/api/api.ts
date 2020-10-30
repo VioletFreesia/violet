@@ -1,37 +1,37 @@
+// 文章的CURD
 export interface PostApi {
-    // 文章的CURD
     getAllPost: Function
     patchPost: Function
     deletePost: Function
     putPost: Function
 }
 
+// 标签的CURD
 export interface TagApi {
-    // 标签的CURD
     getAllTag: Function
     patchTag: Function
     deleteTag: Function
     putTag: Function
 }
 
+// 菜单的CURD
 export interface MenuApi {
-    // 菜单的CURD
     getAllMenu: Function
     patchMenu: Function
     deleteMenu: Function
     putMenu: Function
 }
 
+// 分类的CURD
 export interface CategoryApi {
-    // 分类的CURD
     getAllCategory: Function
     patchCategory: Function
     deleteCategory: Function
     putCategory: Function
 }
 
+// 设置的CURD
 export interface SettingApi {
-    // 设置的CURD
     getAllSetting: Function
     getSiteConfig: Function
     getThemeConfig: Function
@@ -45,6 +45,7 @@ export interface SettingApi {
     patchSystemConfig: Function
 }
 
+// 渲染进程与主进程通信的api整合
 export interface Api {
     postApi?: PostApi
     tagApi?: TagApi

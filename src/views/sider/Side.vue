@@ -51,10 +51,9 @@
 </template>
 
 <script lang="ts">
-import {inject, defineComponent, ref} from 'vue'
+import {defineComponent, ref} from 'vue'
 import locales from "@/static/locales"
-import {SystemConfig} from "@/interfaces/public/setting";
-import store from "@/store/store"
+import {getLanguage} from "@/tools/get-config";
 import {SearchOutlined} from '@ant-design/icons-vue';
 
 /**
@@ -66,13 +65,6 @@ let createActive = () => {
     isActive.value = id
   }
   return {isActive, active}
-}
-let getLanguage = (): string => {
-  let systemConfig = inject<SystemConfig>(store.systemConfig)
-  let lang: string = 'zh-CN'
-  if (systemConfig)
-    lang = systemConfig.language
-  return lang
 }
 
 export default defineComponent({

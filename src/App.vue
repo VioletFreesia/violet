@@ -12,7 +12,8 @@ import store from "@/store/store"
 export default defineComponent({
   components: {Window},
   setup() {
-    let systemConfig = api.settingApi?.getSystemConfig()
+    // 系统配置
+    let systemConfig: SystemConfig = api.settingApi?.getSystemConfig()
     provide<SystemConfig>(store.systemConfig, reactive<SystemConfig>(systemConfig))
   }
 })

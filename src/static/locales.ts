@@ -1,3 +1,4 @@
+// 软件界面文字国际化
 const locales = {
     'zh-CN': {
         preview: '预 览',

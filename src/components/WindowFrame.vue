@@ -1,9 +1,12 @@
+<!--窗口控制组件,控制窗口的最小化和关闭-->
 <template>
   <div id="box">
     <a-row id="frame" type="flex" justify="end">
+      <!--最小化按钮-->
       <div id="mini" class="button" type="flex" @click="miniWindow">
         <LineOutlined/>
       </div>
+      <!--关闭按钮-->
       <div id="close" class="button" type="flex" @click="closeWindow">
         <CloseOutlined/>
       </div>
@@ -24,7 +27,7 @@ let miniWindow = () => {
   request(events.windowEvent.miniWindow, null)
 }
 export default defineComponent({
-  name: "WindowFrame1",
+  name: "WindowFrame",
   components: {LineOutlined, CloseOutlined},
   setup() {
     return {closeWindow, miniWindow}
