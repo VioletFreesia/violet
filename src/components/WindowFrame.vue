@@ -1,6 +1,6 @@
 <!--窗口控制组件,控制窗口的最小化和关闭-->
 <template>
-  <div id="box">
+  <div id="window-control">
     <a-row id="frame" type="flex" justify="end">
       <!--最小化按钮-->
       <div id="mini" class="button" type="flex" @click="miniWindow">
@@ -16,15 +16,14 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue'
+import {ipcRenderer} from 'electron'
 import {LineOutlined, CloseOutlined} from '@ant-design/icons-vue'
-import events from "@/server/event/events";
-import request from "@/server/event/request";
 
 let closeWindow = () => {
-  request(events.windowEvent.closeWindow, null)
+  ipcRenderer.send('closeWindow')
 }
 let miniWindow = () => {
-  request(events.windowEvent.miniWindow, null)
+  ipcRenderer.send('miniWindow')
 }
 export default defineComponent({
   name: "WindowFrame",
@@ -36,7 +35,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-#box {
+#window-control {
   position: fixed;
   width: 100%;
   z-index: 9999;

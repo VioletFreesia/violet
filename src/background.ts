@@ -1,8 +1,7 @@
 'use strict'
 
-import {app, protocol, BrowserWindow} from 'electron'
+import {app, protocol, BrowserWindow, ipcMain} from 'electron'
 import {createProtocol} from 'vue-cli-plugin-electron-builder/lib'
-import listen from "@/server/event/listener"
 
 const path = require('path')
 const os = require('os')
@@ -43,8 +42,15 @@ function createWindow() {
     win.on('closed', () => {
         win = null
     })
-    //注册监听事件
-    listen(win)
+    //窗口控制事件注册
+    ipcMain.on('closeWindow', () => {
+        if (win)
+            win.close()
+    })
+    ipcMain.on('miniWindow', () => {
+        if (win)
+            win.minimize()
+    })
 }
 
 // 关闭所有窗口后退出。
@@ -75,7 +81,7 @@ app.whenReady().then(() => {
     if (isDevelopment && !process.env.IS_TEST) {
         let plugInPath = 'AppData/Local/Google/Chrome/' +
             'User Data/Default/Extensions/ljjemllljcmogpfapbkkighbhhppjdbg/6.0.0.2_0'
-        BrowserWindow.addDevToolsExtension(path.join(os.homedir(),plugInPath)
+        BrowserWindow.addDevToolsExtension(path.join(os.homedir(), plugInPath)
         )
     }
 })
