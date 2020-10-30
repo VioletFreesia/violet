@@ -2,7 +2,11 @@
 
 import {app, protocol, BrowserWindow} from 'electron'
 import {createProtocol} from 'vue-cli-plugin-electron-builder/lib'
-import listen from "@/server/event/listener";
+import listen from "@/server/event/listener"
+
+const path = require('path')
+const os = require('os')
+
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -30,7 +34,6 @@ function createWindow() {
     if (process.env.WEBPACK_DEV_SERVER_URL) {
         // 如果处于开发模式，请加载开发服务器的URL
         win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string)
-        if (!process.env.IS_TEST) win.webContents.openDevTools()
     } else {
         createProtocol('app')
         // 不在开发中时加载index.html
@@ -64,15 +67,17 @@ app.on('activate', () => {
 // 当Electron完成初始化并准备创建浏览器窗口时，将调用此方法。
 // 某些API仅在此事件发生后才能使用。
 app.on('ready', async () => {
-    if (isDevelopment && !process.env.IS_TEST) {
-        // // Install Vue Devtools
-        // try {
-        //     await installExtension(VUEJS_DEVTOOLS)
-        // } catch (e) {
-        //     console.error('Vue Devtools failed to install:', e.toString())
-        // }
-    }
     createWindow()
+})
+
+app.whenReady().then(() => {
+    // 安装Vue.js devtools
+    if (isDevelopment && !process.env.IS_TEST) {
+        let plugInPath = 'AppData/Local/Google/Chrome/' +
+            'User Data/Default/Extensions/ljjemllljcmogpfapbkkighbhhppjdbg/6.0.0.2_0'
+        BrowserWindow.addDevToolsExtension(path.join(os.homedir(),plugInPath)
+        )
+    }
 })
 
 
