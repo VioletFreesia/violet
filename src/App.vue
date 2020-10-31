@@ -25,6 +25,7 @@ html, body {
   display: block;
 }
 #app {
+  font-family: JetBrainsMono,serif;
   width: 100%;
   height: 100%;
 }
