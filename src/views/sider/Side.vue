@@ -1,5 +1,5 @@
 <template>
-  <div id="box">
+  <div id="side" class="no-select">
     <a-row id="icon">
       <img id="logo" src="@/assets/images/logo.png" width="128" alt="logo">
     </a-row>
@@ -7,50 +7,43 @@
       <div :class="currentHomeWindow===WindowName.Article?'menu-btn active':'menu-btn'"
            @click="active(WindowName.Article)">
         <div class="violet v-article">
-          <span>&nbsp;</span>
-          {{ locales[lang].article }}
+          <span class="font-family">{{ locales[lang].article }}</span>
         </div>
       </div>
       <div :class="currentHomeWindow===WindowName.Menu?'menu-btn active':'menu-btn'"
            @click="active(WindowName.Menu)">
         <div class="violet v-menu">
-          <span>&nbsp;</span>
-          {{ locales[lang].menu }}
+          <span class="font-family">{{ locales[lang].menu }}</span>
         </div>
       </div>
       <div :class="currentHomeWindow===WindowName.Tag?'menu-btn active':'menu-btn'"
            @click="active(WindowName.Tag)">
         <div class="violet v-tag">
-          <span>&nbsp;</span>
-          {{ locales[lang].tag }}
+          <span class="font-family"> {{ locales[lang].tag }}</span>
         </div>
       </div>
       <div :class="currentHomeWindow===WindowName.Category?'menu-btn active':'menu-btn'"
            @click="active(WindowName.Category)">
         <div class="violet v-category">
-          <span>&nbsp;</span>
-          {{ locales[lang].category }}
+          <span class="font-family">{{ locales[lang].category }}</span>
         </div>
       </div>
       <div :class="currentHomeWindow===WindowName.Setting?'menu-btn active':'menu-btn'"
            @click="active(WindowName.Setting)">
         <div class="violet v-settings">
-          <span>&nbsp;</span>
-          {{ locales[lang].settings }}
+          <span class="font-family">{{ locales[lang].settings }}</span>
         </div>
       </div>
     </a-row>
     <div class="side-btn">
       <a-button id="preview" shape="round" block>
         <div class="violet v-preview">
-          <span>&nbsp;</span>
-          {{ locales[lang].preview }}
+          <span class="font-family"> {{ locales[lang].preview }}</span>
         </div>
       </a-button>
       <a-button id="deploy" shape="round" block>
         <div class="violet v-deploy">
-          <span>&nbsp;</span>
-          {{ locales[lang].deploy }}
+          <span class="font-family">{{ locales[lang].deploy }}</span>
         </div>
       </a-button>
     </div>
@@ -80,10 +73,15 @@ export default defineComponent({
 
 
 <style scoped>
-#box {
+#side {
   height: 100vh;
   overflow: hidden;
   position: relative;
+}
+
+.font-family {
+  display: inline-block;
+  margin-left: 12px;
 }
 
 .menu-btn {
@@ -110,7 +108,7 @@ export default defineComponent({
   background-color: #e8e8e8;
 }
 
-.active .violet{
+.active .violet {
   color: violet;
 }
 
