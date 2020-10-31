@@ -1,40 +1,97 @@
-@font-face {font-family: "violet";
-  src: url('../fonts/iconfont.ttf?t=1603904720806') format('truetype')
+@font-face {
+    font-family: "violet";
+    src: url('../fonts/iconfont.ttf?t=1603904720806') format('truetype')
 }
 
 .violet {
-  font-family: "violet" !important;
-  font-size: 16px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: "violet" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.v-selector:before {
+    content: "\e692";
 }
 
 .v-category:before {
-  content: "\e669";
+    content: "\e620";
+}
+
+.v-selected:before {
+    content: "\e60b";
+    color: #ff00ff;
+}
+
+.v-delete:before {
+    content: "\e600";
+}
+
+.v-hidden:before {
+    content: "\e6b1";
+}
+
+.v-edit:before {
+    content: "\e610";
+}
+
+.v-no-deploy:before {
+    content: "\e8a9";
+}
+
+.v-top:before {
+    content: "\e61c";
+}
+
+.v-no-top:before {
+    content: "\e601";
+}
+
+.v-batch:before {
+    content: "\e611";
+}
+
+.v-show:before {
+    content: "\e66f";
+}
+
+.v-pass:before {
+    content: "\e6ab";
+}
+
+.v-time:before {
+    content: "\e61f";
+}
+
+.v-more:before {
+    content: "\e8af";
+}
+
+.v-save:before {
+    content: "\e607";
 }
 
 .v-preview:before {
-  content: "\e612";
+    content: "\e612";
 }
 
 .v-deploy:before {
-  content: "\e60a";
+    content: "\e60a";
 }
 
 .v-article:before {
-  content: "\e624";
+    content: "\e624";
 }
 
 .v-tag:before {
-  content: "\e63d";
+    content: "\e63d";
 }
 
 .v-settings:before {
-  content: "\e781";
+    content: "\e781";
 }
 
 .v-menu:before {
-  content: "\e614";
+    content: "\e614";
 }
-

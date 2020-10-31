@@ -2,15 +2,15 @@
 const locales = {
     'zh-CN': {
         preview: '预 览',
-        deploy: '发 布',
-        newVersion: '有新版本',
+        deploy: '同 步',
         article: '文 章',
         menu: '菜 单',
         tag: '标 签',
         category: '分 类',
         theme: '主 题',
         settings: '设 置',
-        system: '系 统',
+        deployStatus: '已发布',
+        saveStatus: '已保存',
         renderSuccess: '渲染完毕，快去预览吧！',
         syncWarning: '必须完成配置才能同步哦！',
         syncSuccess: '同步成功啦！',

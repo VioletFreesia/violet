@@ -23,9 +23,10 @@ function createWindow() {
         width: 1360,
         height: 800,
         minHeight: 500,
-        minWidth: 800,
+        minWidth: 1200,
         frame: false,
         webPreferences: {
+            webSecurity: false,
             nodeIntegration: true
         }
     })
@@ -52,6 +53,8 @@ function createWindow() {
             win.minimize()
     })
 }
+
+app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors')
 
 // 关闭所有窗口后退出。
 app.on('window-all-closed', () => {
@@ -84,6 +87,11 @@ app.whenReady().then(() => {
         BrowserWindow.addDevToolsExtension(path.join(os.homedir(), plugInPath)
         )
     }
+    // 解决本地文件(图片,音频)无法加载
+    protocol.registerFileProtocol('file', (request, callback) => {
+        const pathname = decodeURI(request.url.replace('file:///', ''));
+        callback(pathname);
+    });
 })
 
 
