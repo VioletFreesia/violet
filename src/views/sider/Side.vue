@@ -96,10 +96,6 @@ export default defineComponent({
   background-color: #e8e8e8;
 }
 
-.active {
-  background-color: #e8e8e8;
-}
-
 .menu-btn .violet {
   margin-left: 25px;
   color: grey;
@@ -107,6 +103,14 @@ export default defineComponent({
 
 .menu-btn .violet:hover {
   cursor: pointer;
+  color: violet;
+}
+
+.active {
+  background-color: #e8e8e8;
+}
+
+.active .violet{
   color: violet;
 }
 
