@@ -9,7 +9,7 @@
       <div id="title">{{ title }}</div>
       <div id="description">
         <div class="violet" :class="isDeploy?'v-pass':'v-save'">
-          <span>{{ isDeploy ? locales[lang].deployStatus : locales[lang].saveStatus }}</span>
+          <span>{{ isDeploy ? postCard.deployStatus : postCard.saveStatus }}</span>
         </div>
         <div class="violet v-time">
           <span>{{ time }}</span>
@@ -20,15 +20,33 @@
         <div class="more">
           <a-popover placement="rightTop" trigger="click">
             <template v-slot:content>
-              <div class="option violet v-no-deploy" v-if="isDeploy"><span>取消发布</span></div>
-              <div class="option violet v-deploy" v-else><span>发布文章</span></div>
-              <div class="option violet v-show" v-if="isHidden"><span>取消隐藏</span></div>
-              <div class="option violet v-hidden" v-if="!isHidden && !isTop"><span>隐藏文章</span></div>
-              <div class="option violet v-top" v-if="!isHidden && !isTop"><span>置顶文章</span></div>
-              <div class="option violet v-no-top" v-if="isTop"><span>取消置顶</span></div>
-              <div class="option violet v-delete"><span>删除文章</span></div>
-              <div class="option violet v-edit"><span>修改属性</span></div>
-              <div class="option violet v-batch"><span>批量操作</span></div>
+              <div class="option violet v-no-deploy" v-if="isDeploy">
+                <span>{{ postCard.unPublish }}</span>
+              </div>
+              <div class="option violet v-deploy" v-else>
+                <span>{{ postCard.saveStatus }}</span>
+              </div>
+              <div class="option violet v-show" v-if="isHidden">
+                <span>{{ postCard.unHide }}</span>
+              </div>
+              <div class="option violet v-hidden" v-if="!isHidden && !isTop">
+                <span>{{ postCard.hideArticle }}</span>
+              </div>
+              <div class="option violet v-top" v-if="!isHidden && !isTop">
+                <span>{{ postCard.topArticle }}</span>
+              </div>
+              <div class="option violet v-no-top" v-if="isTop">
+                <span>{{ postCard.unPink }}</span>
+              </div>
+              <div class="option violet v-delete">
+                <span>{{ postCard.deleteArticle }}</span>
+              </div>
+              <div class="option violet v-edit">
+                <span>{{ postCard.modifyProperties }}</span>
+              </div>
+              <div class="option violet v-batch">
+                <span>{{ postCard.bulkOperation }}</span>
+              </div>
             </template>
             <div id="more" class="violet v-more"></div>
           </a-popover>
@@ -41,8 +59,8 @@
 <script lang="ts">
 
 import {defineComponent, ref} from 'vue'
-import locales from "@/static/locales"
-import {getLanguage} from "@/tools/get-config"
+import {getLocale} from "@/tools/get-config"
+import {PostCard} from "@/interfaces/globalization/globalization"
 import {SettingOutlined, EditOutlined, EllipsisOutlined} from '@ant-design/icons-vue'
 
 export default defineComponent({
@@ -51,11 +69,12 @@ export default defineComponent({
   props: ['id', 'img', 'title', 'isDeploy', 'time', 'category',
     'isTop', 'isHidden', 'isBatch', 'isSelected'],
   setup() {
+    let postCard: PostCard = getLocale().postCard
     let test = ref(true)
     let clickCard = () => {
       test.value = !test.value
     }
-    return {lang: getLanguage(), locales, test, clickCard}
+    return {postCard, test, clickCard}
   }
 })
 </script>
@@ -98,7 +117,7 @@ export default defineComponent({
   line-height: 18px;
   text-align: center;
   position: absolute;
-  background-color: rgba(238,130,238,.7);
+  background-color: rgba(238, 130, 238, .7);
   transform: rotate(-45deg);
 }
 
