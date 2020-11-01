@@ -1,14 +1,10 @@
 import {inject} from 'vue'
-import {SystemConfig} from "@/interfaces/public/setting";
 import store from "@/store/store"
+import {Globalization} from "@/interfaces/globalization/globalization"
 
 /**
- * 获取当前的语言
+ * 获取界面语言包
  */
-export const getLanguage = (): string => {
-    let systemConfig = inject<SystemConfig>(store.systemConfig)
-    let lang: string = 'zh-CN'
-    if (systemConfig)
-        lang = systemConfig.language
-    return lang
+export const getLocale = (): Globalization => {
+    return inject<Globalization>(store.locale)!
 }
