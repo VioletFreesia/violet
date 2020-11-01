@@ -1,54 +1,70 @@
 <template>
-  <div id="card" class="no-select" @click="clickCard">
-    <div v-if="isTop||isHidden" id="tag">{{ isTop ? 'Top' : 'Hide' }}</div>
+  <div id="card" class="no-select" @click="selectorToggle">
+    <div v-if="postInfo.isTop||postInfo.isHide" id="tag">{{ postInfo.isTop ? 'Top' : 'Hide' }}</div>
     <div v-if="isBatch" id="selector">
       <div class="violet" :class="isSelected?'v-selected':'v-selector'"></div>
     </div>
-    <img :src="img" width="320" height="180" alt="">
+    <img :src="postInfo.img" width="320" height="180" alt="">
     <div id="info">
-      <div id="title">{{ title }}</div>
+      <div id="title">{{ postInfo.title }}</div>
       <div id="description">
-        <div class="violet" :class="isDeploy?'v-pass':'v-save'">
-          <span>{{ isDeploy ? postCard.deployStatus : postCard.saveStatus }}</span>
+        <div class="violet" :class="postInfo.isDeploy?'v-pass':'v-save'">
+          <span>{{ postInfo.isDeploy ? postCard.deployStatus : postCard.saveStatus }}</span>
         </div>
         <div class="violet v-time">
-          <span>{{ time }}</span>
+          <span>{{ postInfo.modifyDate }}</span>
         </div>
         <div class="violet v-category">
-          <span>{{ category }}</span>
+          <span>{{ postInfo.category.name }}</span>
         </div>
         <div class="more">
-          <a-popover placement="rightTop" trigger="click">
+          <a-popover v-model:visible="moreVisible"
+                     placement="rightTop"
+                     trigger="click"
+                     @visibleChange="isAble">
             <template v-slot:content>
-              <div class="option violet v-no-deploy" v-if="isDeploy">
+              <div class="option violet v-no-deploy"
+                   v-if="postInfo.isDeploy"
+                   @click="operation(PostCardOperationType.UnPublish)">
                 <span>{{ postCard.unPublish }}</span>
               </div>
-              <div class="option violet v-deploy" v-else>
-                <span>{{ postCard.saveStatus }}</span>
+              <div class="option violet v-deploy" v-else
+                   @click="operation(PostCardOperationType.PostArticle)">
+                <span>{{ postCard.postArticle }}</span>
               </div>
-              <div class="option violet v-show" v-if="isHidden">
+              <div class="option violet v-show"
+                   v-if="postInfo.isHide"
+                   @click="operation(PostCardOperationType.UnHide)">
                 <span>{{ postCard.unHide }}</span>
               </div>
-              <div class="option violet v-hidden" v-if="!isHidden && !isTop">
+              <div class="option violet v-hidden"
+                   v-if="!postInfo.isHide && !postInfo.isTop"
+                   @click="operation(PostCardOperationType.HideArticle)">
                 <span>{{ postCard.hideArticle }}</span>
               </div>
-              <div class="option violet v-top" v-if="!isHidden && !isTop">
+              <div class="option violet v-top"
+                   v-if="!postInfo.isHide && !postInfo.isTop"
+                   @click="operation(PostCardOperationType.TopArticle)">
                 <span>{{ postCard.topArticle }}</span>
               </div>
-              <div class="option violet v-no-top" v-if="isTop">
+              <div class="option violet v-no-top"
+                   v-if="postInfo.isTop"
+                   @click="operation(PostCardOperationType.UnPink)">
                 <span>{{ postCard.unPink }}</span>
               </div>
-              <div class="option violet v-delete">
+              <div class="option violet v-delete"
+                   @click="operation(PostCardOperationType.DeleteArticle)">
                 <span>{{ postCard.deleteArticle }}</span>
               </div>
-              <div class="option violet v-edit">
+              <div class="option violet v-edit"
+                   @click="operation(PostCardOperationType.ModifyProperties)">
                 <span>{{ postCard.modifyProperties }}</span>
               </div>
-              <div class="option violet v-batch">
+              <div class="option violet v-batch" @click="batch">
                 <span>{{ postCard.bulkOperation }}</span>
               </div>
             </template>
-            <div id="more" class="violet v-more"></div>
+            <div :id="isBatch?'':'more'" class="violet v-more"></div>
           </a-popover>
         </div>
       </div>
@@ -58,23 +74,56 @@
 
 <script lang="ts">
 
-import {defineComponent, ref} from 'vue'
+import {defineComponent, ref, PropType, inject, Ref} from 'vue'
 import {getLocale} from "@/tools/get-config"
 import {PostCard} from "@/interfaces/globalization/globalization"
 import {SettingOutlined, EditOutlined, EllipsisOutlined} from '@ant-design/icons-vue'
+import {PostInfo} from "@/interfaces/public/post"
+import {PostCardOperationType} from "@/static/constants"
+import store from "@/store/store"
 
 export default defineComponent({
   name: "Post",
   components: {SettingOutlined, EditOutlined, EllipsisOutlined},
-  props: ['id', 'img', 'title', 'isDeploy', 'time', 'category',
-    'isTop', 'isHidden', 'isBatch', 'isSelected'],
-  setup() {
-    let postCard: PostCard = getLocale().postCard
-    let test = ref(true)
-    let clickCard = () => {
-      test.value = !test.value
+  props: {
+    postInfo: {
+      type: Object as PropType<PostInfo>,
+      require: true
     }
-    return {postCard, test, clickCard}
+  },
+  methods: {
+    selectorToggle() {
+      if (this.isBatch) {
+        this.isSelected = !this.isSelected
+        if (this.isSelected)
+          this.$emit('operation', PostCardOperationType.Selected, this.postInfo!.id)
+        else
+          this.$emit('operation', PostCardOperationType.UnSelect, this.postInfo!.id)
+      }
+    },
+    operation(operationType: PostCardOperationType) {
+      this.moreVisible = false
+      this.$emit('operation', operationType, this.postInfo!.id)
+    },
+    isAble(visible: boolean) {
+      if (this.isBatch) {
+        if (visible) {
+          this.moreVisible = false
+        }
+      }
+    }
+  },
+
+  setup() {
+    let moreVisible = ref<boolean>(false)
+    let isSelected = ref<boolean>(false)
+    let isBatch = inject<Ref<boolean>>(store.article.isBatch)
+    let batch = () => {
+      moreVisible.value = false
+      isBatch!.value = true
+    }
+    let postCard: PostCard = getLocale().postCard
+    return {postCard, isSelected, isBatch, moreVisible, batch, PostCardOperationType}
   }
 })
 </script>

@@ -1,7 +1,5 @@
 // 常量存放
-export const DEFAULT_POST_PAGE_SIZE = 10
-export const DEFAULT_ARCHIVES_PATH = 'archives'
-
+// 各窗口代码
 export enum WindowName {
     Home,       //首页
     PostEditor, //文章编辑界面
@@ -10,5 +8,18 @@ export enum WindowName {
     Tag,        //首页标签界面
     Category,   //首页分类界面
     Setting     //首页设置界面
+}
+
+export enum PostCardOperationType {
+    UnPublish,
+    PostArticle,
+    UnHide,
+    HideArticle,
+    TopArticle,
+    UnPink,
+    DeleteArticle,
+    ModifyProperties,
+    Selected,
+    UnSelect
 }
 
