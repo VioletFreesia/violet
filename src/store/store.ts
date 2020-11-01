@@ -6,10 +6,15 @@ const currentAppWindow = Symbol()
 const currentHomeWindow = Symbol()
 // 界面语言包
 const locale = Symbol()
+// 是否为批量编辑模式
+const isBatch = Symbol()
 // 界面全局变量登记
 export default {
     systemConfig,
     currentAppWindow,
     currentHomeWindow,
-    locale
+    locale,
+    article: {
+        isBatch
+    }
 }
