@@ -8,12 +8,16 @@ import Window from "@/views/layout/Window.vue"
 import {SystemConfig} from "@/interfaces/public/setting";
 import api from "@/server/api/api"
 import store from "@/store/store"
+import {globalization} from "@/static/globalization/globalization"
+import {Globalization} from "@/interfaces/globalization/globalization";
 
 export default defineComponent({
   components: {Window},
   setup() {
     // 系统配置
-    let systemConfig: SystemConfig = api.settingApi?.getSystemConfig()
+    let systemConfig: SystemConfig = api.settingApi!.getSystemConfig()
+    let locale: Globalization = globalization[systemConfig.language]
+    provide<Globalization>(store.locale, locale)
     provide<SystemConfig>(store.systemConfig, reactive<SystemConfig>(systemConfig))
   }
 })
@@ -24,15 +28,16 @@ html, body {
   height: 100%;
   display: block;
 }
+
 #app {
-  font-family: JetBrainsMono,serif;
+  font-family: JetBrainsMono, serif;
   width: 100%;
   height: 100%;
 }
 
 /*控制整个滚动条*/
 ::-webkit-scrollbar {
-  background-color: rgba(255,255,255,0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   width: 6px;
 
 }
