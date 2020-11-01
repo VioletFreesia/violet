@@ -10,16 +10,17 @@ export enum WindowName {
     Setting     //首页设置界面
 }
 
+// 文章卡片触发的操作名
 export enum PostCardOperationType {
-    UnPublish,
-    PostArticle,
-    UnHide,
-    HideArticle,
-    TopArticle,
-    UnPink,
-    DeleteArticle,
-    ModifyProperties,
-    Selected,
-    UnSelect
+    UnPublish,          //取消发布
+    PostArticle,        //发布文章
+    UnHide,             //取消隐藏
+    HideArticle,        //隐藏文章
+    TopArticle,         //置顶文章
+    UnPink,             //取消置顶
+    DeleteArticle,      //删除文章
+    ModifyProperties,   //修改属性
+    Selected,           //被选中
+    UnSelect            //取消选中
 }
 

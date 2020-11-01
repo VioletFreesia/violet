@@ -1,3 +1,4 @@
+// 侧边栏国际化接口
 export interface Side {
     preview: string
     deploy: string
@@ -9,6 +10,7 @@ export interface Side {
     settings: string
 }
 
+// 文章卡片国际化接口
 export interface PostCard {
     deployStatus: string
     saveStatus: string
@@ -23,6 +25,7 @@ export interface PostCard {
     bulkOperation: string
 }
 
+// 整个软件国际化接口
 export interface Globalization {
     side: Side
     postCard: PostCard
