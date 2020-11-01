@@ -4,46 +4,46 @@
       <img id="logo" src="@/assets/images/logo.png" width="128" alt="logo">
     </a-row>
     <a-row id="menu">
-      <div :class="currentHomeWindow===WindowName.Article?'menu-btn active':'menu-btn'"
+      <div class="menu-btn" :class="isActive(WindowName.Article)"
            @click="active(WindowName.Article)">
         <div class="violet v-article">
-          <span class="font-family">{{ locales[lang].article }}</span>
+          <span class="font-family">{{ side.article }}</span>
         </div>
       </div>
-      <div :class="currentHomeWindow===WindowName.Menu?'menu-btn active':'menu-btn'"
+      <div class="menu-btn" :class="isActive(WindowName.Menu)"
            @click="active(WindowName.Menu)">
         <div class="violet v-menu">
-          <span class="font-family">{{ locales[lang].menu }}</span>
+          <span class="font-family">{{ side.menu }}</span>
         </div>
       </div>
-      <div :class="currentHomeWindow===WindowName.Tag?'menu-btn active':'menu-btn'"
+      <div class="menu-btn" :class="isActive(WindowName.Tag)"
            @click="active(WindowName.Tag)">
         <div class="violet v-tag">
-          <span class="font-family"> {{ locales[lang].tag }}</span>
+          <span class="font-family"> {{ side.tag }}</span>
         </div>
       </div>
-      <div :class="currentHomeWindow===WindowName.Category?'menu-btn active':'menu-btn'"
+      <div class="menu-btn" :class="isActive(WindowName.Category)"
            @click="active(WindowName.Category)">
         <div class="violet v-category">
-          <span class="font-family">{{ locales[lang].category }}</span>
+          <span class="font-family">{{ side.category }}</span>
         </div>
       </div>
-      <div :class="currentHomeWindow===WindowName.Setting?'menu-btn active':'menu-btn'"
+      <div class="menu-btn" :class="isActive(WindowName.Setting)"
            @click="active(WindowName.Setting)">
         <div class="violet v-settings">
-          <span class="font-family">{{ locales[lang].settings }}</span>
+          <span class="font-family">{{ side.settings }}</span>
         </div>
       </div>
     </a-row>
     <div class="side-btn">
       <a-button id="preview" shape="round" block>
         <div class="violet v-preview">
-          <span class="font-family"> {{ locales[lang].preview }}</span>
+          <span class="font-family"> {{ side.preview }}</span>
         </div>
       </a-button>
       <a-button id="deploy" shape="round" block>
         <div class="violet v-deploy">
-          <span class="font-family">{{ locales[lang].deploy }}</span>
+          <span class="font-family">{{ side.deploy }}</span>
         </div>
       </a-button>
     </div>
@@ -52,21 +52,29 @@
 
 <script lang="ts">
 import {defineComponent, inject, Ref, ref} from 'vue'
-import locales from "@/static/locales"
-import {getLanguage} from "@/tools/get-config"
 import {SearchOutlined} from '@ant-design/icons-vue'
 import {WindowName} from "@/static/constants"
 import store from "@/store/store"
+import {getLocale} from "@/tools/get-config"
+import {Side} from "@/interfaces/globalization/globalization"
+
 
 export default defineComponent({
   name: 'Side',
   components: {SearchOutlined},
   setup() {
+    let side: Side = getLocale().side
     let currentHomeWindow = inject<Ref<WindowName>>(store.currentHomeWindow, ref(WindowName.Article))
+    let isActive = (windowName: WindowName): string => {
+      if (currentHomeWindow.value === windowName)
+        return 'active'
+      else
+        return ''
+    }
     let active = (windowName: WindowName) => {
       currentHomeWindow.value = windowName
     }
-    return {lang: getLanguage(), locales, active, currentHomeWindow, WindowName}
+    return {side, active, isActive, currentHomeWindow, WindowName}
   }
 })
 </script>
