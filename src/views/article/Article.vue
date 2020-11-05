@@ -1,77 +1,56 @@
 <template>
   <div id="article">
-    <a-row type="flex">
-      <a-col span="8">
-        <Post class="card" :post-info="postInfos[0]" @operation="postCardOperationHandler"/>
-      </a-col>
-      <a-col span="8">
-        <Post class="card" :post-info="postInfos[1]" @operation="postCardOperationHandler"/>
-      </a-col>
-      <a-col span="8">
-        <Post class="card" :post-info="postInfos[2]" @operation="postCardOperationHandler"/>
-      </a-col>
-    </a-row>
-    <a-button @click="batchToggle">{{ isBatch }}</a-button>
+    <a-spin size="large" :spinning="loading">
+      <div id="tool-bar">
+<!--        <a-button type="primary" shape="round" ghost>全选</a-button>-->
+<!--        <a-button type="primary" shape="round" ghost>发布</a-button>-->
+<!--        <a-button type="primary" shape="round" ghost>隐藏</a-button>-->
+<!--        <a-button type="primary" shape="round" ghost>置顶</a-button>-->
+<!--        <a-button type="primary" shape="round" ghost>删除</a-button>-->
+<!--        <a-button type="primary" shape="round" ghost>取消发布</a-button>-->
+<!--        <a-button type="primary" shape="round" ghost>取消隐藏</a-button>-->
+<!--        <a-button type="primary" shape="round" ghost>取消置顶</a-button>-->
+<!--        <a-button type="primary" shape="round" ghost>退出批量编辑</a-button>-->
+      </div>
+      <div id="posts">
+        <Post v-for="postInfo in postInfos"
+              class="card" :post-info="postInfo"
+              @operation="postCardOperationHandler"/>
+      </div>
+      <a-button @click="batchToggle">{{ isBatch }}</a-button>
+    </a-spin>
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, provide} from 'vue'
+import {defineComponent, provide, ref, reactive} from 'vue'
+import api from "@/server/api/api"
 import Post from "@/views/article/components/Post.vue"
 import {PostInfo} from "@/interfaces/public/post"
 import store from "@/store/store"
 import {PostCardOperationType} from "@/static/constants"
-
-let postCardOperationHandler = (operationType: PostCardOperationType, postId: string) => {
-  console.log(operationType, postId)
-}
+import {message} from 'ant-design-vue'
 
 export default defineComponent({
   name: "Article",
   components: {Post},
+  methods: {
+    postCardOperationHandler(operationType: PostCardOperationType, postId: string) {
+      message.info(operationType + ' ' + postId)
+    }
+  },
   setup() {
-    let postInfos: PostInfo[] = [
-      {
-        id: 'post1',
-        title: '重学Java之IO',
-        img: "D:/Program/violet/src/assets/images/default1.jpg",
-        tags: [],
-        category: {name: 'Java'},
-        modifyDate: '2020-11-01',
-        isDeploy: true,
-        isTop: false,
-        isHide: true,
-        fileName: '',
-      }, {
-        id: 'post2',
-        title: '重学Java之异常',
-        img: "D:/Program/violet/src/assets/images/default2.jpg",
-        tags: [],
-        category: {name: 'Java'},
-        modifyDate: '2020-11-01',
-        isDeploy: false,
-        isTop: true,
-        isHide: false,
-        fileName: '',
-      }, {
-        id: 'post3',
-        title: '重学Java之泛型',
-        img: "D:/Program/violet/src/assets/images/default3.jpg",
-        tags: [],
-        category: {name: 'Java'},
-        modifyDate: '2020-11-01',
-        isDeploy: true,
-        isTop: false,
-        isHide: false,
-        fileName: '',
-      }
-    ]
+    let loading = ref<boolean>(true)
+    let postInfos = reactive<PostInfo[]>(api.postApi!.getAllPostInfo())
     let isBatch = ref<boolean>(false)
     provide(store.article.isBatch, isBatch)
     let batchToggle = () => {
       isBatch.value = !isBatch.value
     }
-    return {postInfos, isBatch, batchToggle, postCardOperationHandler}
+    return {postInfos, isBatch, batchToggle, loading}
+  },
+  created() {
+    this.loading = false
   }
 })
 </script>
@@ -84,7 +63,11 @@ export default defineComponent({
   overflow-x: hidden;
 }
 
+#posts {
+
+}
+
 .card {
-  margin: 0 auto;
+  margin: 5px 0 0 10px;
 }
 </style>
