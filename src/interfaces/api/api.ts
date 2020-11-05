@@ -1,5 +1,6 @@
 // 文章的CURD
 export interface PostApi {
+    getAllPostInfo: Function
     getAllPost: Function
     patchPost: Function
     deletePost: Function
