@@ -20,7 +20,6 @@ export enum PostCardOperationType {
     UnPink,             //取消置顶
     DeleteArticle,      //删除文章
     ModifyProperties,   //修改属性
-    Selected,           //被选中
-    UnSelect            //取消选中
+    EditPost           //编辑/查看文章
 }
 
