@@ -16,9 +16,7 @@
   "repository": "https://github.com/VioletFreesia/violet",
   "scripts": {
     "electron:build": "vue-cli-service electron:build",
-    "electron:serve": "vue-cli-service electron:serve",
-    "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps"
+    "electron:serve": "vue-cli-service electron:serve"
   },
   "main": "background.js",
   "dependencies": {
