@@ -1,8 +1,9 @@
 <template>
-  <div id="card" class="no-select" @click="selectorToggle">
+  <div id="card" class="no-select">
+    <div id="card-mask" @click="selectorToggle"></div>
     <div v-if="postInfo.isTop||postInfo.isHide" id="tag">{{ postInfo.isTop ? 'Top' : 'Hide' }}</div>
     <div v-if="isBatch" id="selector">
-      <div class="violet" :class="isSelected?'v-selected':'v-selector'"></div>
+      <div class="violet" :class="postInfo.isSelected?'v-selected':'v-selector'"></div>
     </div>
     <img :src="postInfo.img" width="320" height="180" alt="">
     <div id="info">
@@ -94,11 +95,9 @@ export default defineComponent({
   methods: {
     selectorToggle() {
       if (this.isBatch) {
-        this.isSelected = !this.isSelected
-        if (this.isSelected)
-          this.$emit('operation', PostCardOperationType.Selected, this.postInfo!.id)
-        else
-          this.$emit('operation', PostCardOperationType.UnSelect, this.postInfo!.id)
+        this.postInfo!.isSelected = !this.postInfo!.isSelected
+      } else {
+        this.$emit('operation', PostCardOperationType.EditPost, this.postInfo!.id)
       }
     },
     operation(operationType: PostCardOperationType) {
@@ -116,14 +115,13 @@ export default defineComponent({
 
   setup() {
     let moreVisible = ref<boolean>(false)
-    let isSelected = ref<boolean>(false)
     let isBatch = inject<Ref<boolean>>(store.article.isBatch)
     let batch = () => {
       moreVisible.value = false
       isBatch!.value = true
     }
     let postCard: PostCard = getLocale().postCard
-    return {postCard, isSelected, isBatch, moreVisible, batch, PostCardOperationType}
+    return {postCard, isBatch, moreVisible, batch, PostCardOperationType}
   }
 })
 </script>
@@ -143,6 +141,13 @@ export default defineComponent({
 #card:hover {
   border: solid 1px #ee82ee;
   box-shadow: 0 5px 10px rgba(238, 130, 238, .5), 0 0 6px rgba(238, 130, 238, .5)
+}
+
+#card-mask {
+  width: 100%;
+  height: 150px;
+  position: absolute;
+  z-index: 1;
 }
 
 #info {
