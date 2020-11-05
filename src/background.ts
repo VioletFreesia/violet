@@ -20,9 +20,9 @@ protocol.registerSchemesAsPrivileged([
 function createWindow() {
     // 创建窗口
     win = new BrowserWindow({
-        width: 1360,
+        width: 1200,
         height: 800,
-        minHeight: 500,
+        minHeight: 650,
         minWidth: 1200,
         frame: false,
         webPreferences: {
