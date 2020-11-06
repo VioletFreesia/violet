@@ -12,7 +12,7 @@
         <div class="violet" :class="postInfo.isDeploy?'v-pass':'v-save'">
           <span>{{ postInfo.isDeploy ? postCard.deployStatus : postCard.saveStatus }}</span>
         </div>
-        <div class="violet v-time">
+        <div class="violet v-updateTime">
           <span>{{ postInfo.modifyDate }}</span>
         </div>
         <div class="violet v-category">
