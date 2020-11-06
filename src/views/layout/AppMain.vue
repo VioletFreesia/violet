@@ -19,7 +19,7 @@
       </a-layout>
     </div>
     <div id="post-editor" v-if="currentAppWindow === WindowName.PostEditor">
-      文章编辑页
+      <ArticleEditor/>
     </div>
   </div>
 </template>
@@ -34,10 +34,11 @@ import Menu from "@/views/menu/Menu.vue"
 import Setting from "@/views/setting/Setting.vue"
 import Tag from "@/views/tag/Tag.vue"
 import Category from "@/views/category/Category.vue"
+import ArticleEditor from "@/views/article-editor/ArticleEditor.vue"
 
 export default defineComponent({
   name: "AppMain",
-  components: {Side, Article, Menu, Tag, Category, Setting},
+  components: {Side, Article, Menu, Tag, Category, Setting, ArticleEditor},
   setup() {
     let currentAppWindow = ref<WindowName>(WindowName.Home)
     let currentHomeWindow = ref<WindowName>(WindowName.Article)
@@ -54,5 +55,8 @@ export default defineComponent({
 #post-editor {
   width: 100%;
   height: 100%;
+}
+#post-editor {
+  overflow: auto;
 }
 </style>
