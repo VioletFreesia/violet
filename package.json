@@ -8,7 +8,7 @@
     "static-site",
     "static-site-generator"
   ],
-  "license": "MIT",
+  "license": "Apache-2.0 License",
   "author": {
     "name": "violetfreesia",
     "email": "violetfreesia@foxmail.com"
@@ -22,14 +22,21 @@
   "dependencies": {
     "ant-design-vue": "^2.0.0-beta.10",
     "core-js": "^3.6.5",
+    "front-matter": "^4.0.2",
+    "jquery": "^3.5.1",
+    "lowdb": "^1.0.0",
+    "vditor": "^3.6.0",
     "vue": "^3.0.0"
   },
   "devDependencies": {
+    "@types/jquery": "^3.5.4",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-typescript": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
     "electron": "^9.0.0",
+    "sass": "^1.29.0",
+    "sass-loader": "^10.0.5",
     "typescript": "~3.9.3",
     "vue-cli-plugin-electron-builder": "~2.0.0-rc.4"
   },
