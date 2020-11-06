@@ -1,4 +1,4 @@
-// 常量存放
+// 各枚举类
 // 各窗口代码
 export enum WindowName {
     Home,       //首页
@@ -23,3 +23,6 @@ export enum PostCardOperationType {
     EditPost           //编辑/查看文章
 }
 
+export enum Events {
+
+}

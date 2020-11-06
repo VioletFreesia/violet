@@ -26,7 +26,7 @@
 
 <script lang='ts'>
 import {defineComponent, ref, provide, Ref} from 'vue'
-import {WindowName} from '@/static/constants'
+import {WindowName} from '@/static/enums'
 import store from "@/store/store"
 import Side from "@/views/sider/Side.vue"
 import Article from "@/views/article/Article.vue"

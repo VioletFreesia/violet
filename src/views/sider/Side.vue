@@ -53,7 +53,7 @@
 <script lang="ts">
 import {defineComponent, inject, Ref, ref} from 'vue'
 import {SearchOutlined} from '@ant-design/icons-vue'
-import {WindowName} from "@/static/constants"
+import {WindowName} from "@/static/enums"
 import store from "@/store/store"
 import {getLocale} from "@/tools/get-config"
 import {Side} from "@/interfaces/globalization/globalization"

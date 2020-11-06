@@ -28,7 +28,7 @@ import api from "@/server/api/api"
 import Post from "@/views/article/components/Post.vue"
 import {PostInfo} from "@/interfaces/public/post"
 import store from "@/store/store"
-import {PostCardOperationType} from "@/static/constants"
+import {PostCardOperationType} from "@/static/enums"
 import {message} from 'ant-design-vue'
 
 export default defineComponent({
