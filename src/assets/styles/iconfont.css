@@ -11,6 +11,18 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.v-editor-save:before {
+    content: "\e60c";
+}
+
+.v-editor-quit:before {
+    content: "\e619";
+}
+
+.v-updateTime:before {
+    content: "\e705";
+}
+
 .v-selector:before {
     content: "\e692";
 }
@@ -21,7 +33,7 @@
 
 .v-selected:before {
     content: "\e60b";
-    color: #ff00ff;
+    color: violet;
 }
 
 .v-delete:before {
@@ -58,10 +70,6 @@
 
 .v-pass:before {
     content: "\e6ab";
-}
-
-.v-time:before {
-    content: "\e61f";
 }
 
 .v-more:before {
