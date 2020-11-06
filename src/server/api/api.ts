@@ -1,7 +1,16 @@
-import {Api} from "@/interfaces/api/api"
 import {PostInfo} from "@/interfaces/public/post"
 import {SystemConfig} from "@/interfaces/public/setting"
 import {LanguageList} from "@/static/globalization/globalization"
+import {Events} from "@/static/enums"
+
+const {ipcRenderer} = window.require('electron')
+
+let request = (event: string, data: object) => {
+    return new Promise(resolve => {
+        resolve(ipcRenderer.sendSync(event, data))
+    })
+}
+
 
 let getAllPostInfo = (): PostInfo[] => {
     return [
@@ -207,41 +216,17 @@ let getSystemConfig = (): SystemConfig => {
     return {appDir: '', language: LanguageList.zh_CN}
 }
 
+let createWorkSpace = () => {
+}
+
 // 主进程与渲染进程通信api的具体实现
-const api: Api = {
+const api = {
     postApi: {
         getAllPostInfo,
-        getAllPost: () => {
-        },
-        patchPost: () => {
-        },
-        deletePost: () => {
-        },
-        putPost: () => {
-        }
     },
     settingApi: {
-        getAllSetting: () => {
-        },
-        getSiteConfig: () => {
-        },
-        getThemeConfig: () => {
-        },
-        getRemoteConfig: () => {
-        },
-        getCommentConfig: () => {
-        },
         getSystemConfig,
-        patchSiteConfig: () => {
-        },
-        patchThemeConfig: () => {
-        },
-        patchRemoteConfig: () => {
-        },
-        patchCommentConfig: () => {
-        },
-        patchSystemConfig: () => {
-        },
+        createWorkSpace,
     }
 }
 export default api
