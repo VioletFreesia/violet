@@ -37,7 +37,10 @@ export default defineComponent({
             tipPosition: 'nw',
             tip: '保存',
             className: 'violet-btn',
-            click: this.back
+            click: ()=>{
+              // @ts-ignore
+              console.log(this.contentEditor.getHTML());
+            }
           },
           'undo',
           'redo',
@@ -60,8 +63,17 @@ export default defineComponent({
           'inline-code',
           'link',
           'table',
-          'insert-after',
-          'insert-before',
+          {
+            hotkey: 'ctrl-p',
+            name: 'image',
+            tipPosition: 'nw',
+            tip: '插入图片',
+            className: 'violet-btn',
+            click: ()=>{
+              // @ts-ignore
+              this.contentEditor.insertValue("![](输入图片路径)")
+            }
+          },
           '|',
           'code-theme',
           'export',
@@ -99,6 +111,8 @@ export default defineComponent({
           .html('<div class="violet v-editor-save"></div>')
       $('.violet-btn button[data-type=quit]')
           .html('<div class="violet v-editor-quit"></div>')
+      $('.violet-btn button[data-type=image]')
+          .html('<div class="violet v-picture"></div>')
     })
   },
   methods: {
