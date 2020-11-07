@@ -50,7 +50,7 @@ html, body {
 
 /*滚动条中间滑动部分*/
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(238, 130, 238, 0.4);
+  background-color: rgba(0, 0, 0,.2);
   border-radius: 4px;
 }
 </style>
