@@ -1,4 +1,4 @@
-import {Globalization, Side, PostCard} from "@/interfaces/globalization/globalization"
+import {Globalization, Side, PostCard, PostEditor} from "@/interfaces/globalization/globalization"
 
 const side: Side = {
     preview: '预 览',
@@ -25,8 +25,16 @@ const postCard: PostCard = {
     bulkOperation: '批量操作',
 }
 
+const postEditor: PostEditor = {
+    insertImage: "插入图片",
+    quit: "退出",
+    save: "保存",
+    inputImagePath: '输入图片路径'
+}
+
 
 export const zh_CN: Globalization = {
     side,
-    postCard
+    postCard,
+    postEditor
 }

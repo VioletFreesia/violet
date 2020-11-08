@@ -9,6 +9,7 @@ import {WindowName} from "@/static/enums"
 import Vditor from "vditor"
 import store from "@/store/store"
 import {emoji} from "@/static/emoji"
+import {PostEditor, Globalization} from "@/interfaces/globalization/globalization"
 import $ from "jquery"
 
 export default defineComponent({
@@ -20,66 +21,67 @@ export default defineComponent({
   },
   mounted() {
     new Promise(resolve => {
+      let toolbar = [
+        {
+          hotkey: 'ctrl-q',
+          name: 'quit',
+          tipPosition: 'nw',
+          tip: this.locale.quit,
+          className: 'violet-btn',
+          click: this.back
+        },
+        {
+          hotkey: 'ctrl-s',
+          name: 'save',
+          tipPosition: 'nw',
+          tip: this.locale.save,
+          className: 'violet-btn',
+          click: () => {
+            // @ts-ignore
+            console.log(this.contentEditor.getHTML());
+          }
+        },
+        'undo',
+        'redo',
+        '|',
+        'emoji',
+        'headings',
+        'bold',
+        'italic',
+        'strike',
+        '|',
+        'line',
+        'quote',
+        'check',
+        'list',
+        'ordered-list',
+        'outdent',
+        'indent',
+        '|',
+        'code',
+        'inline-code',
+        'link',
+        'table',
+        {
+          hotkey: 'ctrl-p',
+          name: 'image',
+          tipPosition: 'nw',
+          tip: this.locale.insertImage,
+          className: 'violet-btn',
+          click: () => {
+            // @ts-ignore
+            this.contentEditor.insertValue(`![](${this.locale.inputImagePath})`)
+          }
+        },
+        '|',
+        'outline',
+        'code-theme',
+        'export',
+        'edit-mode'
+      ]
       // @ts-ignore
       this.contentEditor = new Vditor('vditor', {
-        toolbar: [
-          {
-            hotkey: 'ctrl-q',
-            name: 'quit',
-            tipPosition: 'nw',
-            tip: '退出',
-            className: 'violet-btn',
-            click: this.back
-          },
-          {
-            hotkey: 'ctrl-s',
-            name: 'save',
-            tipPosition: 'nw',
-            tip: '保存',
-            className: 'violet-btn',
-            click: ()=>{
-              // @ts-ignore
-              console.log(this.contentEditor.getHTML());
-            }
-          },
-          'undo',
-          'redo',
-          '|',
-          'emoji',
-          'headings',
-          'bold',
-          'italic',
-          'strike',
-          '|',
-          'line',
-          'quote',
-          'check',
-          'list',
-          'ordered-list',
-          'outdent',
-          'indent',
-          '|',
-          'code',
-          'inline-code',
-          'link',
-          'table',
-          {
-            hotkey: 'ctrl-p',
-            name: 'image',
-            tipPosition: 'nw',
-            tip: '插入图片',
-            className: 'violet-btn',
-            click: ()=>{
-              // @ts-ignore
-              this.contentEditor.insertValue("![](输入图片路径)")
-            }
-          },
-          '|',
-          'code-theme',
-          'export',
-          'edit-mode'
-        ],
-        toolbarConfig: {},
+        toolbar,
         counter: {
           enable: true,
           type: 'text'
@@ -89,8 +91,7 @@ export default defineComponent({
         },
         outline: true,
         preview: {
-          maxWidth: 1200,
-          actions: []
+          maxWidth: 1200
         },
         after() {
           resolve(true)
@@ -130,8 +131,9 @@ export default defineComponent({
     },
   },
   setup() {
+    let locale: PostEditor = inject<Globalization>(store.locale)!.postEditor
     let currentAppWindow = inject<WindowName>(store.currentAppWindow)!
-    return {currentAppWindow}
+    return {currentAppWindow, locale}
   }
 })
 </script>

@@ -25,8 +25,16 @@ export interface PostCard {
     bulkOperation: string
 }
 
+export interface PostEditor {
+    quit: string
+    save: string
+    insertImage: string
+    inputImagePath: string
+}
+
 // 整个软件国际化接口
 export interface Globalization {
     side: Side
     postCard: PostCard
+    postEditor: PostEditor
 }
