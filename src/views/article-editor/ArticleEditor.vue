@@ -10,10 +10,17 @@ import Vditor from "vditor"
 import store from "@/store/store"
 import {emoji} from "@/static/emoji"
 import {PostEditor, Globalization} from "@/interfaces/globalization/globalization"
+import { message } from 'ant-design-vue'
 import $ from "jquery"
 
 export default defineComponent({
   name: "ArticleEditor",
+  props: {
+    isNewFile: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       contentEditor: Vditor
@@ -37,8 +44,7 @@ export default defineComponent({
           tip: this.locale.save,
           className: 'violet-btn',
           click: () => {
-            // @ts-ignore
-            console.log(this.contentEditor.getHTML());
+            message.success('保存成功')
           }
         },
         'undo',
@@ -98,8 +104,6 @@ export default defineComponent({
         }
       })
     }).then(() => {
-      // @ts-ignore
-      this.contentEditor.setValue("# 这是标题一")
       // 为大纲条目注册点击事件
       $('.vditor-outline').on('click', 'div[data-id]', () => {
         let target = $('div.vditor-outline__item.vditor-outline__item--current')
