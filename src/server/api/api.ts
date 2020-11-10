@@ -1,7 +1,6 @@
 import {PostInfo} from "@/interfaces/public/post"
 import {SystemConfig} from "@/interfaces/public/setting"
 import {LanguageList} from "@/static/globalization/globalization"
-import {Events} from "@/static/enums"
 
 const {ipcRenderer} = window.require('electron')
 
