@@ -136,6 +136,10 @@ export default defineComponent({
   border: solid 1px rgba(0, 0, 0, 0);
   box-sizing: border-box;
   overflow: hidden;
+  background-color: #e8e8e8;
+  background-image: url("../../../assets/images/picture.png");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 #card:hover {
