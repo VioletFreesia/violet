@@ -22,7 +22,3 @@ export enum PostCardOperationType {
     ModifyProperties,   //修改属性
     EditPost           //编辑/查看文章
 }
-
-export enum Events {
-
-}
