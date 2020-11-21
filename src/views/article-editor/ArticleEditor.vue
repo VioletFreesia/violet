@@ -10,7 +10,7 @@ import Vditor from "vditor"
 import store from "@/store/store"
 import {emoji} from "@/static/emoji"
 import {PostEditor, Globalization} from "@/interfaces/globalization/globalization"
-import { message } from 'ant-design-vue'
+import {message} from 'ant-design-vue'
 import $ from "jquery"
 
 export default defineComponent({
@@ -30,12 +30,14 @@ export default defineComponent({
     new Promise(resolve => {
       let toolbar = [
         {
-          hotkey: 'ctrl-q',
+          hotkey: '',
           name: 'quit',
           tipPosition: 'nw',
           tip: this.locale.quit,
           className: 'violet-btn',
-          click: this.back
+          click: () => {
+            this.back()
+          }
         },
         {
           hotkey: 'ctrl-s',
