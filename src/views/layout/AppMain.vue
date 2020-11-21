@@ -1,26 +1,47 @@
 <template>
   <div id="app-main">
-    <div id="home" v-if="currentAppWindow === WindowName.Home">
-      <a-layout>
-        <a-layout-sider theme="light"
-                        :style="{ overflow: 'hidden', height: '100vh'}">
-          <Side/>
-        </a-layout-sider>
+    <transition
+        enter-active-class="animate__animated animate__zoomIn">
+      <div id="home" v-if="currentAppWindow === WindowName.Home">
         <a-layout>
-          <a-layout-content
-              :style="{ overflow: 'auto', height: '100vh',padding:'30px 0 0 0'}">
-            <Article v-if="currentHomeWindow === WindowName.Article"/>
-            <Page v-if="currentHomeWindow === WindowName.Page"/>
-            <RecycleBin v-if="currentHomeWindow === WindowName.RecycleBin"/>
-            <Category v-if="currentHomeWindow === WindowName.Category"/>
-            <Setting v-if="currentHomeWindow === WindowName.Setting"/>
-          </a-layout-content>
+          <a-layout-sider theme="light"
+                          :style="{ overflow: 'hidden', height: '100vh'}">
+            <Side/>
+          </a-layout-sider>
+          <a-layout>
+            <a-layout-content
+                :style="{ overflow: 'auto', height: '100vh',padding:'30px 0 0 0'}">
+              <transition
+                  enter-active-class="animate__animated animate__fadeInLeft">
+                <Article v-if="currentHomeWindow === WindowName.Article"/>
+              </transition>
+              <transition
+                  enter-active-class="animate__animated animate__fadeInLeft">
+                <Page v-if="currentHomeWindow === WindowName.Page"/>
+              </transition>
+              <transition
+                  enter-active-class="animate__animated animate__fadeInLeft">
+                <Category v-if="currentHomeWindow === WindowName.Category"/>
+              </transition>
+              <transition
+                  enter-active-class="animate__animated animate__fadeInLeft">
+                <Setting v-if="currentHomeWindow === WindowName.Setting"/>
+              </transition>
+              <transition
+                  enter-active-class="animate__animated animate__fadeInLeft">
+                <RecycleBin v-if="currentHomeWindow === WindowName.RecycleBin"/>
+              </transition>
+            </a-layout-content>
+          </a-layout>
         </a-layout>
-      </a-layout>
-    </div>
-    <div id="post-editor" v-if="currentAppWindow === WindowName.PostEditor">
-      <ArticleEditor/>
-    </div>
+      </div>
+    </transition>
+    <transition
+        enter-active-class="animate__animated animate__zoomIn">
+      <div id="post-editor" v-if="currentAppWindow === WindowName.PostEditor">
+        <ArticleEditor/>
+      </div>
+    </transition>
   </div>
 </template>
 
