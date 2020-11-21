@@ -37,7 +37,7 @@ html, body {
 
 /*控制整个滚动条*/
 ::-webkit-scrollbar {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0);
   width: 8px;
   height: 8px;
   cursor: pointer;
@@ -50,7 +50,7 @@ html, body {
 
 /*滚动条中间滑动部分*/
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0,.2);
+  background-color: rgba(0, 0, 0,.15);
   border-radius: 4px;
 }
 </style>
