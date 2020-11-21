@@ -2,15 +2,6 @@
   <div id="article">
     <a-spin size="large" :spinning="loading">
       <div id="tool-bar">
-        <!--        <a-button type="primary" shape="round" ghost>全选</a-button>-->
-        <!--        <a-button type="primary" shape="round" ghost>发布</a-button>-->
-        <!--        <a-button type="primary" shape="round" ghost>隐藏</a-button>-->
-        <!--        <a-button type="primary" shape="round" ghost>置顶</a-button>-->
-        <!--        <a-button type="primary" shape="round" ghost>删除</a-button>-->
-        <!--        <a-button type="primary" shape="round" ghost>取消发布</a-button>-->
-        <!--        <a-button type="primary" shape="round" ghost>取消隐藏</a-button>-->
-        <!--        <a-button type="primary" shape="round" ghost>取消置顶</a-button>-->
-        <!--        <a-button type="primary" shape="round" ghost>退出批量编辑</a-button>-->
       </div>
       <div id="posts">
         <Post v-for="postInfo in postInfos"
@@ -19,11 +10,19 @@
       </div>
       <a-button @click="batchToggle">{{ isBatch }}</a-button>
     </a-spin>
+    <a-modal
+        title="修改属性"
+        v-model:visible="showModifyModel"
+        okText="保存"
+        cancelText="取消"
+        :maskClosable="false">
+      <p>修改文章属性</p>
+    </a-modal>
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, provide, reactive, ref, inject} from 'vue'
+import {defineComponent, inject, provide, ref} from 'vue'
 import api from "@/server/api/api"
 import Post from "@/views/article/components/Post.vue"
 import {PostInfo} from "@/interfaces/public/post"
@@ -39,19 +38,22 @@ export default defineComponent({
       message.info(operationType + ' ' + postId)
       if (operationType === PostCardOperationType.EditPost) {
         this.currentAppWindow = WindowName.PostEditor
+      } else if (operationType === PostCardOperationType.ModifyProperties) {
+        this.showModifyModel = true
       }
     }
   },
   setup() {
     let loading = ref<boolean>(true)
-    let postInfos = reactive<PostInfo[]>(api.postApi!.getAllPostInfo())
+    let postInfos = ref<PostInfo[]>(api.postApi!.getAllPostInfo())
     let isBatch = ref<boolean>(false)
+    let showModifyModel = ref<boolean>(false)
     let currentAppWindow = inject<WindowName>(store.currentAppWindow)!
     provide(store.article.isBatch, isBatch)
     let batchToggle = () => {
       isBatch.value = !isBatch.value
     }
-    return {postInfos, isBatch, batchToggle, loading, currentAppWindow}
+    return {postInfos, isBatch, showModifyModel, batchToggle, loading, currentAppWindow}
   },
   created() {
     this.loading = false
