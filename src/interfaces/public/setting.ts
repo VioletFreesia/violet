@@ -51,7 +51,7 @@ export interface CommentConfig {
 
 // 系统配置
 export interface SystemConfig {
-    appDir: string
+    workplace: string
     language: string
 }
 

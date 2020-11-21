@@ -1,6 +1,5 @@
 // 网站菜单的接口
-export interface Menu {
+export interface Page {
     name: string
     openType: string
-    link: string
 }

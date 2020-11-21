@@ -1,11 +1,12 @@
 import {Category} from "@/interfaces/public/category"
+import {Tag} from "@/interfaces/public/tag"
 
 // 文章数据的接口
 export interface PostInfo {
     id: string          //文章id, 为创建该篇文章的时间戳
     title: string       //文章标题
     img: string         //文章封面
-    tags: string[]      //文章标签
+    tags: Tag[]      //文章标签
     category: Category  //文章分类
     modifyDate: string  //文章最后一次修改时间
     isDeploy: boolean   //文章是否发布
