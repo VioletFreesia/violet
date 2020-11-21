@@ -6,14 +6,14 @@ export interface PostInfo {
     id: string          //文章id, 为创建该篇文章的时间戳
     title: string       //文章标题
     img: string         //文章封面
-    tags: Tag[]      //文章标签
+    tags: Tag[]         //文章标签
     category: Category  //文章分类
     modifyDate: string  //文章最后一次修改时间
     isDeploy: boolean   //文章是否发布
     isTop: boolean      //文章是否置顶
     isHide: boolean     //文章是否隐藏
-    isSelected: boolean //文章是否被选中
     fileName: string    //文章的本地文件名
+    isSelected?: boolean //文章是否被选中 每次读取信息后为每条数据添加这个属性
 }
 
 //文章内容数据
