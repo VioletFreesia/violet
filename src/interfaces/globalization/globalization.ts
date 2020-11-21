@@ -3,8 +3,8 @@ export interface Side {
     preview: string
     deploy: string
     article: string
-    menu: string
-    tag: string
+    page: string
+    recycleBin: string
     category: string
     theme: string
     settings: string

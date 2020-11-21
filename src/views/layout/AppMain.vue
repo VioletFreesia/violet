@@ -10,8 +10,8 @@
           <a-layout-content
               :style="{ overflow: 'auto', height: '100vh',padding:'30px 0 0 0'}">
             <Article v-if="currentHomeWindow === WindowName.Article"/>
-            <Menu v-if="currentHomeWindow === WindowName.Menu"/>
-            <Tag v-if="currentHomeWindow === WindowName.Tag"/>
+            <Page v-if="currentHomeWindow === WindowName.Page"/>
+            <RecycleBin v-if="currentHomeWindow === WindowName.RecycleBin"/>
             <Category v-if="currentHomeWindow === WindowName.Category"/>
             <Setting v-if="currentHomeWindow === WindowName.Setting"/>
           </a-layout-content>
@@ -30,15 +30,15 @@ import {WindowName} from '@/static/enums'
 import store from "@/store/store"
 import Side from "@/views/sider/Side.vue"
 import Article from "@/views/article/Article.vue"
-import Menu from "@/views/menu/Menu.vue"
+import Page from "@/views/page/Page.vue"
 import Setting from "@/views/setting/Setting.vue"
-import Tag from "@/views/tag/Tag.vue"
+import RecycleBin from "@/views/recycle-bin/RecycleBin.vue"
 import Category from "@/views/category/Category.vue"
 import ArticleEditor from "@/views/article-editor/ArticleEditor.vue"
 
 export default defineComponent({
   name: "AppMain",
-  components: {Side, Article, Menu, Tag, Category, Setting, ArticleEditor},
+  components: {Side, Article, Page, RecycleBin, Category, Setting, ArticleEditor},
   setup() {
     let currentAppWindow = ref<WindowName>(WindowName.Home)
     let currentHomeWindow = ref<WindowName>(WindowName.Article)
@@ -56,6 +56,7 @@ export default defineComponent({
   width: 100%;
   height: 100%;
 }
+
 #post-editor {
   overflow: auto;
 }

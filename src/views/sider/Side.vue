@@ -10,16 +10,10 @@
           <span class="font-family">{{ side.article }}</span>
         </div>
       </div>
-      <div class="menu-btn" :class="isActive(WindowName.Menu)"
-           @click="active(WindowName.Menu)">
-        <div class="violet v-menu">
-          <span class="font-family">{{ side.menu }}</span>
-        </div>
-      </div>
-      <div class="menu-btn" :class="isActive(WindowName.Tag)"
-           @click="active(WindowName.Tag)">
-        <div class="violet v-tag">
-          <span class="font-family"> {{ side.tag }}</span>
+      <div class="menu-btn" :class="isActive(WindowName.Page)"
+           @click="active(WindowName.Page)">
+        <div class="violet v-page">
+          <span class="font-family">{{ side.page }}</span>
         </div>
       </div>
       <div class="menu-btn" :class="isActive(WindowName.Category)"
@@ -32,6 +26,12 @@
            @click="active(WindowName.Setting)">
         <div class="violet v-settings">
           <span class="font-family">{{ side.settings }}</span>
+        </div>
+      </div>
+      <div class="menu-btn" :class="isActive(WindowName.RecycleBin)"
+           @click="active(WindowName.RecycleBin)">
+        <div class="violet v-delete">
+          <span class="font-family"> {{ side.recycleBin }}</span>
         </div>
       </div>
     </a-row>

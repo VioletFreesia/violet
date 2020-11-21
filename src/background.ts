@@ -54,7 +54,7 @@ function createWindow() {
     })
 }
 
-app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors')
+// app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors')
 
 // 关闭所有窗口后退出。
 app.on('window-all-closed', () => {

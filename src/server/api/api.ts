@@ -1,8 +1,7 @@
 import {PostInfo} from "@/interfaces/public/post"
 import {SystemConfig} from "@/interfaces/public/setting"
 import {LanguageList} from "@/static/globalization/globalization"
-
-const {ipcRenderer} = window.require('electron')
+import {ipcRenderer} from 'electron'
 
 let request = (event: string, data: object) => {
     return new Promise(resolve => {

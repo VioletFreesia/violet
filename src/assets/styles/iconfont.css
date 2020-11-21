@@ -11,6 +11,10 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.v-page:before {
+    content: "\e62f";
+}
+
 .v-picture:before {
     content: "\e64a";
 }
