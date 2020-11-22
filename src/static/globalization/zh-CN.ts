@@ -5,7 +5,7 @@ const side: Side = {
     deploy: '同 步',
     article: '文 章',
     page: '页 面',
-    recycleBin: '回 收 站',
+    recycleBin: '回 收',
     category: '分 类',
     theme: '主 题',
     settings: '设 置',

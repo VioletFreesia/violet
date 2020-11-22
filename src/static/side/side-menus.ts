@@ -5,16 +5,16 @@ import {PostCardOperationType, WindowName} from "@/static/enum/enums"
 export let batchOptionMenu = (locale: PostCard): BatchOperationMenu[] => {
     return [
         {
+            text: locale.deployArticle,
+            type: 'click',
+            operationType: PostCardOperationType.DeployArticle,
+            iconName: 'v-deploy'
+        },
+        {
             text: locale.topArticle,
             type: 'click',
             operationType: PostCardOperationType.TopArticle,
             iconName: 'v-top'
-        },
-        {
-            text: locale.unTop,
-            type: 'click',
-            operationType: PostCardOperationType.UnTop,
-            iconName: 'v-no-top'
         },
         {
             text: locale.hideArticle,
@@ -23,22 +23,22 @@ export let batchOptionMenu = (locale: PostCard): BatchOperationMenu[] => {
             iconName: 'v-hidden'
         },
         {
-            text: locale.unHide,
-            type: 'click',
-            operationType: PostCardOperationType.UnHide,
-            iconName: 'v-show'
-        },
-        {
-            text: locale.deployArticle,
-            type: 'click',
-            operationType: PostCardOperationType.DeployArticle,
-            iconName: 'v-deploy'
-        },
-        {
             text: locale.unDeploy,
             type: 'click',
             operationType: PostCardOperationType.UnDeploy,
             iconName: 'v-no-deploy'
+        },
+        {
+            text: locale.unTop,
+            type: 'click',
+            operationType: PostCardOperationType.UnTop,
+            iconName: 'v-no-top'
+        },
+        {
+            text: locale.unHide,
+            type: 'click',
+            operationType: PostCardOperationType.UnHide,
+            iconName: 'v-show'
         },
         {
             text: locale.deleteArticle,
