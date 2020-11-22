@@ -5,7 +5,8 @@
     </a-row>
     <a-row id="menu">
       <transition
-          enter-active-class="animate__animated animate__fadeInLeft">
+          enter-active-class="animate__animated animate__fadeInLeft"
+          leave-active-class="animate__disappear">
         <div v-show="!isBatch" class="change-window-menu">
           <div v-for="menu in changeWindowMenu"
                class="menu-btn"
@@ -18,7 +19,8 @@
         </div>
       </transition>
       <transition
-          enter-active-class="animate__animated animate__fadeInLeft">
+          enter-active-class="animate__animated animate__fadeInLeft"
+          leave-active-class="animate__disappear">
         <div v-show="isBatch" class="batch-option-menu">
           <div v-for="menu in batchOptionMenus"
                class="menu-btn"

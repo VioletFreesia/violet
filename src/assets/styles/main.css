@@ -10,3 +10,7 @@
 .ant-popover-inner-content {
     padding: 10px 0 !important;
 }
+
+.animate__disappear {
+    display: none;
+}

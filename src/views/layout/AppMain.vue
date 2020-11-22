@@ -1,7 +1,8 @@
 <template>
   <div id="app-main">
     <transition
-        enter-active-class="animate__animated animate__zoomIn">
+        enter-active-class="animate__animated animate__zoomIn"
+        leave-active-class="animate__disappear">
       <div id="home" v-if="currentAppWindow === WindowName.Home">
         <a-layout>
           <a-layout-sider theme="light"
@@ -37,7 +38,8 @@
       </div>
     </transition>
     <transition
-        enter-active-class="animate__animated animate__zoomIn">
+        enter-active-class="animate__animated animate__zoomIn"
+        leave-active-class="animate__disappear">
       <div id="post-editor" v-if="currentAppWindow === WindowName.PostEditor">
         <ArticleEditor/>
       </div>
