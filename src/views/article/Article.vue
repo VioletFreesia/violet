@@ -6,7 +6,6 @@
               class="card" :post-info="postInfo"
               @operation="postCardOperationHandler"/>
       </div>
-      <a-button @click="batchToggle">{{ isBatch }}</a-button>
     </a-spin>
     <a-modal
         title="修改属性"
@@ -20,12 +19,12 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, inject, provide, ref,Ref} from 'vue'
+import {defineComponent, inject, ref,Ref} from 'vue'
 import api from "@/server/api/api"
 import Post from "@/views/article/components/Post.vue"
 import {PostInfo} from "@/interfaces/public/post"
 import store from "@/store/store"
-import {PostCardOperationType, WindowName} from "@/static/enums"
+import {PostCardOperationType, WindowName} from "@/static/enum/enums"
 import {message} from 'ant-design-vue'
 
 export default defineComponent({
@@ -38,12 +37,8 @@ export default defineComponent({
     let loading = ref<boolean>(true)
     // 保存所有文章信息
     let postInfos = ref<PostInfo[]>(api.postApi!.getAllPostInfo())
-    // 是否为批量编辑模式
-    let isBatch = ref<boolean>(false)
     // 是否显示属性编辑弹窗
     let showModifyModel = ref<boolean>(false)
-    // 为子组件提供当前是否为批量编辑模式的状态
-    provide(store.article.isBatch, isBatch)
     // 文章事件的控制器
     let postCardOperationHandler = (operationType: PostCardOperationType, postId: string) => {
       message.info(operationType + ' ' + postId)
@@ -53,17 +48,12 @@ export default defineComponent({
         showModifyModel.value = true
       }
     }
-    let batchToggle = () => {
-      isBatch.value = !isBatch.value
-    }
     return {
       postInfos,
-      isBatch,
       showModifyModel,
       loading,
       currentAppWindow,
-      postCardOperationHandler,
-      batchToggle
+      postCardOperationHandler
     }
   },
   created() {

@@ -47,7 +47,7 @@
 
 <script lang='ts'>
 import {defineComponent, ref, provide} from 'vue'
-import {WindowName} from '@/static/enums'
+import {WindowName} from '@/static/enum/enums'
 import store from "@/store/store"
 import Side from "@/views/sider/Side.vue"
 import Article from "@/views/article/Article.vue"
@@ -65,6 +65,10 @@ export default defineComponent({
     let currentAppWindow = ref<WindowName>(WindowName.Home)
     // 当前主页窗口
     let currentHomeWindow = ref<WindowName>(WindowName.Article)
+    // 是否为批量编辑模式
+    let isBatch = ref<boolean>(false)
+    // 为子组件提供当前是否为批量编辑模式的状态
+    provide(store.article.isBatch, isBatch)
     provide(store.currentAppWindow, currentAppWindow)
     provide(store.currentHomeWindow, currentHomeWindow)
     return {currentAppWindow, currentHomeWindow, WindowName}
