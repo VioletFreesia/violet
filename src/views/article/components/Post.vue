@@ -65,7 +65,7 @@
                 <span>{{ postCard.bulkOperation }}</span>
               </div>
             </template>
-            <div :id="isBatch?'':'more'" class="violet v-more"></div>
+            <div :class="isBatch? 'batch':'no-batch'" class="violet v-more"></div>
           </a-popover>
         </div>
       </div>
@@ -92,36 +92,49 @@ export default defineComponent({
       require: true
     }
   },
-  methods: {
-    selectorToggle() {
-      if (this.isBatch) {
-        this.postInfo!.isSelected = !this.postInfo!.isSelected
-      } else {
-        this.$emit('operation', PostCardOperationType.EditPost, this.postInfo!.id)
-      }
-    },
-    operation(operationType: PostCardOperationType) {
-      this.moreVisible = false
-      this.$emit('operation', operationType, this.postInfo!.id)
-    },
-    isAble(visible: boolean) {
-      if (this.isBatch) {
-        if (visible) {
-          this.moreVisible = false
-        }
-      }
-    }
-  },
-
-  setup() {
+  setup(props, {emit}) {
+    // 获取当前的编辑状态是否为批量编辑
+    let isBatch = inject<Ref<boolean>>(store.article.isBatch)!
+    // 文章操作菜单是否可见
     let moreVisible = ref<boolean>(false)
-    let isBatch = inject<Ref<boolean>>(store.article.isBatch)
+    // 获取文章卡片的界面语言包
+    let postCard: PostCard = getLocale().postCard
+    // 修改当前的编辑状态
     let batch = () => {
       moreVisible.value = false
       isBatch!.value = true
     }
-    let postCard: PostCard = getLocale().postCard
-    return {postCard, isBatch, moreVisible, batch, PostCardOperationType}
+    // 如果处于批量编辑模式选中或取消选中当前文章,非批量编辑模式查看/编辑当前文章
+    let selectorToggle = () => {
+      if (isBatch.value) {
+        props.postInfo!.isSelected = !props.postInfo!.isSelected
+      } else {
+        emit('operation', PostCardOperationType.EditPost, props.postInfo!.id)
+      }
+    }
+    // 文章操作功能处理
+    let operation = (operationType: PostCardOperationType) => {
+      moreVisible.value = false
+      emit('operation', operationType, props.postInfo!.id)
+    }
+    // 文章操作功能是否可用, 如果是批量编辑模式下禁用文章操作功能
+    let isAble = (visible: boolean) => {
+      if (isBatch.value) {
+        if (visible) {
+          moreVisible.value = false
+        }
+      }
+    }
+    return {
+      postCard,
+      isBatch,
+      moreVisible,
+      batch,
+      selectorToggle,
+      operation,
+      isAble,
+      PostCardOperationType
+    }
   }
 })
 </script>
@@ -216,9 +229,17 @@ export default defineComponent({
   text-align: center;
 }
 
-#more:hover {
+.batch:hover {
+  cursor: not-allowed;
+}
+
+.no-batch:hover {
   color: violet;
   cursor: pointer;
+}
+
+.v-selected {
+  color: magenta;
 }
 
 .option {
@@ -241,10 +262,5 @@ export default defineComponent({
   background-color: #e8e8e8;
   user-select: none;
   cursor: pointer;
-}
-</style>
-<style>
-.ant-popover-inner-content {
-  padding: 10px 0 !important;
 }
 </style>
