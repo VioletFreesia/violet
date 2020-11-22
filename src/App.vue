@@ -27,12 +27,16 @@ html, body {
   width: 100%;
   height: 100%;
   display: block;
+  background-color: transparent !important;
 }
 
 #app {
   font-family: JetBrainsMono, serif;
   width: 100%;
   height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
 }
 
 /*控制整个滚动条*/
@@ -50,7 +54,7 @@ html, body {
 
 /*滚动条中间滑动部分*/
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0,.15);
+  background-color: rgba(0, 0, 0, .15);
   border-radius: 4px;
 }
 </style>
