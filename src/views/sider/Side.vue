@@ -4,36 +4,31 @@
       <img id="logo" src="@/assets/images/logo.png" width="128" alt="logo">
     </a-row>
     <a-row id="menu">
-      <div class="menu-btn" :class="isActive(WindowName.Article)"
-           @click="active(WindowName.Article)">
-        <div class="violet v-article">
-          <span class="font-family">{{ side.article }}</span>
+      <transition
+          enter-active-class="animate__animated animate__fadeInLeft">
+        <div v-show="!isBatch" class="change-window-menu">
+          <div v-for="menu in changeWindowMenu"
+               class="menu-btn"
+               :class="{active: currentHomeWindow === menu.targetHomeWindow}"
+               @click="changeHomeWindow(menu.targetHomeWindow)">
+            <div class="violet" :class="menu.iconName">
+              <span class="font-family">{{ menu.text }}</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="menu-btn" :class="isActive(WindowName.Page)"
-           @click="active(WindowName.Page)">
-        <div class="violet v-page">
-          <span class="font-family">{{ side.page }}</span>
+      </transition>
+      <transition
+          enter-active-class="animate__animated animate__fadeInLeft">
+        <div v-show="isBatch" class="batch-option-menu">
+          <div v-for="menu in batchOptionMenus"
+               class="menu-btn"
+               @click="batchOption(menu.operationType)">
+            <div class="violet" :class="menu.iconName">
+              <span class="font-family">{{ menu.text }}</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="menu-btn" :class="isActive(WindowName.Category)"
-           @click="active(WindowName.Category)">
-        <div class="violet v-category">
-          <span class="font-family">{{ side.category }}</span>
-        </div>
-      </div>
-      <div class="menu-btn" :class="isActive(WindowName.Setting)"
-           @click="active(WindowName.Setting)">
-        <div class="violet v-settings">
-          <span class="font-family">{{ side.settings }}</span>
-        </div>
-      </div>
-      <div class="menu-btn" :class="isActive(WindowName.RecycleBin)"
-           @click="active(WindowName.RecycleBin)">
-        <div class="violet v-delete">
-          <span class="font-family"> {{ side.recycleBin }}</span>
-        </div>
-      </div>
+      </transition>
     </a-row>
     <div class="side-btn">
       <a-button id="preview" shape="round" block>
@@ -51,30 +46,48 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, inject, Ref, ref} from 'vue'
+import {defineComponent, inject, Ref} from 'vue'
 import {SearchOutlined} from '@ant-design/icons-vue'
-import {WindowName} from "@/static/enums"
+import {PostCardOperationType, WindowName} from "@/static/enum/enums"
 import store from "@/store/store"
 import {getLocale} from "@/tools/get-config"
-import {Side} from "@/interfaces/globalization/globalization"
+import {batchOptionMenu, changeHomeWindowMenu} from "@/static/side/side-menus"
 
 
 export default defineComponent({
   name: 'Side',
   components: {SearchOutlined},
   setup() {
-    let side: Side = getLocale().side
-    let currentHomeWindow = inject<Ref<WindowName>>(store.currentHomeWindow, ref(WindowName.Article))
-    let isActive = (windowName: WindowName): string => {
-      if (currentHomeWindow.value === windowName)
-        return 'active'
-      else
-        return ''
-    }
-    let active = (windowName: WindowName) => {
+    // 获取当前主页窗口
+    let currentHomeWindow = inject<Ref<WindowName>>(store.currentHomeWindow)!
+    // 获取批量编辑模式状态
+    let isBatch = inject<Ref<boolean>>(store.article.isBatch)!
+    // 获取侧边栏语言包
+    let side = getLocale().side
+    let postCard = getLocale().postCard
+    // 获取切换主页窗口的菜单数组
+    let changeWindowMenu = changeHomeWindowMenu(side)
+    // 批量操作菜单数组
+    let batchOptionMenus = batchOptionMenu(postCard)
+    // 切换主页窗口
+    let changeHomeWindow = (windowName: WindowName) => {
       currentHomeWindow.value = windowName
     }
-    return {side, active, isActive, currentHomeWindow, WindowName}
+    let batchOption = (operationType: PostCardOperationType) => {
+      if (operationType === PostCardOperationType.QuitBatchOption) {
+        isBatch.value = false
+      }
+    }
+    return {
+      side,
+      isBatch,
+      currentHomeWindow,
+      changeWindowMenu,
+      batchOptionMenus,
+      WindowName,
+      changeHomeWindow,
+      batchOption
+    }
   }
 })
 </script>
