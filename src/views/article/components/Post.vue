@@ -26,12 +26,12 @@
             <template v-slot:content>
               <div class="option violet v-no-deploy"
                    v-if="postInfo.isDeploy"
-                   @click="operation(PostCardOperationType.UnPublish)">
-                <span>{{ postCard.unPublish }}</span>
+                   @click="operation(PostCardOperationType.UnDeploy)">
+                <span>{{ postCard.unDeploy }}</span>
               </div>
               <div class="option violet v-deploy" v-else
-                   @click="operation(PostCardOperationType.PostArticle)">
-                <span>{{ postCard.postArticle }}</span>
+                   @click="operation(PostCardOperationType.DeployArticle)">
+                <span>{{ postCard.deployArticle }}</span>
               </div>
               <div class="option violet v-show"
                    v-if="postInfo.isHide"
@@ -50,8 +50,8 @@
               </div>
               <div class="option violet v-no-top"
                    v-if="postInfo.isTop"
-                   @click="operation(PostCardOperationType.UnPink)">
-                <span>{{ postCard.unPink }}</span>
+                   @click="operation(PostCardOperationType.UnTop)">
+                <span>{{ postCard.unTop }}</span>
               </div>
               <div class="option violet v-delete"
                    @click="operation(PostCardOperationType.DeleteArticle)">
@@ -62,7 +62,7 @@
                 <span>{{ postCard.modifyProperties }}</span>
               </div>
               <div class="option violet v-batch" @click="batch">
-                <span>{{ postCard.bulkOperation }}</span>
+                <span>{{ postCard.batchOperation }}</span>
               </div>
             </template>
             <div :class="isBatch? 'batch':'no-batch'" class="violet v-more"></div>
@@ -80,7 +80,7 @@ import {getLocale} from "@/tools/get-config"
 import {PostCard} from "@/interfaces/globalization/globalization"
 import {SettingOutlined, EditOutlined, EllipsisOutlined} from '@ant-design/icons-vue'
 import {PostInfo} from "@/interfaces/public/post"
-import {PostCardOperationType} from "@/static/enums"
+import {PostCardOperationType} from "@/static/enum/enums"
 import store from "@/store/store"
 
 export default defineComponent({

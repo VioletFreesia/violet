@@ -14,15 +14,16 @@ const side: Side = {
 const postCard: PostCard = {
     deployStatus: '已发布',
     saveStatus: '已保存',
-    unPublish: '取消发布',
-    postArticle: '发布文章',
+    unDeploy: '取消发布',
+    deployArticle: '发布文章',
     unHide: '取消隐藏',
     hideArticle: '隐藏文章',
     topArticle: '置顶文章',
-    unPink: '取消置顶',
+    unTop: '取消置顶',
     deleteArticle: '删除文章',
     modifyProperties: '修改属性',
-    bulkOperation: '批量操作',
+    batchOperation: '批量操作',
+    quitBatchOperation: '退出操作'
 }
 
 const postEditor: PostEditor = {

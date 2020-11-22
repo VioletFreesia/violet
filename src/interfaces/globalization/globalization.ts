@@ -14,15 +14,16 @@ export interface Side {
 export interface PostCard {
     deployStatus: string
     saveStatus: string
-    unPublish: string
-    postArticle: string
+    unDeploy: string
+    deployArticle: string
     unHide: string
     hideArticle: string
     topArticle: string
-    unPink: string
+    unTop: string
     deleteArticle: string
     modifyProperties: string
-    bulkOperation: string
+    batchOperation: string
+    quitBatchOperation: string
 }
 
 export interface PostEditor {
