@@ -6,3 +6,7 @@
 .no-select {
     user-select: none;
 }
+
+.ant-popover-inner-content {
+    padding: 10px 0 !important;
+}
