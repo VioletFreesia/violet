@@ -5,7 +5,7 @@
 </template>
 <script lang="ts">
 import {defineComponent, inject, Ref, onMounted} from 'vue'
-import {WindowName} from "@/static/enums"
+import {WindowName} from "@/static/enum/enums"
 import Vditor from "vditor"
 import store from "@/store/store"
 import {message} from 'ant-design-vue'
