@@ -97,6 +97,7 @@ export default defineComponent({
     }
     // 保存文章
     let save = () => {
+      console.log(Editor.getValue())
       message.success('保存成功')
     }
     // 大纲滚动函数
@@ -109,6 +110,7 @@ export default defineComponent({
         }, 500)
       }
     }
+    // 生命周期钩子,组件挂载后创建编辑器
     onMounted(() => {
       let toolbarConfig = getToolBarConfig({
         insertImageText: locale.insertImage,
@@ -148,7 +150,7 @@ export default defineComponent({
               .html('<div class="violet v-editor-quit"></div>')
           $('.violet-btn button[data-type=image]')
               .html('<div class="violet v-picture"></div>')
-          Editor.setValue('书写你的心情')
+          Editor.focus()
         }
       })
     })

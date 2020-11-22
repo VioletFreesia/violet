@@ -44,7 +44,7 @@ export default defineComponent({
     let showModifyModel = ref<boolean>(false)
     // 为子组件提供当前是否为批量编辑模式的状态
     provide(store.article.isBatch, isBatch)
-
+    // 文章事件的控制器
     let postCardOperationHandler = (operationType: PostCardOperationType, postId: string) => {
       message.info(operationType + ' ' + postId)
       if (operationType === PostCardOperationType.EditPost) {
