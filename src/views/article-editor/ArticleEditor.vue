@@ -4,14 +4,76 @@
   </div>
 </template>
 <script lang="ts">
-import {defineComponent, inject} from 'vue'
+import {defineComponent, inject, Ref, onMounted} from 'vue'
 import {WindowName} from "@/static/enums"
 import Vditor from "vditor"
 import store from "@/store/store"
-import {emoji} from "@/static/emoji"
-import {PostEditor, Globalization} from "@/interfaces/globalization/globalization"
 import {message} from 'ant-design-vue'
+import {getLocale} from "@/tools/get-config"
 import $ from "jquery"
+
+
+let getToolBarConfig = (option: {
+  quitText: string
+  quitCallback: (status?: boolean | undefined) => void
+  saveText: string
+  saveCallback: (status?: boolean | undefined) => void
+  insertImageText: string
+  insertImageCallback: (status?: boolean | undefined) => void
+}) => {
+  return [
+    {
+      hotkey: '',
+      name: 'quit',
+      tipPosition: 'nw',
+      tip: option.quitText,
+      className: 'violet-btn',
+      click: option.quitCallback
+    },
+    {
+      hotkey: 'ctrl-s',
+      name: 'save',
+      tipPosition: 'nw',
+      tip: option.saveText,
+      className: 'violet-btn',
+      click: option.saveCallback
+    },
+    'undo',
+    'redo',
+    '|',
+    'emoji',
+    'headings',
+    'bold',
+    'italic',
+    'strike',
+    '|',
+    'line',
+    'quote',
+    'check',
+    'list',
+    'ordered-list',
+    'outdent',
+    'indent',
+    '|',
+    'code',
+    'inline-code',
+    'link',
+    'table',
+    {
+      hotkey: 'ctrl-p',
+      name: 'image',
+      tipPosition: 'nw',
+      tip: option.insertImageText,
+      className: 'violet-btn',
+      click: option.insertImageCallback
+    },
+    '|',
+    'outline',
+    'code-theme',
+    'export',
+    'edit-mode'
+  ]
+}
 
 export default defineComponent({
   name: "ArticleEditor",
@@ -21,75 +83,45 @@ export default defineComponent({
       default: false
     }
   },
-  data() {
-    return {
-      contentEditor: Vditor
+  methods: {},
+  setup() {
+    // 获取文章编辑界面语言包
+    let locale = getLocale().postEditor
+    // 获取当前窗口
+    let currentAppWindow = inject<Ref<WindowName>>(store.currentAppWindow)!
+    // 声明编辑器对象
+    let Editor: Vditor
+    // 返回主界面函数
+    let back = () => {
+      currentAppWindow.value = WindowName.Home
     }
-  },
-  mounted() {
-    new Promise(resolve => {
-      let toolbar = [
-        {
-          hotkey: '',
-          name: 'quit',
-          tipPosition: 'nw',
-          tip: this.locale.quit,
-          className: 'violet-btn',
-          click: () => {
-            this.back()
-          }
+    // 保存文章
+    let save = () => {
+      message.success('保存成功')
+    }
+    // 大纲滚动函数
+    let scrollTo = (id: string) => {
+      let top = $('#' + id).offset()!.top //还需要滚的距离
+      let p = $('.vditor-ir pre.vditor-reset').offset()!.top //已经滚出去的距离
+      if (Math.floor(top).toFixed(0) !== '110') {
+        $('.vditor-ir').animate({
+          scrollTop: -p + top //总共需要滚的距离为已经滚出去的绝对值+还需要滚的
+        }, 500)
+      }
+    }
+    onMounted(() => {
+      let toolbarConfig = getToolBarConfig({
+        insertImageText: locale.insertImage,
+        quitText: locale.quit,
+        saveText: locale.save,
+        quitCallback: back,
+        insertImageCallback() {
+          Editor.insertValue(`![](${locale.inputImagePath})`)
         },
-        {
-          hotkey: 'ctrl-s',
-          name: 'save',
-          tipPosition: 'nw',
-          tip: this.locale.save,
-          className: 'violet-btn',
-          click: () => {
-            message.success('保存成功')
-          }
-        },
-        'undo',
-        'redo',
-        '|',
-        'emoji',
-        'headings',
-        'bold',
-        'italic',
-        'strike',
-        '|',
-        'line',
-        'quote',
-        'check',
-        'list',
-        'ordered-list',
-        'outdent',
-        'indent',
-        '|',
-        'code',
-        'inline-code',
-        'link',
-        'table',
-        {
-          hotkey: 'ctrl-p',
-          name: 'image',
-          tipPosition: 'nw',
-          tip: this.locale.insertImage,
-          className: 'violet-btn',
-          click: () => {
-            // @ts-ignore
-            this.contentEditor.insertValue(`![](${this.locale.inputImagePath})`)
-          }
-        },
-        '|',
-        'outline',
-        'code-theme',
-        'export',
-        'edit-mode'
-      ]
-      // @ts-ignore
-      this.contentEditor = new Vditor('vditor', {
-        toolbar,
+        saveCallback: save
+      })
+      Editor = new Vditor('vditor', {
+        toolbar: toolbarConfig,
         counter: {
           enable: true,
           type: 'text'
@@ -102,44 +134,28 @@ export default defineComponent({
           maxWidth: 1200
         },
         after() {
-          resolve(true)
+          // 为大纲注册点击滚动事件
+          $('.vditor-outline').on('click', 'div[data-id]', () => {
+            let target = $('div.vditor-outline__item.vditor-outline__item--current')
+                .attr('data-id')
+            if (target)
+              scrollTo(target)
+          })
+          // 为自定义按钮添加图标
+          $('.violet-btn button[data-type=save]')
+              .html('<div class="violet v-editor-save"></div>')
+          $('.violet-btn button[data-type=quit]')
+              .html('<div class="violet v-editor-quit"></div>')
+          $('.violet-btn button[data-type=image]')
+              .html('<div class="violet v-picture"></div>')
+          Editor.setValue('书写你的心情')
         }
       })
-    }).then(() => {
-      // 为大纲条目注册点击事件
-      $('.vditor-outline').on('click', 'div[data-id]', () => {
-        let target = $('div.vditor-outline__item.vditor-outline__item--current')
-            .attr('data-id')
-        if (target)
-          this.scrollTo(target)
-      })
-      // 为自定义按钮添加图标
-      $('.violet-btn button[data-type=save]')
-          .html('<div class="violet v-editor-save"></div>')
-      $('.violet-btn button[data-type=quit]')
-          .html('<div class="violet v-editor-quit"></div>')
-      $('.violet-btn button[data-type=image]')
-          .html('<div class="violet v-picture"></div>')
     })
-  },
-  methods: {
-    back() {
-      this.currentAppWindow = WindowName.Home
-    },
-    scrollTo(id: string) {
-      let top = $('#' + id).offset()!.top //还需要滚的距离
-      let p = $('.vditor-ir pre.vditor-reset').offset()!.top //已经滚出去的距离
-      if (Math.floor(top).toFixed(0) !== '110') {
-        $('.vditor-ir').animate({
-          scrollTop: -p + top //总共需要滚的距离为已经滚出去的绝对值+还需要滚的
-        }, 500)
-      }
-    },
-  },
-  setup() {
-    let locale: PostEditor = inject<Globalization>(store.locale)!.postEditor
-    let currentAppWindow = inject<WindowName>(store.currentAppWindow)!
-    return {currentAppWindow, locale}
+    return {
+      currentAppWindow,
+      locale
+    }
   }
 })
 </script>
