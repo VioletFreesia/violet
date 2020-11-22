@@ -12,13 +12,15 @@ export enum WindowName {
 
 // 文章卡片触发的操作名
 export enum PostCardOperationType {
-    UnPublish,          //取消发布
-    PostArticle,        //发布文章
+    UnDeploy,          //取消发布
+    DeployArticle,        //发布文章
     UnHide,             //取消隐藏
     HideArticle,        //隐藏文章
     TopArticle,         //置顶文章
-    UnPink,             //取消置顶
+    UnTop,             //取消置顶
     DeleteArticle,      //删除文章
     ModifyProperties,   //修改属性
-    EditPost           //编辑/查看文章
+    EditPost,           //编辑/查看文章
+    BatchOption,        //批量编辑
+    QuitBatchOption    //退出批量编辑
 }
