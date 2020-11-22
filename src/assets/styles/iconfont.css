@@ -41,7 +41,6 @@
 
 .v-selected:before {
     content: "\e60b";
-    color: violet;
 }
 
 .v-delete:before {
