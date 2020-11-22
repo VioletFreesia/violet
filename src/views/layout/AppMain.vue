@@ -46,7 +46,7 @@
 </template>
 
 <script lang='ts'>
-import {defineComponent, ref, provide, Ref} from 'vue'
+import {defineComponent, ref, provide} from 'vue'
 import {WindowName} from '@/static/enums'
 import store from "@/store/store"
 import Side from "@/views/sider/Side.vue"
@@ -61,10 +61,12 @@ export default defineComponent({
   name: "AppMain",
   components: {Side, Article, Page, RecycleBin, Category, Setting, ArticleEditor},
   setup() {
+    // 当前app窗口
     let currentAppWindow = ref<WindowName>(WindowName.Home)
+    // 当前主页窗口
     let currentHomeWindow = ref<WindowName>(WindowName.Article)
-    provide<Ref<WindowName>>(store.currentAppWindow, currentAppWindow)
-    provide<Ref<WindowName>>(store.currentHomeWindow, currentHomeWindow)
+    provide(store.currentAppWindow, currentAppWindow)
+    provide(store.currentHomeWindow, currentHomeWindow)
     return {currentAppWindow, currentHomeWindow, WindowName}
   }
 })
