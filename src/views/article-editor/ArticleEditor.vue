@@ -83,7 +83,6 @@ export default defineComponent({
       default: false
     }
   },
-  methods: {},
   setup() {
     // 获取文章编辑界面语言包
     let locale = getLocale().postEditor
