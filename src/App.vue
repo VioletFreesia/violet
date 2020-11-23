@@ -31,7 +31,7 @@ html, body {
 }
 
 #app {
-  font-family: JetBrainsMono, serif;
+  font-family: JetBrainsMono;
   width: 100%;
   height: 100%;
   border-radius: 10px;

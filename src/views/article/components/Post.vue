@@ -174,7 +174,6 @@ export default defineComponent({
   bottom: 0;
   position: absolute;
   color: #e8e8e8;
-  font-family: JetBrainsMono, serif;
   font-size: 16px;
   background-color: rgba(0, 0, 0, .4);
   border-radius: 0 0 15px 15px;
@@ -219,7 +218,7 @@ export default defineComponent({
 }
 
 #description .violet span {
-  font-family: JetBrainsMono, serif;
+  font-family: JetBrainsMono;
   display: inline-block;
   margin-left: 3px;
 }
