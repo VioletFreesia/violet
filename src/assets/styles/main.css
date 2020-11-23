@@ -14,3 +14,7 @@
 .animate__disappear {
     display: none;
 }
+
+.ant-tabs-nav .ant-tabs-tab-active {
+    color: violet;
+}
