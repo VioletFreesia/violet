@@ -1,5 +1,26 @@
 <template>
-<div>设置页</div>
+  <div id="settings">
+    <a-tabs>
+      <a-tab-pane key="1" tab="网站设置">
+        网站设置
+      </a-tab-pane>
+      <a-tab-pane key="2" tab="主题设置">
+        主题设置
+      </a-tab-pane>
+      <a-tab-pane key="3" tab="远程设置">
+        远程设置
+      </a-tab-pane>
+      <a-tab-pane key="4" tab="评论设置">
+        评论设置
+      </a-tab-pane>
+      <a-tab-pane key="5" tab="系统设置">
+        系统设置
+      </a-tab-pane>
+      <a-tab-pane key="6" tab="关 于">
+        关 于
+      </a-tab-pane>
+    </a-tabs>
+  </div>
 </template>
 
 <script lang="ts">
