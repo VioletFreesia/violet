@@ -1,0 +1,19 @@
+{
+  "postInfos": [
+    {
+      "id": "post1",
+      "title": "重学Java之IO",
+      "img": "D:/Program/violet/src/assets/images/default1.jpg",
+      "tags": [],
+      "category": {
+        "name": "Java"
+      },
+      "modifyDate": "2020-11-01",
+      "isDeploy": true,
+      "isTop": false,
+      "isHide": true,
+      "fileName": "",
+      "isSelected": false
+    }
+  ]
+}

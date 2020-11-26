@@ -17,7 +17,7 @@ let getAllPostInfo = (): PostInfo[] => {
         {
             id: 'post1',
             title: '重学Java之IO',
-            img: imagePath + "/violet/src/assets/images/default1.jpg",
+            img: imagePath + "/violet/workspace/images/default1.jpg",
             tags: [],
             category: {name: 'Java', parent: null, subCategory: [], posts: []},
             modifyDate: '2020-11-01',
@@ -30,7 +30,7 @@ let getAllPostInfo = (): PostInfo[] => {
         {
             id: 'post2',
             title: '重学Java之异常',
-            img: imagePath + "/violet/src/assets/images/default2.jpg",
+            img: imagePath + "/violet/workspace/images/default2.jpg",
             tags: [],
             category: {name: 'Java', parent: null, subCategory: [], posts: []},
             modifyDate: '2020-11-01',
@@ -43,7 +43,7 @@ let getAllPostInfo = (): PostInfo[] => {
         {
             id: 'post3',
             title: '重学Java之泛型',
-            img: imagePath + "/violet/src/assets/images/default3.jpg",
+            img: imagePath + "/violet/workspace/images/default3.jpg",
             tags: [],
             category: {name: 'Java', parent: null, subCategory: [], posts: []},
             modifyDate: '2020-11-01',
@@ -56,7 +56,7 @@ let getAllPostInfo = (): PostInfo[] => {
         {
             id: 'post4',
             title: '重学Java之IO',
-            img: imagePath + "/violet/src/assets/images/default1.jpg",
+            img: imagePath + "/violet/workspace/images/default1.jpg",
             tags: [],
             category: {name: 'Java', parent: null, subCategory: [], posts: []},
             modifyDate: '2020-11-01',
@@ -69,7 +69,7 @@ let getAllPostInfo = (): PostInfo[] => {
         {
             id: 'post5',
             title: '重学Java之异常',
-            img: imagePath + "/violet/src/assets/images/default2.jpg",
+            img: imagePath + "/violet/workspace/images/default2.jpg",
             tags: [],
             category: {name: 'Java', parent: null, subCategory: [], posts: []},
             modifyDate: '2020-11-01',
@@ -82,7 +82,7 @@ let getAllPostInfo = (): PostInfo[] => {
         {
             id: 'post6',
             title: '重学Java之泛型',
-            img: imagePath + "/violet/src/assets/images/default3.jpg",
+            img: imagePath + "/violet/workspace/images/default3.jpg",
             tags: [],
             category: {name: 'Java', parent: null, subCategory: [], posts: []},
             modifyDate: '2020-11-01',
@@ -95,7 +95,7 @@ let getAllPostInfo = (): PostInfo[] => {
         {
             id: 'post7',
             title: '重学Java之IO',
-            img: imagePath + "/violet/src/assets/images/default1.jpg",
+            img: imagePath + "/violet/workspace/images/default1.jpg",
             tags: [],
             category: {name: 'Java', parent: null, subCategory: [], posts: []},
             modifyDate: '2020-11-01',
@@ -108,7 +108,7 @@ let getAllPostInfo = (): PostInfo[] => {
         {
             id: 'post8',
             title: '重学Java之异常',
-            img: imagePath + "/violet/src/assets/images/default2.jpg",
+            img: imagePath + "/violet/workspace/images/default2.jpg",
             tags: [],
             category: {name: 'Java', parent: null, subCategory: [], posts: []},
             modifyDate: '2020-11-01',
@@ -121,7 +121,7 @@ let getAllPostInfo = (): PostInfo[] => {
         {
             id: 'post9',
             title: '重学Java之泛型',
-            img: imagePath + "/violet/src/assets/images/default3.jpg",
+            img: imagePath + "/violet/workspace/images/default3.jpg",
             tags: [],
             category: {name: 'Java', parent: null, subCategory: [], posts: []},
             modifyDate: '2020-11-01',
@@ -134,7 +134,7 @@ let getAllPostInfo = (): PostInfo[] => {
         {
             id: 'post10',
             title: '重学Java之IO',
-            img: imagePath + "/violet/src/assets/images/default1.jpg",
+            img: imagePath + "/violet/workspace/images/default1.jpg",
             tags: [],
             category: {name: 'Java', parent: null, subCategory: [], posts: []},
             modifyDate: '2020-11-01',
@@ -147,7 +147,7 @@ let getAllPostInfo = (): PostInfo[] => {
         {
             id: 'post11',
             title: '重学Java之异常',
-            img: imagePath + "/violet/src/assets/images/default2.jpg",
+            img: imagePath + "/violet/workspace/images/default2.jpg",
             tags: [],
             category: {name: 'Java', parent: null, subCategory: [], posts: []},
             modifyDate: '2020-11-01',
@@ -160,7 +160,7 @@ let getAllPostInfo = (): PostInfo[] => {
         {
             id: 'post12',
             title: '重学Java之泛型',
-            img: imagePath + "/violet/src/assets/images/default3.jpg",
+            img: imagePath + "/violet/workspace/images/default3.jpg",
             tags: [],
             category: {name: 'Java', parent: null, subCategory: [], posts: []},
             modifyDate: '2020-11-01',
@@ -173,7 +173,7 @@ let getAllPostInfo = (): PostInfo[] => {
         {
             id: 'post13',
             title: '重学Java之IO',
-            img: imagePath + "/violet/src/assets/images/default1.jpg",
+            img: imagePath + "/violet/workspace/images/default1.jpg",
             tags: [],
             category: {name: 'Java', parent: null, subCategory: [], posts: []},
             modifyDate: '2020-11-01',
@@ -186,7 +186,7 @@ let getAllPostInfo = (): PostInfo[] => {
         {
             id: 'post14',
             title: '重学Java之异常',
-            img: imagePath + "/violet/src/assets/images/default2.jpg",
+            img: imagePath + "/violet/workspace/images/default2.jpg",
             tags: [],
             category: {name: 'Java', parent: null, subCategory: [], posts: []},
             modifyDate: '2020-11-01',
@@ -199,7 +199,7 @@ let getAllPostInfo = (): PostInfo[] => {
         {
             id: 'post15',
             title: '重学Java之泛型',
-            img: imagePath + "/violet/src/assets/images/default3.jpg",
+            img: imagePath + "/violet/workspace/images/default3.jpg",
             tags: [],
             category: {name: 'Java', parent: null, subCategory: [], posts: []},
             modifyDate: '2020-11-01',
