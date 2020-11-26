@@ -18,3 +18,17 @@
 .ant-tabs-nav .ant-tabs-tab-active {
     color: violet;
 }
+
+.ant-tabs-ink-bar {
+    background-color: violet;
+}
+
+.ant-tabs-nav .ant-tabs-tab:hover {
+    color: violet;
+}
+#settings .ant-anchor-wrapper {
+    background-color: transparent;
+}
+#settings .ant-anchor-ink::before {
+    background-color: rgba(128,128,128,0.3);
+}
