@@ -15,15 +15,15 @@
     display: none;
 }
 
-.ant-tabs-nav .ant-tabs-tab-active {
+#settings .ant-tabs-nav .ant-tabs-tab-active {
     color: violet;
 }
 
-.ant-tabs-ink-bar {
+#settings .ant-tabs-ink-bar {
     background-color: violet;
 }
 
-.ant-tabs-nav .ant-tabs-tab:hover {
+#settings .ant-tabs-nav .ant-tabs-tab:hover {
     color: violet;
 }
 #settings .ant-anchor-wrapper {
@@ -31,4 +31,8 @@
 }
 #settings .ant-anchor-ink::before {
     background-color: rgba(128,128,128,0.3);
+}
+
+#settings .ant-tabs-top-content {
+    height: 100%;
 }

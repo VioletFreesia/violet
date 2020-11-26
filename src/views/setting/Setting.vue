@@ -1,6 +1,6 @@
 <template>
   <div id="settings">
-    <a-tabs>
+    <a-tabs class="tabs">
       <a-tab-pane key="1" tab="网站设置">
         <site-setting/>
       </a-tab-pane>
@@ -38,8 +38,11 @@ export default defineComponent({
 
 <style scoped>
 #settings {
-  padding: 10px;
+  padding-left: 10px;
   box-sizing: border-box;
+  height: 100%;
+}
+.tabs {
   height: 100%;
 }
 </style>
