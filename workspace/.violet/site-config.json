@@ -1,0 +1,13 @@
+{
+    "themeName": "violet",
+    "postPageSize": 10,
+    "archivesPageSize": 10,
+    "siteName": "violet",
+    "siteDescription": "好记性不如烂'笔头'",
+    "faviconPath": "/favicon.png",
+    "avatarPath": "/avatar.png",
+    "archivesPath": "/archive",
+    "postPath": "/posts",
+    "tagPath": "/tags",
+    "categoryPath": "/categories"
+}
