@@ -36,3 +36,12 @@
 #settings .ant-tabs-top-content {
     height: 100%;
 }
+#settings .ant-anchor-ink-ball {
+    border-color: violet;
+}
+#settings .ant-anchor-link-active > .ant-anchor-link-title {
+    color: violet;
+}
+#settings .ant-anchor-link-title:hover {
+    color: violet;
+}
