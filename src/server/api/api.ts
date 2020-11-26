@@ -1,8 +1,6 @@
 import {PostInfo} from "@/interfaces/public/post"
-import {SystemConfig} from "@/interfaces/public/setting"
-import {LanguageList} from "@/static/globalization/globalization"
 import Event from "@/interfaces/event/event"
-import events from "@/static/event/event"
+import events from "@/instance/event/event"
 import {ipcRenderer} from 'electron'
 
 let request = (event: Event, data: object | null = null) => {
@@ -19,7 +17,7 @@ let getAllPostInfo = (): PostInfo[] => {
             title: '重学Java之IO',
             img: imagePath + "/violet/workspace/images/default1.jpg",
             tags: [],
-            category: {name: 'Java', parent: null, subCategory: [], posts: []},
+            category: 'Java',
             modifyDate: '2020-11-01',
             isDeploy: true,
             isTop: false,
@@ -32,7 +30,7 @@ let getAllPostInfo = (): PostInfo[] => {
             title: '重学Java之异常',
             img: imagePath + "/violet/workspace/images/default2.jpg",
             tags: [],
-            category: {name: 'Java', parent: null, subCategory: [], posts: []},
+            category: 'Java',
             modifyDate: '2020-11-01',
             isDeploy: false,
             isTop: true,
@@ -45,7 +43,7 @@ let getAllPostInfo = (): PostInfo[] => {
             title: '重学Java之泛型',
             img: imagePath + "/violet/workspace/images/default3.jpg",
             tags: [],
-            category: {name: 'Java', parent: null, subCategory: [], posts: []},
+            category: 'Java',
             modifyDate: '2020-11-01',
             isDeploy: true,
             isTop: false,
@@ -58,7 +56,7 @@ let getAllPostInfo = (): PostInfo[] => {
             title: '重学Java之IO',
             img: imagePath + "/violet/workspace/images/default1.jpg",
             tags: [],
-            category: {name: 'Java', parent: null, subCategory: [], posts: []},
+            category: 'Java',
             modifyDate: '2020-11-01',
             isDeploy: true,
             isTop: false,
@@ -71,7 +69,7 @@ let getAllPostInfo = (): PostInfo[] => {
             title: '重学Java之异常',
             img: imagePath + "/violet/workspace/images/default2.jpg",
             tags: [],
-            category: {name: 'Java', parent: null, subCategory: [], posts: []},
+            category: 'Java',
             modifyDate: '2020-11-01',
             isDeploy: false,
             isTop: true,
@@ -84,7 +82,7 @@ let getAllPostInfo = (): PostInfo[] => {
             title: '重学Java之泛型',
             img: imagePath + "/violet/workspace/images/default3.jpg",
             tags: [],
-            category: {name: 'Java', parent: null, subCategory: [], posts: []},
+            category: 'Java',
             modifyDate: '2020-11-01',
             isDeploy: true,
             isTop: false,
@@ -97,7 +95,7 @@ let getAllPostInfo = (): PostInfo[] => {
             title: '重学Java之IO',
             img: imagePath + "/violet/workspace/images/default1.jpg",
             tags: [],
-            category: {name: 'Java', parent: null, subCategory: [], posts: []},
+            category: 'Java',
             modifyDate: '2020-11-01',
             isDeploy: true,
             isTop: false,
@@ -110,7 +108,7 @@ let getAllPostInfo = (): PostInfo[] => {
             title: '重学Java之异常',
             img: imagePath + "/violet/workspace/images/default2.jpg",
             tags: [],
-            category: {name: 'Java', parent: null, subCategory: [], posts: []},
+            category: 'Java',
             modifyDate: '2020-11-01',
             isDeploy: false,
             isTop: true,
@@ -123,7 +121,7 @@ let getAllPostInfo = (): PostInfo[] => {
             title: '重学Java之泛型',
             img: imagePath + "/violet/workspace/images/default3.jpg",
             tags: [],
-            category: {name: 'Java', parent: null, subCategory: [], posts: []},
+            category: 'Java',
             modifyDate: '2020-11-01',
             isDeploy: true,
             isTop: false,
@@ -136,7 +134,7 @@ let getAllPostInfo = (): PostInfo[] => {
             title: '重学Java之IO',
             img: imagePath + "/violet/workspace/images/default1.jpg",
             tags: [],
-            category: {name: 'Java', parent: null, subCategory: [], posts: []},
+            category: 'Java',
             modifyDate: '2020-11-01',
             isDeploy: true,
             isTop: false,
@@ -149,7 +147,7 @@ let getAllPostInfo = (): PostInfo[] => {
             title: '重学Java之异常',
             img: imagePath + "/violet/workspace/images/default2.jpg",
             tags: [],
-            category: {name: 'Java', parent: null, subCategory: [], posts: []},
+            category: 'Java',
             modifyDate: '2020-11-01',
             isDeploy: false,
             isTop: true,
@@ -162,7 +160,7 @@ let getAllPostInfo = (): PostInfo[] => {
             title: '重学Java之泛型',
             img: imagePath + "/violet/workspace/images/default3.jpg",
             tags: [],
-            category: {name: 'Java', parent: null, subCategory: [], posts: []},
+            category: 'Java',
             modifyDate: '2020-11-01',
             isDeploy: true,
             isTop: false,
@@ -175,7 +173,7 @@ let getAllPostInfo = (): PostInfo[] => {
             title: '重学Java之IO',
             img: imagePath + "/violet/workspace/images/default1.jpg",
             tags: [],
-            category: {name: 'Java', parent: null, subCategory: [], posts: []},
+            category: 'Java',
             modifyDate: '2020-11-01',
             isDeploy: true,
             isTop: false,
@@ -188,7 +186,7 @@ let getAllPostInfo = (): PostInfo[] => {
             title: '重学Java之异常',
             img: imagePath + "/violet/workspace/images/default2.jpg",
             tags: [],
-            category: {name: 'Java', parent: null, subCategory: [], posts: []},
+            category: 'Java',
             modifyDate: '2020-11-01',
             isDeploy: false,
             isTop: true,
@@ -201,7 +199,7 @@ let getAllPostInfo = (): PostInfo[] => {
             title: '重学Java之泛型',
             img: imagePath + "/violet/workspace/images/default3.jpg",
             tags: [],
-            category: {name: 'Java', parent: null, subCategory: [], posts: []},
+            category: 'Java',
             modifyDate: '2020-11-01',
             isDeploy: true,
             isTop: false,
@@ -212,8 +210,8 @@ let getAllPostInfo = (): PostInfo[] => {
     ]
 }
 
-let getSystemConfig = (): SystemConfig => {
-    return {workplace: 'D:\\Program\\violet\\workspace', language: LanguageList.zh_CN}
+let getSystemConfig = () => {
+    return ipcRenderer.sendSync(events.settingEvent.GetSystemConfig.eventName)
 }
 
 
