@@ -2,7 +2,7 @@
   <div id="settings">
     <a-tabs>
       <a-tab-pane key="1" tab="网站设置">
-        网站设置
+        <site-setting/>
       </a-tab-pane>
       <a-tab-pane key="2" tab="主题设置">
         主题设置
@@ -25,14 +25,21 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue'
+import SiteSetting from "@/views/setting/components/SiteSetting.vue"
 
 export default defineComponent({
   name: "Setting",
+  components: {SiteSetting},
   setup() {
+
   }
 })
 </script>
 
 <style scoped>
-
+#settings {
+  padding: 10px;
+  box-sizing: border-box;
+  height: 100%;
+}
 </style>
