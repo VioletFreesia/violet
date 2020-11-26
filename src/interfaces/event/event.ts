@@ -2,6 +2,11 @@ export default interface Event {
     eventName: string
 }
 
+export interface EventHandler {
+    event: Event
+    handler: Function
+}
+
 //文章属性相关操作事件
 export interface PostInfoEvent {
     Top: Event         //置顶文章,传递数组
@@ -22,8 +27,14 @@ export interface PostContentEvent {
     Delete: Event  //删除文章, 真正的删除,无法恢复
 }
 
+export interface SettingsEvent {
+    GetSystemConfig: Event  //获取系统设置
+    GetSiteConfig: Event    //获取网站配置
+}
+
 //所有事件集合
 export interface Events {
     postInfoEvent: PostInfoEvent
     postContentEvent: PostContentEvent
+    settingEvent: SettingsEvent
 }
