@@ -1,4 +1,4 @@
-import {PostCardOperationType, WindowName} from "@/static/enum/enums"
+import {PostCardOperationType, WindowName} from "@/instance/enum/enums"
 
 export interface SideMenu {
     text: string            //菜单的文本

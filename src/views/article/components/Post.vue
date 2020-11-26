@@ -80,7 +80,7 @@ import {getLocale} from "@/tools/get-config"
 import {PostCard} from "@/interfaces/globalization/globalization"
 import {SettingOutlined, EditOutlined, EllipsisOutlined} from '@ant-design/icons-vue'
 import {PostInfo} from "@/interfaces/public/post"
-import {PostCardOperationType} from "@/static/enum/enums"
+import {PostCardOperationType} from "@/instance/enum/enums"
 import store from "@/store/store"
 
 export default defineComponent({

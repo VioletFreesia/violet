@@ -49,7 +49,7 @@
 
 <script lang='ts'>
 import {defineComponent, ref, provide} from 'vue'
-import {WindowName} from '@/static/enum/enums'
+import {WindowName} from '@/instance/enum/enums'
 import store from "@/store/store"
 import Side from "@/views/sider/Side.vue"
 import Article from "@/views/article/Article.vue"

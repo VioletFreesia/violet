@@ -8,7 +8,7 @@ import Window from "@/views/layout/Window.vue"
 import {SystemConfig} from "@/interfaces/public/setting";
 import api from "@/server/api/api"
 import store from "@/store/store"
-import {globalization} from "@/static/globalization/globalization"
+import {globalization} from "@/instance/globalization/globalization"
 import {Globalization} from "@/interfaces/globalization/globalization";
 
 export default defineComponent({

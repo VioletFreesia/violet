@@ -1,6 +1,6 @@
 import {BatchOperationMenu, ChangeHomeWindowMenu} from "@/interfaces/side/side-menu"
 import {PostCard, Side} from "@/interfaces/globalization/globalization"
-import {PostCardOperationType, WindowName} from "@/static/enum/enums"
+import {PostCardOperationType, WindowName} from "@/instance/enum/enums"
 // 获得批量编辑菜单
 export let batchOptionMenu = (locale: PostCard): BatchOperationMenu[] => {
     return [

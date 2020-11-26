@@ -50,10 +50,10 @@
 <script lang="ts">
 import {defineComponent, inject, Ref} from 'vue'
 import {SearchOutlined} from '@ant-design/icons-vue'
-import {PostCardOperationType, WindowName} from "@/static/enum/enums"
+import {PostCardOperationType, WindowName} from "@/instance/enum/enums"
 import store from "@/store/store"
 import {getLocale} from "@/tools/get-config"
-import {batchOptionMenu, changeHomeWindowMenu} from "@/static/side/side-menus"
+import {batchOptionMenu, changeHomeWindowMenu} from "@/instance/side/side-menus"
 
 
 export default defineComponent({
