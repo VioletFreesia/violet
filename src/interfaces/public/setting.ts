@@ -1,5 +1,6 @@
 // 主题配置
-export interface ThemeConfig {
+export interface ThemeConfigItem {
+    // TODO: 待完成主题开发者自定义配置的每一项
 }
 
 // 网站配置
@@ -19,41 +20,16 @@ export interface SiteConfig {
 
 // 远程配置
 export interface RemoteConfig {
-    platform: 'github' | 'coding' | 'sftp'
-    domain: string
-    repository: string
-    branch: string
-    username: string
-    email: string
-    tokenUsername: string
-    token: string
-    cname: string
-    port: string
-    server: string
-    password: string
-    privateKey: string
-    remotePath: string
-
-    [index: string]: string
+    // TODO: 待完善远程配置
 }
 
 // 评论配置
 export interface CommentConfig {
-    commentPlatform: string
-    showComment: boolean
+    // TODO: 待完善评论配置
 }
 
 // 系统配置
 export interface SystemConfig {
-    workplace: string
-    language: string
-}
-
-// 整个设置
-export default interface Setting {
-    siteConfig: SiteConfig
-    themeConfig: ThemeConfig
-    remoteConfig: RemoteConfig
-    commentConfig: CommentConfig
-    systemConfig: SystemConfig
+    workplace: string   //软件的工作目录
+    language: string    //软件的界面语言
 }

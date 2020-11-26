@@ -26,6 +26,7 @@ export interface PostCard {
     quitBatchOperation: string
 }
 
+// 文章编辑界面国际化接口
 export interface PostEditor {
     quit: string
     save: string
