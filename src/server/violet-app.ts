@@ -1,12 +1,21 @@
-import {SystemConfig, SiteConfig} from "@/interfaces/public/setting"
-import {readJsonFile} from "@/tools/tools"
+import {SystemConfig} from "@/interfaces/public/setting"
+import eventHandlerRegister from "@/server/event-handler/event-handler"
 
 export class VioletApp {
     private _systemConfig: SystemConfig
-    private _siteConfig: SiteConfig
 
     constructor(systemConfig: SystemConfig) {
         this._systemConfig = systemConfig
-        this._siteConfig = readJsonFile('siteConfig')
+        // 注册事件
+        eventHandlerRegister(this)
+        console.log("violetApp已启动")
+    }
+
+    set systemConfig(value: SystemConfig) {
+        this._systemConfig = value;
+    }
+
+    get systemConfig(): SystemConfig {
+        return this._systemConfig;
     }
 }

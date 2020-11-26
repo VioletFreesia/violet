@@ -2,6 +2,8 @@
 
 import {app, protocol, BrowserWindow, ipcMain} from 'electron'
 import {createProtocol} from 'vue-cli-plugin-electron-builder/lib'
+import {VioletApp} from "@/server/violet-app"
+import {LanguageList} from "@/instance/globalization/globalization";
 
 const path = require('path')
 const os = require('os')
@@ -53,6 +55,7 @@ function createWindow() {
         if (win)
             win.minimize()
     })
+    new VioletApp({workplace: 'D:\\Program\\violet\\workspace', language: LanguageList.zh_CN})
 }
 
 // app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors')
