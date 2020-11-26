@@ -4,7 +4,7 @@ const FileSync = require('lowdb/adapters/FileSync')
 /**
  * 对操作json文件的简单封装
  */
-class JsonDB {
+export default class JsonDB {
     private readonly _db: any //数据库
     private _autoCommit: boolean //是否自动提交
 
@@ -108,5 +108,3 @@ class JsonDB {
         return this._db.write()
     }
 }
-
-module.exports = JsonDB
