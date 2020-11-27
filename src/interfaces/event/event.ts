@@ -17,6 +17,7 @@ export interface PostInfoEvent {
     UnDeploy: Event    //修改文章状态为保存
     Modify: Event      //修改某篇文章的属性
     Delete: Event      //将文章移入回收站,传递数组
+    GetAll: Event      //获取所有文章信息
 }
 
 //文章内容相关操作事件

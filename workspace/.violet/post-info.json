@@ -5,12 +5,7 @@
       "title": "重温Java之泛型",
       "img": "/images/default1.jpg",
       "tags": [],
-      "category": {
-        "name": "Java",
-        "parent": null,
-        "subCategory": [],
-        "posts": ["post1"]
-      },
+      "category": "Java",
       "modifyDate": "2020-11-01",
       "isDeploy": true,
       "isTop": false,
@@ -23,12 +18,7 @@
       "title": "重温Java之基础类库",
       "img": "https://images.pexels.com/photos/1181298/pexels-photo-1181298.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
       "tags": [],
-      "category": {
-        "name": "Java",
-        "parent": null,
-        "subCategory": [],
-        "posts": ["post2"]
-      },
+      "category": "Java",
       "modifyDate": "2020-11-01",
       "isDeploy": true,
       "isTop": false,
@@ -41,12 +31,7 @@
       "title": "重温Java之类与接口",
       "img": "/images/default2.jpg",
       "tags": [],
-      "category": {
-        "name": "Java",
-        "parent": null,
-        "subCategory": [],
-        "posts": ["post3"]
-      },
+      "category": "Java",
       "modifyDate": "2020-11-01",
       "isDeploy": true,
       "isTop": false,
@@ -59,12 +44,7 @@
       "title": "重温Java之异常",
       "img": "/images/default3.jpg",
       "tags": [],
-      "category": {
-        "name": "Java",
-        "parent": null,
-        "subCategory": [],
-        "posts": ["post4"]
-      },
+      "category": "Java",
       "modifyDate": "2020-11-01",
       "isDeploy": true,
       "isTop": false,
@@ -77,12 +57,7 @@
       "title": "重温Java之注解",
       "img": "https://images.pexels.com/photos/1181298/pexels-photo-1181298.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
       "tags": [],
-      "category": {
-        "name": "Java",
-        "parent": null,
-        "subCategory": [],
-        "posts": ["post5"]
-      },
+      "category": "Java",
       "modifyDate": "2020-11-01",
       "isDeploy": true,
       "isTop": false,
@@ -95,12 +70,7 @@
       "title": "重温Java之IO",
       "img": "/images/default2.jpg",
       "tags": [],
-      "category": {
-        "name": "Java",
-        "parent": null,
-        "subCategory": [],
-        "posts": ["post6"]
-      },
+      "category": "Java",
       "modifyDate": "2020-11-01",
       "isDeploy": true,
       "isTop": false,

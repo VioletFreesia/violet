@@ -10,7 +10,8 @@ let events: Events = {
         Top: {eventName: "PostInfoEventTop"},
         UnDeploy: {eventName: "PostInfoEventUnDeploy"},
         UnHide: {eventName: "PostInfoEventUnHide"},
-        UnTop: {eventName: "PostInfoEventUnTop"}
+        UnTop: {eventName: "PostInfoEventUnTop"},
+        GetAll: {eventName: "PostInfoEventGetAll"}
     },
     postContentEvent: {
         Create: {eventName: "PostContentEventCreate"},

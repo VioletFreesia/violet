@@ -1,5 +1,10 @@
+import fs from 'fs'
+
 export let readJsonFile = (filename: string): any => {
-    // TODO: 完成根据文件名读取json文件
-    console.log(`读取${filename}`)
-    return {}
+    try {
+        let str = fs.readFileSync(filename)
+        return JSON.parse(str.toString())
+    } catch (e) {
+        console.log("文件读取失败", e)
+    }
 }

@@ -9,7 +9,7 @@ export default class JsonDB {
     private _autoCommit: boolean //是否自动提交
 
     get db(): any {
-        return this._db;
+        return this._db
     }
 
     get autoCommit(): boolean {
@@ -17,7 +17,7 @@ export default class JsonDB {
     }
 
     set autoCommit(value: boolean) {
-        this._autoCommit = value;
+        this._autoCommit = value
     }
 
     /**
@@ -26,7 +26,7 @@ export default class JsonDB {
      * @param data 初始化数据库的默认数据
      * @param autoCommit 修改后是否自动提交
      */
-    constructor(filename: string, data: null | object, autoCommit = false) {
+    constructor(filename: string, autoCommit = false,data: null | object = null) {
         const adapter = new FileSync(filename)
         this._db = low(adapter)
         this._autoCommit = autoCommit
