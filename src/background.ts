@@ -1,6 +1,6 @@
 'use strict'
 
-import {app, protocol, BrowserWindow, ipcMain} from 'electron'
+import {app, protocol, BrowserWindow, ipcMain, session} from 'electron'
 import {createProtocol} from 'vue-cli-plugin-electron-builder/lib'
 import {VioletApp} from "@/server/violet-app"
 import {LanguageList} from "@/instance/globalization/globalization";
@@ -30,13 +30,14 @@ function createWindow() {
         transparent: true,
         webPreferences: {
             webSecurity: false,
-            nodeIntegration: true
+            nodeIntegration: true,
         }
     })
 
     if (process.env.WEBPACK_DEV_SERVER_URL) {
         // 如果处于开发模式，请加载开发服务器的URL
         win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string)
+            .then(() => console.log('已加载页面'))
     } else {
         createProtocol('app')
         // 不在开发中时加载index.html
@@ -88,13 +89,14 @@ app.whenReady().then(() => {
     if (isDevelopment && !process.env.IS_TEST) {
         let plugInPath = 'AppData/Local/Google/Chrome/' +
             'User Data/Default/Extensions/ljjemllljcmogpfapbkkighbhhppjdbg/6.0.0.2_0'
-        BrowserWindow.addDevToolsExtension(path.join(os.homedir(), plugInPath)
-        )
+        session.defaultSession.loadExtension(path.join(os.homedir(), plugInPath))
+            .then(extension => console.log(`已安装${extension.name} 版本${extension.version}`))
+            .catch(e => console.log('插件安装失败', e))
     }
     // 解决本地文件(图片,音频)无法加载
     protocol.registerFileProtocol('file', (request, callback) => {
-        const pathname = decodeURI(request.url.replace('file:///', ''));
-        callback(pathname);
+        const pathname = request.url.substr(7)
+        callback(pathname)
     });
 })
 
