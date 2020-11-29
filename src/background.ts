@@ -87,8 +87,14 @@ app.on('ready', async () => {
 app.whenReady().then(() => {
     // 安装Vue.js devtools
     if (isDevelopment && !process.env.IS_TEST) {
-        let plugInPath = 'AppData/Local/Google/Chrome/' +
-            'User Data/Default/Extensions/ljjemllljcmogpfapbkkighbhhppjdbg/6.0.0.2_0'
+        let plugInPath = ''
+        if (os.platform() === 'linux') {
+            plugInPath = '.config/google-chrome/Default/Extensions/' +
+                'ljjemllljcmogpfapbkkighbhhppjdbg/6.0.0.2_0'
+        } else if (os.platform() === 'win32') {
+            plugInPath = 'AppData/Local/Google/Chrome/' +
+                'User Data/Default/Extensions/ljjemllljcmogpfapbkkighbhhppjdbg/6.0.0.2_0'
+        }
         session.defaultSession.loadExtension(path.join(os.homedir(), plugInPath))
             .then(extension => console.log(`已安装${extension.name} 版本${extension.version}`))
             .catch(e => console.log('插件安装失败', e))
