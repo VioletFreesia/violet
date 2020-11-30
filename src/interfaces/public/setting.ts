@@ -30,6 +30,6 @@ export interface CommentConfig {
 
 // 系统配置
 export interface SystemConfig {
-    workplace: string   //软件的工作目录
+    workspace: string   //软件的工作目录
     language: string    //软件的界面语言
 }
