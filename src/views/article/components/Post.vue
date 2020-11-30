@@ -5,7 +5,7 @@
     <div v-if="isBatch" id="selector">
       <div class="violet" :class="postInfo.isSelected?'v-selected':'v-selector'"></div>
     </div>
-    <img :src="postInfo.img" width="320" height="180" alt="">
+    <img :src="imgPathConvert(postInfo.img)" width="320" height="180" alt="">
     <div id="info">
       <div id="title">{{ postInfo.title }}</div>
       <div id="description">
@@ -82,6 +82,7 @@ import {SettingOutlined, EditOutlined, EllipsisOutlined} from '@ant-design/icons
 import {PostInfo} from "@/interfaces/public/post"
 import {PostCardOperationType} from "@/instance/enum/enums"
 import store from "@/store/store"
+import {SystemConfig} from "@/interfaces/public/setting"
 
 export default defineComponent({
   name: "Post",
@@ -125,11 +126,13 @@ export default defineComponent({
         }
       }
     }
+    // 文章路径转换函数 如果是http开头的就不进行转换，如果是'/'开头的就装为绝对路径
     let imgPathConvert = (row: string): string => {
       if (row.startsWith('http'))
         return row
       else {
-
+        let systemConfig = inject<Ref<SystemConfig>>(store.systemConfig)
+        return `file://${systemConfig?.value.workspace + row}`
       }
     }
     return {
@@ -140,6 +143,7 @@ export default defineComponent({
       selectorToggle,
       operation,
       isAble,
+      imgPathConvert,
       PostCardOperationType
     }
   }
