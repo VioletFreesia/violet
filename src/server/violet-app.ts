@@ -2,9 +2,11 @@ import {SystemConfig} from "@/interfaces/public/setting"
 import eventHandlerRegister from "@/server/event-handler/event-handler"
 import {PostInfo} from "@/interfaces/public/post"
 import JsonDB from "@/tools/jsondb"
+import {Categories, Logger} from "@/logger/logger"
 import path from 'path'
 
 export class VioletApp {
+    logger = Logger(Categories.VioletApp)
     private _systemConfig: SystemConfig     //系统配置
     private _postInfoDB: JsonDB | undefined   //文章基本信息数据库
 
@@ -12,7 +14,15 @@ export class VioletApp {
         this._systemConfig = systemConfig
         // 注册事件
         eventHandlerRegister(this)
-        console.log("violetApp已启动", this._systemConfig)
+        if (process.env.NODE_ENV === 'development') {
+            let fs = require('fs')
+            fs.readFile(systemConfig.workspace + '/logo.txt',
+                (err: any, data: any) => {
+                    if (!err) {
+                        console.log(data.toString())
+                    }
+                })
+        }
     }
 
     /**
@@ -36,7 +46,7 @@ export class VioletApp {
     get postInfoDB(): JsonDB {
         // 仅在第一次访问时创建
         if (!this._postInfoDB) {
-            let postInfoPath = path.join(this._systemConfig.workplace,
+            let postInfoPath = path.join(this._systemConfig.workspace,
                 '.violet/post-info.json')
             this._postInfoDB = new JsonDB(postInfoPath)
         }
