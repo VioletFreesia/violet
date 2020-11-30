@@ -1,12 +1,15 @@
 <template>
   <div id="article">
-    <a-spin size="large" :spinning="loading">
-      <div id="posts">
-        <Post v-for="postInfo in postInfos"
-              class="card" :post-info="postInfo"
-              @operation="postCardOperationHandler"/>
+    <div v-if="loading" class="mask">
+      <div class="loading-logo">
+        <LoadingOutlined style="font-size: 50px;color: violet"/>
       </div>
-    </a-spin>
+    </div>
+    <div id="posts">
+      <Post v-for="postInfo in postInfos"
+            class="card" :post-info="postInfo"
+            @operation="postCardOperationHandler"/>
+    </div>
     <a-modal
         title="修改属性"
         v-model:visible="showModifyModel"
@@ -19,26 +22,40 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, inject, ref,Ref} from 'vue'
+import {defineComponent, inject, ref, Ref} from 'vue'
 import api from "@/server/api/api"
 import Post from "@/views/article/components/Post.vue"
 import {PostInfo} from "@/interfaces/public/post"
 import store from "@/store/store"
 import {PostCardOperationType, WindowName} from "@/instance/enum/enums"
 import {message} from 'ant-design-vue'
+import {LoadingOutlined} from '@ant-design/icons-vue'
 
 export default defineComponent({
   name: "Article",
-  components: {Post},
+  components: {Post, LoadingOutlined},
   setup() {
     // 获取当前软件窗口
     let currentAppWindow = inject<Ref<WindowName>>(store.currentAppWindow)!
     // 用于判断是否在加载文章
     let loading = ref<boolean>(true)
     // 保存所有文章信息
-    let postInfos = ref<PostInfo[]>(api.postApi!.getAllPostInfo())
+    let postInfos = ref<PostInfo[]>([])
     // 是否显示属性编辑弹窗
     let showModifyModel = ref<boolean>(false)
+    // 获取所有文章信息
+    let getAllPostInfo = () => {
+      loading.value = true
+      api.postApi.getAllPostInfo().then(data => {
+        postInfos.value = data
+        loading.value = false
+      }).catch(() => {
+        postInfos.value = []
+        loading.value = false
+        message.error('文章信息获取失败')
+      })
+    }
+    getAllPostInfo()
     // 文章事件的控制器
     let postCardOperationHandler = (operationType: PostCardOperationType, postId: string) => {
       message.info(operationType + ' ' + postId)
@@ -53,11 +70,9 @@ export default defineComponent({
       showModifyModel,
       loading,
       currentAppWindow,
+      getAllPostInfo,
       postCardOperationHandler
     }
-  },
-  created() {
-    this.loading = false
   }
 })
 </script>
@@ -68,6 +83,23 @@ export default defineComponent({
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+  position: relative;
+}
+
+.mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  background-color: rgba(240, 240, 240, .7);
+}
+
+.loading-logo {
+  width: 50px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #posts {
