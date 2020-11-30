@@ -3,7 +3,6 @@ import events from "@/instance/event/event"
 import {EventHandler} from "@/interfaces/event/event"
 import {VioletApp} from "@/server/violet-app"
 import {Categories, Logger} from "@/logger/logger"
-import {PostInfo} from "@/interfaces/public/post";
 
 let logger = Logger(Categories.EventHandler)
 let eventHandlers: EventHandler[] = []
@@ -24,15 +23,7 @@ eventHandlers.push({
         logger.debug('获取文章信息')
         // 只有在工作目录不为空的情况下才能获取文章信息
         if (violetApp.systemConfig.workspace !== '') {
-            let temp = violetApp.postInfo()
-            let postInfos: PostInfo[] = []
-            temp.forEach(postInfo => {
-                // 过滤已经放入回收站的文章
-                if (!postInfo.isDeleted) {
-                    postInfos.push(postInfo)
-                }
-            })
-            event.returnValue = postInfos
+            event.returnValue = violetApp.postInfo()
         } else {
             event.returnValue = []
         }
@@ -48,15 +39,7 @@ eventHandlers.push({
                 .update('postInfos', {id},
                     {'isDeleted': true}).commit()
         })
-        let temp = violetApp.postInfo()
-        let postInfos: PostInfo[] = []
-        temp.forEach(postInfo => {
-            // 过滤已经放入回收站的文章
-            if (!postInfo.isDeleted) {
-                postInfos.push(postInfo)
-            }
-        })
-        event.returnValue = postInfos
+        event.returnValue = true
     }
 })
 
