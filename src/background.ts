@@ -56,7 +56,8 @@ function createWindow() {
         if (win)
             win.minimize()
     })
-    new VioletApp({workplace: 'D:\\Program\\violet\\workspace', language: LanguageList.zh_CN})
+    let workplace: string = process.env.VUE_APP_POST_IMAGE_PATH!
+    new VioletApp({workplace, language: LanguageList.zh_CN})
 }
 
 // app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors')
