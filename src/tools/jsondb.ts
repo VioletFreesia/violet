@@ -21,12 +21,19 @@ export default class JsonDB {
     }
 
     /**
+     * 获取读入的原始数据
+     */
+    row(): any {
+        return this._db.__wrapped__
+    }
+
+    /**
      * json数据库构造函数
      * @param filename json文件位置
      * @param data 初始化数据库的默认数据
      * @param autoCommit 修改后是否自动提交
      */
-    constructor(filename: string, autoCommit = false,data: null | object = null) {
+    constructor(filename: string, autoCommit = false, data: null | object = null) {
         const adapter = new FileSync(filename)
         this._db = low(adapter)
         this._autoCommit = autoCommit
