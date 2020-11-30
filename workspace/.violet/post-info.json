@@ -11,7 +11,7 @@
       "isTop": false,
       "isHide": true,
       "fileName": "重温Java之泛型.md",
-      "isSelected": false
+      "isDeleted": false
     },
     {
       "id": "post2",
@@ -24,7 +24,7 @@
       "isTop": false,
       "isHide": true,
       "fileName": "重温Java之基础类库.md",
-      "isSelected": false
+      "isDeleted": false
     },
     {
       "id": "post3",
@@ -37,7 +37,7 @@
       "isTop": false,
       "isHide": true,
       "fileName": "重温Java之类与接口.md",
-      "isSelected": false
+      "isDeleted": false
     },
     {
       "id": "post4",
@@ -50,7 +50,7 @@
       "isTop": false,
       "isHide": true,
       "fileName": "重温Java之异常.md",
-      "isSelected": false
+      "isDeleted": false
     },
     {
       "id": "post5",
@@ -63,7 +63,7 @@
       "isTop": false,
       "isHide": true,
       "fileName": "重温Java之注解.md",
-      "isSelected": false
+      "isDeleted": false
     },
     {
       "id": "post6",
@@ -76,7 +76,7 @@
       "isTop": false,
       "isHide": true,
       "fileName": "重温Java之IO.md",
-      "isSelected": false
+      "isDeleted": false
     }
   ]
 }

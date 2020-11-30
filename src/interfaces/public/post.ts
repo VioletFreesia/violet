@@ -9,6 +9,7 @@ export interface PostInfo {
     isDeploy: boolean   //文章是否发布
     isTop: boolean      //文章是否置顶
     isHide: boolean     //文章是否隐藏
+    isDeleted: boolean   //文章是否被放入回收站
     fileName: string    //文章的本地文件名
     isSelected?: boolean //文章是否被选中 每次读取信息后为每条数据添加这个属性
 }
