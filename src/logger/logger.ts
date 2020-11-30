@@ -42,6 +42,10 @@ export enum Categories {
     ElectronApp = 'electronApp'
 }
 
+/**
+ * 根据日志分类获取日志对象
+ * @param category 日志分类
+ */
 export let Logger = (category: Categories) => {
     return log4js.getLogger(category)
 }
