@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import {provide, reactive, defineComponent} from 'vue'
+import {provide, ref, defineComponent} from 'vue'
 import Window from "@/views/layout/Window.vue"
 import {SystemConfig} from "@/interfaces/public/setting";
 import api from "@/server/api/api"
@@ -17,8 +17,8 @@ export default defineComponent({
     // 系统配置
     let systemConfig: SystemConfig = api.settingApi!.getSystemConfig()
     let locale: Globalization = globalization[systemConfig.language]
-    provide<Globalization>(store.locale, locale)
-    provide<SystemConfig>(store.systemConfig, reactive<SystemConfig>(systemConfig))
+    provide(store.locale, locale)
+    provide(store.systemConfig, ref(systemConfig))
   }
 })
 </script>
