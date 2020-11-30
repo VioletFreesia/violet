@@ -63,6 +63,23 @@ export default class JsonDB {
     }
 
     /**
+     * 更新数组值中的某个元素的某个属性的值
+     * @param arrayPropertyName 数组属性名
+     * @param condition 筛选条件 {id: 'post'} 即是选择id为post的所有元素
+     * @param newValue  新值{title：'new'} 即是将选中的所有元素的title改为newValue
+     */
+    update(arrayPropertyName: string, condition: object, newValue: object) {
+        this._db.get(arrayPropertyName)
+            .find(condition)
+            .assign(newValue)
+            .value()
+        if (this._autoCommit) {
+            return this.commit()
+        }
+        return this
+    }
+
+    /**
      * 获取某个属性的值
      * @param propertyName 属性名
      * @param condition 赛选条件 如{id:1},表示只保留id为1de
