@@ -6,9 +6,12 @@
       </div>
     </div>
     <div id="posts">
-      <Post v-for="postInfo in postInfos"
-            class="card" :post-info="postInfo"
-            @operation="postCardOperationHandler"/>
+      <transition v-for="postInfo in postInfos"
+                  leave-active-class="animate__animated animate__zoomOut">
+        <Post v-if="!postInfo.isDeleted"
+              class="card" :post-info="postInfo"
+              @operation="postCardOperationHandler"/>
+      </transition>
     </div>
     <a-modal
         title="修改属性"
@@ -68,8 +71,12 @@ export default defineComponent({
           break
         case PostCardOperationType.DeleteArticle:
           api.postApi.deletePosts([postId]).then(data => {
-            postInfos.value = data
-            message.success('文章已放入回收站')
+            if (data) {
+              postInfos.value
+                  .filter(item => item.id === postId)[0]
+                  .isDeleted = true
+              message.success('文章已放入回收站')
+            }
           }).catch(() => {
             message.error('删除文章失败')
           })
