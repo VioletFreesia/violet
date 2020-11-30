@@ -21,12 +21,16 @@ let getSystemConfig = () => {
 let getAllPostInfo = (): Promise<PostInfo[]> => {
     return request<PostInfo[]>(events.postInfoEvent.GetAll)
 }
-
+// 将多篇文章放入回收站
+let deletePosts = (postIds: string[]): Promise<PostInfo[]> => {
+    return request<PostInfo[]>(events.postInfoEvent.Delete, postIds)
+}
 
 // 主进程与渲染进程通信api的具体实现
 const api = {
     postApi: {
         getAllPostInfo,
+        deletePosts
     },
     settingApi: {
         getSystemConfig,

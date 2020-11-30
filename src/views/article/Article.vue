@@ -59,10 +59,20 @@ export default defineComponent({
     // 文章事件的控制器
     let postCardOperationHandler = (operationType: PostCardOperationType, postId: string) => {
       message.info(operationType + ' ' + postId)
-      if (operationType === PostCardOperationType.EditPost) {
-        currentAppWindow.value = WindowName.PostEditor
-      } else if (operationType === PostCardOperationType.ModifyProperties) {
-        showModifyModel.value = true
+      switch (operationType) {
+        case PostCardOperationType.EditPost:
+          currentAppWindow.value = WindowName.PostEditor
+          break;
+        case PostCardOperationType.ModifyProperties:
+          showModifyModel.value = true
+          break
+        case PostCardOperationType.DeleteArticle:
+          api.postApi.deletePosts([postId]).then(data => {
+            postInfos.value = data
+            message.success('文章已放入回收站')
+          }).catch(() => {
+            message.error('删除文章失败')
+          })
       }
     }
     return {
