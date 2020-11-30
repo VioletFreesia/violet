@@ -3,18 +3,23 @@ import Event from "@/interfaces/event/event"
 import events from "@/instance/event/event"
 import {ipcRenderer} from 'electron'
 
-let request = (event: Event, data: object | null = null) => {
-    return new Promise(resolve => {
-        resolve(ipcRenderer.sendSync(event.eventName, data))
+let request = <T>(event: Event, data: object | null = null) => {
+    return new Promise<T>((resolve, reject) => {
+        try {
+            resolve(ipcRenderer.sendSync(event.eventName, data))
+        } catch (e) {
+            reject(e)
+        }
     })
 }
-
-let getAllPostInfo = (): PostInfo[] => {
-    return ipcRenderer.sendSync(events.postInfoEvent.GetAll.eventName)
-}
-
+// 获取系统配置 必须同步获取，确保在进入软件主界面之前就成功获取
 let getSystemConfig = () => {
     return ipcRenderer.sendSync(events.settingEvent.GetSystemConfig.eventName)
+}
+
+// 文章信息异步获取
+let getAllPostInfo = (): Promise<PostInfo[]> => {
+    return request<PostInfo[]>(events.postInfoEvent.GetAll)
 }
 
 
