@@ -2,15 +2,16 @@ import {ipcMain, IpcMainEvent} from 'electron'
 import events from "@/instance/event/event"
 import {EventHandler} from "@/interfaces/event/event"
 import {VioletApp} from "@/server/violet-app"
+import {Categories, Logger} from "@/logger/logger"
 
-
+let logger = Logger(Categories.EventHandler)
 let eventHandlers: EventHandler[] = []
 
 // 获取软件系统配置
 eventHandlers.push({
     event: events.settingEvent.GetSystemConfig,
     handler: async (event: IpcMainEvent, args: any, violetApp: VioletApp) => {
-        console.log("获取系统语言")
+        logger.debug('已获取系统配置:', violetApp.systemConfig)
         event.returnValue = violetApp.systemConfig
     }
 })
@@ -19,6 +20,7 @@ eventHandlers.push({
 eventHandlers.push({
     event: events.postInfoEvent.GetAll,
     handler: async (event: IpcMainEvent, args: any, violetApp: VioletApp) => {
+        logger.debug('获取文章信息')
         event.returnValue = violetApp.postInfo()
     }
 })

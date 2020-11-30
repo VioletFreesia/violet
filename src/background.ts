@@ -1,12 +1,14 @@
 'use strict'
 
-import {app, protocol, BrowserWindow, ipcMain, session} from 'electron'
+import {app, BrowserWindow, ipcMain, protocol, session} from 'electron'
 import {createProtocol} from 'vue-cli-plugin-electron-builder/lib'
 import {VioletApp} from "@/server/violet-app"
-import {LanguageList} from "@/instance/globalization/globalization";
+import {LanguageList} from "@/instance/globalization/globalization"
+import {Categories, Logger} from "@/logger/logger"
+import path from 'path'
+import os from 'os'
 
-const path = require('path')
-const os = require('os')
+let logger = Logger(Categories.ElectronApp)
 
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -37,11 +39,16 @@ function createWindow() {
     if (process.env.WEBPACK_DEV_SERVER_URL) {
         // 如果处于开发模式，请加载开发服务器的URL
         win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string)
-            .then(() => console.log('已加载页面'))
+            .then(() => {
+                logger.debug('已加载页面')
+            })
     } else {
         createProtocol('app')
         // 不在开发中时加载index.html
         win.loadURL('app://./index.html')
+            .catch(e => {
+                logger.error('页面加载失败', e)
+            })
     }
 
     win.on('closed', () => {
@@ -57,7 +64,7 @@ function createWindow() {
             win.minimize()
     })
     let workplace: string = process.env.VUE_APP_POST_IMAGE_PATH!
-    new VioletApp({workplace, language: LanguageList.zh_CN})
+    new VioletApp({workspace: workplace, language: LanguageList.zh_CN})
 }
 
 // app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors')
@@ -97,8 +104,8 @@ app.whenReady().then(() => {
                 'User Data/Default/Extensions/ljjemllljcmogpfapbkkighbhhppjdbg/6.0.0.2_0'
         }
         session.defaultSession.loadExtension(path.join(os.homedir(), plugInPath))
-            .then(extension => console.log(`已安装${extension.name} 版本${extension.version}`))
-            .catch(e => console.log('插件安装失败', e))
+            .then(extension => logger.info(`已安装${extension.name} 版本${extension.version}`))
+            .catch(e => logger.error('插件安装失败',e))
     }
     // 解决本地文件(图片,音频)无法加载
     protocol.registerFileProtocol('file', (request, callback) => {
