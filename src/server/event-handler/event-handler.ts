@@ -21,7 +21,12 @@ eventHandlers.push({
     event: events.postInfoEvent.GetAll,
     handler: async (event: IpcMainEvent, args: any, violetApp: VioletApp) => {
         logger.debug('获取文章信息')
-        event.returnValue = violetApp.postInfo()
+        // 只有在工作目录不为空的情况下才能获取文章信息
+        if (violetApp.systemConfig.workspace !== '') {
+            event.returnValue = violetApp.postInfo()
+        } else {
+            event.returnValue = []
+        }
     }
 })
 
