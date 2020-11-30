@@ -16,7 +16,7 @@
           <span>{{ postInfo.modifyDate }}</span>
         </div>
         <div class="violet v-category">
-          <span>{{ postInfo.category.name }}</span>
+          <span>{{ postInfo.category }}</span>
         </div>
         <div class="more">
           <a-popover v-model:visible="moreVisible"
@@ -123,6 +123,13 @@ export default defineComponent({
         if (visible) {
           moreVisible.value = false
         }
+      }
+    }
+    let imgPathConvert = (row: string): string => {
+      if (row.startsWith('http'))
+        return row
+      else {
+
       }
     }
     return {
