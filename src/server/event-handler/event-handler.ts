@@ -15,6 +15,14 @@ eventHandlers.push({
     }
 })
 
+// 获取文章信息
+eventHandlers.push({
+    event: events.postInfoEvent.GetAll,
+    handler: async (event: IpcMainEvent, args: any, violetApp: VioletApp) => {
+        event.returnValue = violetApp.postInfo()
+    }
+})
+
 let eventHandlerRegister = (violetApp: VioletApp) => {
     // 为每个事件注册监听处理器
     eventHandlers.forEach(eventHandle => {
