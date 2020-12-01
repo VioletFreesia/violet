@@ -66,13 +66,24 @@ eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.Deploy,
 eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.UnDeploy,
     {isDeploy: false}, '取消发布文章'))
 
+// 获取文章内容
 eventHandlers.push({
     event: events.postContentEvent.Get,
     handler: async (event: IpcMainEvent, postName: any, violetApp: VioletApp) => {
         logger.debug('获取文章内容：', postName.postName)
-        let data = fs.readFileSync(path.join(violetApp.systemConfig.workspace,
-            'posts', postName.postName))
-        event.returnValue = data.toString()
+        try {
+            let data = fs.readFileSync(path.join(violetApp.systemConfig.workspace,
+                'posts', postName.postName))
+            event.returnValue = {
+                success: true,
+                data: data.toString()
+            }
+        } catch (e) {
+            event.returnValue = {
+                success: false,
+                data: ''
+            }
+        }
     }
 })
 let eventHandlerRegister = (violetApp: VioletApp) => {
