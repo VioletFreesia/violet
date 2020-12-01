@@ -59,7 +59,7 @@ import {batchOptionMenu, changeHomeWindowMenu} from "@/instance/side/side-menus"
 export default defineComponent({
   name: 'Side',
   components: {SearchOutlined},
-  setup() {
+  setup(props, {emit}) {
     // 获取当前主页窗口
     let currentHomeWindow = inject<Ref<WindowName>>(store.currentHomeWindow)!
     // 获取批量编辑模式状态
@@ -78,6 +78,8 @@ export default defineComponent({
     let batchOption = (operationType: PostCardOperationType) => {
       if (operationType === PostCardOperationType.QuitBatchOption) {
         isBatch.value = false
+      } else {
+        emit('postinfooperation', operationType)
       }
     }
     return {

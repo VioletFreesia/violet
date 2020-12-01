@@ -49,7 +49,6 @@ export default defineComponent({
     let refreshPostInfo = () => {
       emit('refresh')
     }
-    refreshPostInfo()
     // 文章事件的控制器
     let postCardOperationHandler = (operationType: PostCardOperationType, postId: string) => {
       switch (operationType) {

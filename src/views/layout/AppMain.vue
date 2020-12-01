@@ -7,7 +7,7 @@
         <a-layout>
           <a-layout-sider theme="light"
                           :style="{ overflow: 'hidden', height: '100vh'}">
-            <Side/>
+            <Side @postinfooperation="postInfoOperationHandler"/>
           </a-layout-sider>
           <a-layout>
             <a-layout-content
@@ -50,8 +50,8 @@
 </template>
 
 <script lang='ts'>
-import {defineComponent, ref, provide} from 'vue'
-import {WindowName} from '@/instance/enum/enums'
+import {defineComponent, ref, provide, onMounted} from 'vue'
+import {PostCardOperationType, WindowName} from '@/instance/enum/enums'
 import store from "@/store/store"
 import Side from "@/views/sider/Side.vue"
 import Article from "@/views/article/Article.vue"
@@ -90,6 +90,67 @@ export default defineComponent({
         message.error('文章信息获取失败')
       })
     }
+    onMounted(getAllPostInfo)
+    let postInfoOperationHandler = (operationType: PostCardOperationType) => {
+      let tempPostInfos = postInfos.value.filter(postInfo => postInfo.isSelected)
+      if (tempPostInfos.length === 0) {
+        message.warning('未选中任何文章')
+        return
+      }
+      api.postApi.postInfoHandle(operationType)!(tempPostInfos.map(postInfo => postInfo.id))
+          .then(success => {
+            if (success) {
+              tempPostInfos.forEach(postInfo => {
+                switch (operationType) {
+                  case PostCardOperationType.DeleteArticle:
+                    postInfo.isDeleted = true
+                    break
+                  case PostCardOperationType.UnTop:
+                    postInfo.isTop = false
+                    break
+                  case PostCardOperationType.TopArticle:
+                    postInfo.isTop = true
+                    break
+                  case PostCardOperationType.UnHide:
+                    postInfo.isHide = false
+                    break
+                  case PostCardOperationType.HideArticle:
+                    postInfo.isHide = true
+                    break
+                  case PostCardOperationType.DeployArticle:
+                    postInfo.isDeploy = true
+                    break
+                  case PostCardOperationType.UnDeploy:
+                    postInfo.isDeploy = false
+                    break
+                }
+              })
+              switch (operationType) {
+                case PostCardOperationType.DeleteArticle:
+                  message.success('文章已放入回收站')
+                  break
+                case PostCardOperationType.UnTop:
+                  message.success('已取消置顶')
+                  break
+                case PostCardOperationType.TopArticle:
+                  message.success('文章已置顶')
+                  break
+                case PostCardOperationType.UnHide:
+                  message.success('已取消隐藏')
+                  break
+                case PostCardOperationType.HideArticle:
+                  message.success('文章已隐藏')
+                  break
+                case PostCardOperationType.DeployArticle:
+                  message.success('文章已发布')
+                  break
+                case PostCardOperationType.UnDeploy:
+                  message.success('已取消发布')
+                  break
+              }
+            }
+          })
+    }
     // 为子组件提供当前是否为批量编辑模式的状态
     provide(store.article.isBatch, isBatch)
     provide(store.currentAppWindow, currentAppWindow)
@@ -100,6 +161,7 @@ export default defineComponent({
       currentHomeWindow,
       loadPostInfos,
       getAllPostInfo,
+      postInfoOperationHandler,
       WindowName
     }
   }
