@@ -78,21 +78,15 @@ let getToolBarConfig = (option: {
 
 export default defineComponent({
   name: "ArticleEditor",
-  props: {
-    isEdit: {
-      type: Boolean,
-      default: true
-    },
-    filename: {
-      type: String,
-      default: '新建文章.md'
-    }
-  },
-  setup(props) {
+  setup() {
     // 获取文章编辑界面语言包
     let locale = getLocale().postEditor
     // 获取当前窗口
     let currentAppWindow = inject<Ref<WindowName>>(store.currentAppWindow)!
+    // 编辑器模式
+    let isEdit = inject<Ref<boolean>>(store.article.isEdit)!
+    // 加载的文件名
+    let filename = inject<Ref<string>>(store.article.filename)!
     // 声明编辑器对象
     let Editor: Vditor
     // 返回主界面函数
@@ -155,11 +149,15 @@ export default defineComponent({
           $('.violet-btn button[data-type=image]')
               .html('<div class="violet v-picture"></div>')
           Editor.focus()
-          if (props.isEdit) {
-            console.log(props.filename)
-            // api.postApi.getOnePostContent(props.filename).then(data => {
-            //   Editor.setValue(data)
-            // })
+          if (isEdit.value) {
+            api.postApi.getOnePostContent(filename.value).then(data => {
+              if (data.success) {
+                Editor.setValue(data.data)
+              } else {
+                Editor.setValue('')
+                message.error('文章加载失败')
+              }
+            })
           }
         }
       })
