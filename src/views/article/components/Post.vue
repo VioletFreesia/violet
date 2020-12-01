@@ -75,10 +75,10 @@
 
 <script lang="ts">
 
-import {defineComponent, ref, PropType, inject, Ref} from 'vue'
+import {defineComponent, inject, PropType, ref, Ref} from 'vue'
 import {getLocale} from "@/tools/get-config"
 import {PostCard} from "@/interfaces/globalization/globalization"
-import {SettingOutlined, EditOutlined, EllipsisOutlined} from '@ant-design/icons-vue'
+import {EditOutlined, EllipsisOutlined, SettingOutlined} from '@ant-design/icons-vue'
 import {PostInfo} from "@/interfaces/public/post"
 import {PostCardOperationType} from "@/instance/enum/enums"
 import store from "@/store/store"
@@ -102,6 +102,7 @@ export default defineComponent({
     let postCard: PostCard = getLocale().postCard
     // 修改当前的编辑状态
     let batch = () => {
+      operation(PostCardOperationType.BatchOption)
       moreVisible.value = false
       isBatch!.value = true
     }
@@ -110,7 +111,7 @@ export default defineComponent({
       if (isBatch.value) {
         props.postInfo!.isSelected = !props.postInfo!.isSelected
       } else {
-        emit('operation', PostCardOperationType.EditPost, props.postInfo!.id)
+        operation(PostCardOperationType.EditPost)
       }
     }
     // 文章操作功能处理
@@ -126,7 +127,7 @@ export default defineComponent({
         }
       }
     }
-    // 文章路径转换函数 如果是http开头的就不进行转换，如果是'/'开头的就装为绝对路径
+    // 文章路径转换函数 如果是http开头的就不进行转换，如果是'/'开头的就转为绝对路径
     let imgPathConvert = (row: string): string => {
       if (row.startsWith('http'))
         return row
