@@ -37,31 +37,21 @@ import {LoadingOutlined} from '@ant-design/icons-vue'
 export default defineComponent({
   name: "Article",
   components: {Post, LoadingOutlined},
-  setup() {
+  props: ['loading'],
+  setup(prop, {emit}) {
     // 获取当前软件窗口
     let currentAppWindow = inject<Ref<WindowName>>(store.currentAppWindow)!
-    // 用于判断是否在加载文章
-    let loading = ref<boolean>(true)
-    // 保存所有文章信息
-    let postInfos = ref<PostInfo[]>([])
+    // 获取所有文章信息
+    let postInfos = inject<Ref<PostInfo[]>>(store.article.postInfos)!
     // 是否显示属性编辑弹窗
     let showModifyModel = ref<boolean>(false)
-    // 获取所有文章信息
-    let getAllPostInfo = () => {
-      loading.value = true
-      api.postApi.getAllPostInfo().then(data => {
-        postInfos.value = data
-        loading.value = false
-      }).catch(() => {
-        postInfos.value = []
-        loading.value = false
-        message.error('文章信息获取失败')
-      })
+    // 刷新文章信息
+    let refreshPostInfo = () => {
+      emit('refresh')
     }
-    getAllPostInfo()
+    refreshPostInfo()
     // 文章事件的控制器
     let postCardOperationHandler = (operationType: PostCardOperationType, postId: string) => {
-      message.info(operationType + ' ' + postId)
       switch (operationType) {
         case PostCardOperationType.EditPost:
           currentAppWindow.value = WindowName.PostEditor
@@ -69,25 +59,57 @@ export default defineComponent({
         case PostCardOperationType.ModifyProperties:
           showModifyModel.value = true
           break
+        case PostCardOperationType.BatchOption:
+          // 进入批量编辑前让所有文章处于未选中状态
+          postInfos.value.forEach(postInfo => {
+            if (postInfo.isSelected) {
+              postInfo.isSelected = false
+            }
+          })
+          break
         default:
-          api.postApi.postInfoHandle(operationType)!([postId]).then(success=>{
-              if (success){
-                let postInfo = postInfos.value.filter(item => item.id === postId)[0]
-                switch (operationType) {
-                  case PostCardOperationType.DeleteArticle:
-
-                }
-                message.success('文章已放入回收站')
+          api.postApi.postInfoHandle(operationType)!([postId]).then(success => {
+            if (success) {
+              let postInfo = postInfos.value.filter(item => item.id === postId)[0]
+              switch (operationType) {
+                case PostCardOperationType.DeleteArticle:
+                  postInfo.isDeleted = true
+                  message.success('文章已放入回收站')
+                  break
+                case PostCardOperationType.UnTop:
+                  postInfo.isTop = false
+                  message.success('已取消置顶')
+                  break
+                case PostCardOperationType.TopArticle:
+                  postInfo.isTop = true
+                  message.success('文章已置顶')
+                  break
+                case PostCardOperationType.UnHide:
+                  postInfo.isHide = false
+                  message.success('已取消隐藏')
+                  break
+                case PostCardOperationType.HideArticle:
+                  postInfo.isHide = true
+                  message.success('文章已隐藏')
+                  break
+                case PostCardOperationType.DeployArticle:
+                  postInfo.isDeploy = true
+                  message.success('文章已发布')
+                  break
+                case PostCardOperationType.UnDeploy:
+                  postInfo.isDeploy = false
+                  message.success('已取消发布')
+                  break
               }
+            }
           })
       }
     }
     return {
       postInfos,
       showModifyModel,
-      loading,
       currentAppWindow,
-      getAllPostInfo,
+      refreshPostInfo,
       postCardOperationHandler
     }
   }
