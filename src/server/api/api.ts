@@ -5,12 +5,8 @@ import {ipcRenderer} from 'electron'
 import {PostCardOperationType} from "@/instance/enum/enums"
 
 let request = <T>(event: Event, data: object | null = null) => {
-    return new Promise<T>((resolve, reject) => {
-        try {
-            resolve(ipcRenderer.sendSync(event.eventName, data))
-        } catch (e) {
-            reject(e)
-        }
+    return new Promise<T>(resolve => {
+        resolve(ipcRenderer.sendSync(event.eventName, data))
     })
 }
 // 获取系统配置 必须同步获取，确保在进入软件主界面之前就成功获取
@@ -67,9 +63,10 @@ let postInfoHandle = (operationType: PostCardOperationType) => {
 }
 
 // 获取一篇文章的内容
-
-let getOnePostContent = (postName: string): Promise<string> => {
-    return request<string>(events.postContentEvent.Get, {postName})
+let getOnePostContent = (postName: string):
+    Promise<{ success: boolean, data: string }> => {
+    return request<{ success: boolean, data: string }>
+    (events.postContentEvent.Get, {postName})
 }
 
 // 主进程与渲染进程通信api的具体实现
