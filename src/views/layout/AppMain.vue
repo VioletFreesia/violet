@@ -42,7 +42,7 @@
     <transition
         enter-active-class="animate__animated animate__zoomIn"
         leave-active-class="animate__disappear">
-      <div id="post-editor" v-if="currentAppWindow === WindowName.PostEditor">
+      <div id="post-editor" :filename="'重温Java之IO.md'" :is-Edit="isEdit" v-if="currentAppWindow === WindowName.PostEditor">
         <ArticleEditor/>
       </div>
     </transition>
@@ -76,6 +76,8 @@ export default defineComponent({
     let isBatch = ref<boolean>(false)
     // 是否正在加载文章
     let loadPostInfos = ref<boolean>(true)
+    // 文章编辑窗口的模式，true表示编辑状态，false表示新建状态
+    let isEdit = ref<boolean>(true)
     // 所有文章信息
     let postInfos = ref<PostInfo[]>([])
     // 获取所有文章信息
@@ -162,6 +164,7 @@ export default defineComponent({
       currentAppWindow,
       currentHomeWindow,
       loadPostInfos,
+      isEdit,
       getAllPostInfo,
       postInfoOperationHandler,
       WindowName

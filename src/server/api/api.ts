@@ -46,7 +46,7 @@ let unHidePosts = postInfoHandleFactory(events.postInfoEvent.UnHide)
 let deployPosts = postInfoHandleFactory(events.postInfoEvent.Deploy)
 // 取消发布多篇文章
 let unDeployPosts = postInfoHandleFactory(events.postInfoEvent.UnDeploy)
-
+// 根据操作类型相应的处理函数
 let postInfoHandle = (operationType: PostCardOperationType) => {
     switch (operationType) {
         case PostCardOperationType.DeleteArticle:
@@ -66,11 +66,18 @@ let postInfoHandle = (operationType: PostCardOperationType) => {
     }
 }
 
+// 获取一篇文章的内容
+
+let getOnePostContent = (postName: string): Promise<string> => {
+    return request<string>(events.postContentEvent.Get, {postName})
+}
+
 // 主进程与渲染进程通信api的具体实现
 const api = {
     postApi: {
         getAllPostInfo,
-        postInfoHandle
+        postInfoHandle,
+        getOnePostContent
     },
     settingApi: {
         getSystemConfig,

@@ -3,6 +3,8 @@ import events from "@/instance/event/event"
 import {EventHandler, Event} from "@/interfaces/event/event"
 import {VioletApp} from "@/server/violet-app"
 import {Categories, Logger} from "@/logger/logger"
+import fs from 'fs'
+import path from 'path'
 
 let logger = Logger(Categories.EventHandler)
 let eventHandlers: EventHandler[] = []
@@ -64,6 +66,15 @@ eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.Deploy,
 eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.UnDeploy,
     {isDeploy: false}, '取消发布文章'))
 
+eventHandlers.push({
+    event: events.postContentEvent.Get,
+    handler: async (event: IpcMainEvent, postName: any, violetApp: VioletApp) => {
+        logger.debug('获取文章内容：', postName.postName)
+        let data = fs.readFileSync(path.join(violetApp.systemConfig.workspace,
+            'posts', postName.postName))
+        event.returnValue = data.toString()
+    }
+})
 let eventHandlerRegister = (violetApp: VioletApp) => {
     // 为每个事件注册监听处理器
     eventHandlers.forEach(eventHandle => {

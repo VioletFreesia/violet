@@ -11,6 +11,7 @@ import store from "@/store/store"
 import {message} from 'ant-design-vue'
 import {getLocale} from "@/tools/get-config"
 import $ from "jquery"
+import api from "@/server/api/api";
 
 
 let getToolBarConfig = (option: {
@@ -78,12 +79,16 @@ let getToolBarConfig = (option: {
 export default defineComponent({
   name: "ArticleEditor",
   props: {
-    isNewFile: {
+    isEdit: {
       type: Boolean,
-      default: false
+      default: true
+    },
+    filename: {
+      type: String,
+      default: '新建文章.md'
     }
   },
-  setup() {
+  setup(props) {
     // 获取文章编辑界面语言包
     let locale = getLocale().postEditor
     // 获取当前窗口
@@ -150,6 +155,12 @@ export default defineComponent({
           $('.violet-btn button[data-type=image]')
               .html('<div class="violet v-picture"></div>')
           Editor.focus()
+          if (props.isEdit) {
+            console.log(props.filename)
+            // api.postApi.getOnePostContent(props.filename).then(data => {
+            //   Editor.setValue(data)
+            // })
+          }
         }
       })
     })
