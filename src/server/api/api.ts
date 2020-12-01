@@ -21,16 +21,43 @@ let getSystemConfig = () => {
 let getAllPostInfo = (): Promise<PostInfo[]> => {
     return request<PostInfo[]>(events.postInfoEvent.GetAll)
 }
-// 将多篇文章放入回收站
-let deletePosts = (postIds: string[]): Promise<boolean> => {
-    return request<boolean>(events.postInfoEvent.Delete, postIds)
+
+// 文章信息修改函数工厂
+let postInfoHandleFactory = (event: Event) => {
+    return (postIds: string[]): Promise<boolean> => {
+        return request<boolean>(event, postIds)
+    }
 }
+
+// 将多篇文章放入回收站
+let deletePosts = postInfoHandleFactory(events.postInfoEvent.Delete)
+// 将多篇文章从回收站恢复
+let UnDeletePosts = postInfoHandleFactory(events.postInfoEvent.UnDelete)
+// 取消置顶多篇文章
+let unTopPosts = postInfoHandleFactory(events.postInfoEvent.UnTop)
+// 置顶多篇文章
+let topPosts = postInfoHandleFactory(events.postInfoEvent.Top)
+// 隐藏多篇文章
+let hidePosts = postInfoHandleFactory(events.postInfoEvent.Hide)
+// 取消隐藏多篇文章
+let unHidePosts = postInfoHandleFactory(events.postInfoEvent.UnHide)
+// 发布多篇文章
+let deployPosts = postInfoHandleFactory(events.postInfoEvent.Deploy)
+// 取消发布多篇文章
+let unDeployPosts = postInfoHandleFactory(events.postInfoEvent.UnDeploy)
 
 // 主进程与渲染进程通信api的具体实现
 const api = {
     postApi: {
         getAllPostInfo,
-        deletePosts
+        deletePosts,
+        UnDeletePosts,
+        unTopPosts,
+        topPosts,
+        hidePosts,
+        unHidePosts,
+        deployPosts,
+        unDeployPosts
     },
     settingApi: {
         getSystemConfig,
