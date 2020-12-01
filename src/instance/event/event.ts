@@ -4,6 +4,7 @@ import {Events} from "@/interfaces/event/event"
 let events: Events = {
     postInfoEvent: {
         Delete: {eventName: "PostInfoEventDelete"},
+        UnDelete: {eventName: "PostInfoEventUnDelete"},
         Deploy: {eventName: "PostInfoEventDeploy"},
         Hide: {eventName: "PostInfoEventHide"},
         Modify: {eventName: "PostInfoEventModify"},

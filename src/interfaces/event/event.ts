@@ -9,14 +9,15 @@ export interface EventHandler {
 
 //文章属性相关操作事件
 export interface PostInfoEvent {
-    Top: Event         //置顶文章,传递数组
-    UnTop: Event       //取消置顶,传递数组
-    Hide: Event        //隐藏文章,传递数组
-    UnHide: Event      //取消隐藏,传递数组
-    Deploy: Event      //修改文章状态为发布
-    UnDeploy: Event    //修改文章状态为保存
+    Top: Event         //置顶文章,传递是文章id数组
+    UnTop: Event       //取消置顶,传递是文章id数组
+    Hide: Event        //隐藏文章,传递是文章id数组
+    UnHide: Event      //取消隐藏,传递是文章id数组
+    Deploy: Event      //修改文章状态为发布，传递是文章id数组
+    UnDeploy: Event    //修改文章状态为保存，传递是文章id数组
     Modify: Event      //修改某篇文章的属性
-    Delete: Event      //将文章移入回收站,传递数组
+    Delete: Event      //将文章移入回收站,传递是文章id数组
+    UnDelete: Event    //将文章从回收站，传递是文章id数组
     GetAll: Event      //获取所有文章信息
 }
 
