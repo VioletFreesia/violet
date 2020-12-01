@@ -54,9 +54,9 @@ eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.UnDelete,
 eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.UnTop,
     {isTop: false}, '取消置顶文章'))
 eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.Top,
-    {isTop: true}, '置顶文章'))
+    {isTop: true, isHide: false}, '置顶文章'))
 eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.Hide,
-    {isHide: true}, '隐藏文章'))
+    {isHide: true, isTop: false}, '隐藏文章'))
 eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.UnHide,
     {isHide: false}, '取消隐藏文章'))
 eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.Deploy,

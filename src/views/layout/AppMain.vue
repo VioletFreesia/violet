@@ -110,12 +110,14 @@ export default defineComponent({
                     break
                   case PostCardOperationType.TopArticle:
                     postInfo.isTop = true
+                    postInfo.isHide = false
                     break
                   case PostCardOperationType.UnHide:
                     postInfo.isHide = false
                     break
                   case PostCardOperationType.HideArticle:
                     postInfo.isHide = true
+                    postInfo.isTop = false
                     break
                   case PostCardOperationType.DeployArticle:
                     postInfo.isDeploy = true

@@ -81,6 +81,7 @@ export default defineComponent({
                   break
                 case PostCardOperationType.TopArticle:
                   postInfo.isTop = true
+                  postInfo.isHide = false
                   message.success('文章已置顶')
                   break
                 case PostCardOperationType.UnHide:
@@ -89,6 +90,7 @@ export default defineComponent({
                   break
                 case PostCardOperationType.HideArticle:
                   postInfo.isHide = true
+                  postInfo.isTop = false
                   message.success('文章已隐藏')
                   break
                 case PostCardOperationType.DeployArticle:
