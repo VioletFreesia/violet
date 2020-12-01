@@ -51,17 +51,17 @@ eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.Delete,
 eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.UnDelete,
     {isDeleted: false}, '恢复文章'))
 eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.UnTop,
-    {isTop: true}, '取消置顶文章'))
+    {isTop: false}, '取消置顶文章'))
 eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.Top,
     {isTop: true}, '置顶文章'))
 eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.Hide,
     {isHide: true}, '隐藏文章'))
 eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.UnHide,
-    {isHide: true}, '取消隐藏文章'))
+    {isHide: false}, '取消隐藏文章'))
 eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.Deploy,
     {isDeploy: true}, '发布文章'))
 eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.UnDeploy,
-    {isDeploy: true}, '取消发布文章'))
+    {isDeploy: false}, '取消发布文章'))
 
 let eventHandlerRegister = (violetApp: VioletApp) => {
     // 为每个事件注册监听处理器
