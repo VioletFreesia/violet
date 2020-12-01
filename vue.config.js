@@ -8,6 +8,10 @@ module.exports = {
                 win: {
                     icon: 'public/logo.ico',
                     target: 'portable'
+                },
+                linux: {
+                    icon: 'public/logo.png',
+                    target: 'AppImage'
                 }
             }
         }
