@@ -10,6 +10,10 @@ const locale = Symbol()
 const isBatch = Symbol()
 // 所有文章信息
 const postInfos = Symbol()
+// 以编辑模式打开文章的文件名
+const filename = Symbol()
+// 打开编辑器的模式
+const isEdit = Symbol()
 // 界面全局变量登记
 export default {
     systemConfig,
@@ -18,6 +22,8 @@ export default {
     locale,
     article: {
         isBatch,
-        postInfos
+        postInfos,
+        filename,
+        isEdit
     }
 }
