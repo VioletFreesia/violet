@@ -14,7 +14,9 @@
                 :style="{ overflow: 'auto', height: '100vh',padding:'30px 0 0 0'}">
               <transition
                   enter-active-class="animate__animated animate__fadeInLeft">
-                <Article v-if="currentHomeWindow === WindowName.Article"/>
+                <Article v-if="currentHomeWindow === WindowName.Article"
+                         :loading="loadPostInfos"
+                         @refresh="getAllPostInfo"/>
               </transition>
               <transition
                   enter-active-class="animate__animated animate__fadeInLeft">
@@ -58,6 +60,9 @@ import Setting from "@/views/setting/Setting.vue"
 import RecycleBin from "@/views/recycle-bin/RecycleBin.vue"
 import Category from "@/views/category/Category.vue"
 import ArticleEditor from "@/views/article-editor/ArticleEditor.vue"
+import {PostInfo} from "@/interfaces/public/post"
+import api from "@/server/api/api"
+import {message} from "ant-design-vue"
 
 export default defineComponent({
   name: "AppMain",
@@ -69,11 +74,34 @@ export default defineComponent({
     let currentHomeWindow = ref<WindowName>(WindowName.Article)
     // 是否为批量编辑模式
     let isBatch = ref<boolean>(false)
+    // 是否正在加载文章
+    let loadPostInfos = ref<boolean>(true)
+    // 所有文章信息
+    let postInfos = ref<PostInfo[]>([])
+    // 获取所有文章信息
+    let getAllPostInfo = () => {
+      loadPostInfos.value = true
+      api.postApi.getAllPostInfo().then(data => {
+        postInfos.value = data
+        loadPostInfos.value = false
+      }).catch(() => {
+        postInfos.value = []
+        loadPostInfos.value = false
+        message.error('文章信息获取失败')
+      })
+    }
     // 为子组件提供当前是否为批量编辑模式的状态
     provide(store.article.isBatch, isBatch)
     provide(store.currentAppWindow, currentAppWindow)
     provide(store.currentHomeWindow, currentHomeWindow)
-    return {currentAppWindow, currentHomeWindow, WindowName}
+    provide(store.article.postInfos, postInfos)
+    return {
+      currentAppWindow,
+      currentHomeWindow,
+      loadPostInfos,
+      getAllPostInfo,
+      WindowName
+    }
   }
 })
 </script>

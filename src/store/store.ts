@@ -8,6 +8,8 @@ const currentHomeWindow = Symbol()
 const locale = Symbol()
 // 是否为批量编辑模式
 const isBatch = Symbol()
+// 所有文章信息
+const postInfos = Symbol()
 // 界面全局变量登记
 export default {
     systemConfig,
@@ -15,6 +17,7 @@ export default {
     currentHomeWindow,
     locale,
     article: {
-        isBatch
+        isBatch,
+        postInfos
     }
 }
