@@ -42,7 +42,7 @@
     <transition
         enter-active-class="animate__animated animate__zoomIn"
         leave-active-class="animate__disappear">
-      <div id="post-editor" :filename="'重温Java之IO.md'" :is-Edit="isEdit" v-if="currentAppWindow === WindowName.PostEditor">
+      <div id="post-editor" v-if="currentAppWindow === WindowName.PostEditor">
         <ArticleEditor/>
       </div>
     </transition>
@@ -50,7 +50,7 @@
 </template>
 
 <script lang='ts'>
-import {defineComponent, ref, provide, onMounted} from 'vue'
+import {defineComponent, ref, provide, onMounted, inject, Ref} from 'vue'
 import {PostCardOperationType, WindowName} from '@/instance/enum/enums'
 import store from "@/store/store"
 import Side from "@/views/sider/Side.vue"
@@ -63,11 +63,13 @@ import ArticleEditor from "@/views/article-editor/ArticleEditor.vue"
 import {PostInfo} from "@/interfaces/public/post"
 import api from "@/server/api/api"
 import {message} from "ant-design-vue"
+import {SystemConfig} from "@/interfaces/public/setting"
 
 export default defineComponent({
   name: "AppMain",
   components: {Side, Article, Page, RecycleBin, Category, Setting, ArticleEditor},
   setup() {
+    let systemConfig = inject<Ref<SystemConfig>>(store.systemConfig)!
     // 当前app窗口
     let currentAppWindow = ref<WindowName>(WindowName.Home)
     // 当前主页窗口
@@ -78,6 +80,8 @@ export default defineComponent({
     let loadPostInfos = ref<boolean>(true)
     // 文章编辑窗口的模式，true表示编辑状态，false表示新建状态
     let isEdit = ref<boolean>(true)
+    // 编辑器以编辑模式打开时加载的文件名
+    let filename = ref<string>('')
     // 所有文章信息
     let postInfos = ref<PostInfo[]>([])
     // 获取所有文章信息
@@ -92,7 +96,13 @@ export default defineComponent({
         message.error('文章信息获取失败')
       })
     }
-    onMounted(getAllPostInfo)
+    // 软件界面挂载后加载所有文章
+    onMounted(() => {
+      // 工作空间存在才获取文章信息
+      if (systemConfig.value.workspace != '') {
+        getAllPostInfo()
+      }
+    })
     let postInfoOperationHandler = (operationType: PostCardOperationType) => {
       let tempPostInfos = postInfos.value.filter(postInfo => postInfo.isSelected)
       if (tempPostInfos.length === 0) {
@@ -160,11 +170,12 @@ export default defineComponent({
     provide(store.currentAppWindow, currentAppWindow)
     provide(store.currentHomeWindow, currentHomeWindow)
     provide(store.article.postInfos, postInfos)
+    provide(store.article.filename, filename)
+    provide(store.article.isEdit, isEdit)
     return {
       currentAppWindow,
       currentHomeWindow,
       loadPostInfos,
-      isEdit,
       getAllPostInfo,
       postInfoOperationHandler,
       WindowName
