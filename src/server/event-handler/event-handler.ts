@@ -39,8 +39,9 @@ let postInfoEventHandlerFactory = (postInfoEvent: Event, value: object, logMsg: 
             postIds.forEach((id: string) => {
                 violetApp.postInfoDB
                     .update('postInfos', {id},
-                        value).commit()
+                        value)
             })
+            violetApp.postInfoDB.commit()
             event.returnValue = true
         }
     }
