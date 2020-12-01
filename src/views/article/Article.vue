@@ -69,16 +69,16 @@ export default defineComponent({
         case PostCardOperationType.ModifyProperties:
           showModifyModel.value = true
           break
-        case PostCardOperationType.DeleteArticle:
-          api.postApi.deletePosts([postId]).then(data => {
-            if (data) {
-              postInfos.value
-                  .filter(item => item.id === postId)[0]
-                  .isDeleted = true
-              message.success('文章已放入回收站')
-            }
-          }).catch(() => {
-            message.error('删除文章失败')
+        default:
+          api.postApi.postInfoHandle(operationType)!([postId]).then(success=>{
+              if (success){
+                let postInfo = postInfos.value.filter(item => item.id === postId)[0]
+                switch (operationType) {
+                  case PostCardOperationType.DeleteArticle:
+
+                }
+                message.success('文章已放入回收站')
+              }
           })
       }
     }

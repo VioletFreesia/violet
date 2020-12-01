@@ -1,7 +1,8 @@
 import {PostInfo} from "@/interfaces/public/post"
-import Event from "@/interfaces/event/event"
+import {Event} from "@/interfaces/event/event"
 import events from "@/instance/event/event"
 import {ipcRenderer} from 'electron'
+import {PostCardOperationType} from "@/instance/enum/enums"
 
 let request = <T>(event: Event, data: object | null = null) => {
     return new Promise<T>((resolve, reject) => {
@@ -46,18 +47,30 @@ let deployPosts = postInfoHandleFactory(events.postInfoEvent.Deploy)
 // 取消发布多篇文章
 let unDeployPosts = postInfoHandleFactory(events.postInfoEvent.UnDeploy)
 
+let postInfoHandle = (operationType: PostCardOperationType) => {
+    switch (operationType) {
+        case PostCardOperationType.DeleteArticle:
+            return deletePosts
+        case PostCardOperationType.UnTop:
+            return unTopPosts
+        case PostCardOperationType.TopArticle:
+            return topPosts
+        case PostCardOperationType.HideArticle:
+            return hidePosts
+        case PostCardOperationType.UnHide:
+            return unHidePosts
+        case PostCardOperationType.DeployArticle:
+            return deployPosts
+        case PostCardOperationType.UnDeploy:
+            return unDeployPosts
+    }
+}
+
 // 主进程与渲染进程通信api的具体实现
 const api = {
     postApi: {
         getAllPostInfo,
-        deletePosts,
-        UnDeletePosts,
-        unTopPosts,
-        topPosts,
-        hidePosts,
-        unHidePosts,
-        deployPosts,
-        unDeployPosts
+        postInfoHandle
     },
     settingApi: {
         getSystemConfig,

@@ -1,6 +1,6 @@
 import {ipcMain, IpcMainEvent} from 'electron'
 import events from "@/instance/event/event"
-import {EventHandler} from "@/interfaces/event/event"
+import {EventHandler, Event} from "@/interfaces/event/event"
 import {VioletApp} from "@/server/violet-app"
 import {Categories, Logger} from "@/logger/logger"
 
@@ -30,18 +30,38 @@ eventHandlers.push({
     }
 })
 
-eventHandlers.push({
-    event: events.postInfoEvent.Delete,
-    handler: async (event: IpcMainEvent, args: any, violetApp: VioletApp) => {
-        logger.info('删除文章', args)
-        args.forEach((id: string) => {
-            violetApp.postInfoDB
-                .update('postInfos', {id},
-                    {'isDeleted': true}).commit()
-        })
-        event.returnValue = true
+// 文章信息处理函数的生产工厂
+let postInfoEventHandlerFactory = (postInfoEvent: Event, value: object, logMsg: string) => {
+    return {
+        event: postInfoEvent,
+        handler: async (event: IpcMainEvent, postIds: any, violetApp: VioletApp) => {
+            logger.info(logMsg, postIds)
+            postIds.forEach((id: string) => {
+                violetApp.postInfoDB
+                    .update('postInfos', {id},
+                        value).commit()
+            })
+            event.returnValue = true
+        }
     }
-})
+}
+
+eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.Delete,
+    {isDeleted: true}, '删除文章'))
+eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.UnDelete,
+    {isDeleted: false}, '恢复文章'))
+eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.UnTop,
+    {isTop: true}, '取消置顶文章'))
+eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.Top,
+    {isTop: true}, '置顶文章'))
+eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.Hide,
+    {isHide: true}, '隐藏文章'))
+eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.UnHide,
+    {isHide: true}, '取消隐藏文章'))
+eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.Deploy,
+    {isDeploy: true}, '发布文章'))
+eventHandlers.push(postInfoEventHandlerFactory(events.postInfoEvent.UnDeploy,
+    {isDeploy: true}, '取消发布文章'))
 
 let eventHandlerRegister = (violetApp: VioletApp) => {
     // 为每个事件注册监听处理器
