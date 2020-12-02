@@ -68,13 +68,17 @@ let getOnePostContent = (postName: string):
     return request<{ success: boolean, data: string }>
     (events.postContentEvent.Get, {postName})
 }
-
+// 更新一篇文章的内容
+let updatePostContent = (postName: string, data: string): Promise<boolean> => {
+    return request<boolean>(events.postContentEvent.Modify, {postName, data})
+}
 // 主进程与渲染进程通信api的具体实现
 const api = {
     postApi: {
         getAllPostInfo,
         postInfoHandle,
-        getOnePostContent
+        getOnePostContent,
+        updatePostContent
     },
     settingApi: {
         getSystemConfig,

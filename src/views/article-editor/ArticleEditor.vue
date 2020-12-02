@@ -12,69 +12,7 @@ import {message} from 'ant-design-vue'
 import {getLocale} from "@/tools/get-config"
 import $ from "jquery"
 import api from "@/server/api/api";
-
-
-let getToolBarConfig = (option: {
-  quitText: string
-  quitCallback: (status?: boolean | undefined) => void
-  saveText: string
-  saveCallback: (status?: boolean | undefined) => void
-  insertImageText: string
-  insertImageCallback: (status?: boolean | undefined) => void
-}) => {
-  return [
-    {
-      hotkey: '',
-      name: 'quit',
-      tipPosition: 'nw',
-      tip: option.quitText,
-      className: 'violet-btn',
-      click: option.quitCallback
-    },
-    {
-      hotkey: 'ctrl-s',
-      name: 'save',
-      tipPosition: 'nw',
-      tip: option.saveText,
-      className: 'violet-btn',
-      click: option.saveCallback
-    },
-    'undo',
-    'redo',
-    '|',
-    'emoji',
-    'headings',
-    'bold',
-    'italic',
-    'strike',
-    '|',
-    'line',
-    'quote',
-    'check',
-    'list',
-    'ordered-list',
-    'outdent',
-    'indent',
-    '|',
-    'code',
-    'inline-code',
-    'link',
-    'table',
-    {
-      hotkey: 'ctrl-p',
-      name: 'image',
-      tipPosition: 'nw',
-      tip: option.insertImageText,
-      className: 'violet-btn',
-      click: option.insertImageCallback
-    },
-    '|',
-    'outline',
-    'code-theme',
-    'export',
-    'edit-mode'
-  ]
-}
+import {getToolBarConfig} from "@/tools/tools"
 
 export default defineComponent({
   name: "ArticleEditor",
@@ -95,8 +33,19 @@ export default defineComponent({
     }
     // 保存文章
     let save = () => {
-      console.log(Editor.getValue())
-      message.success('保存成功')
+      let postContent = Editor.getValue()
+      if (isEdit.value) {
+        api.postApi.updatePostContent(filename.value, postContent)
+            .then(success => {
+              if (success) {
+                message.success('保存成功')
+              } else {
+                message.error('保存失败')
+              }
+            })
+      } else {
+        console.log('新建文件')
+      }
     }
     // 大纲滚动函数
     let scrollTo = (id: string) => {

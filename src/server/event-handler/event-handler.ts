@@ -86,6 +86,20 @@ eventHandlers.push({
         }
     }
 })
+// 更新文章内容
+eventHandlers.push({
+    event: events.postContentEvent.Modify,
+    handler: async (event: IpcMainEvent, data: any, violetApp: VioletApp) => {
+        logger.debug('更新文章内容：', data.postName)
+        try {
+            fs.writeFileSync(path.join(violetApp.systemConfig.workspace,
+                'posts', data.postName), data.data)
+            event.returnValue = true
+        } catch (e) {
+            event.returnValue = false
+        }
+    }
+})
 let eventHandlerRegister = (violetApp: VioletApp) => {
     // 为每个事件注册监听处理器
     eventHandlers.forEach(eventHandle => {
